@@ -19,25 +19,21 @@ import java.util.Iterator;
 public class GameScreen implements Screen {
     final Drop game;
 
-    Texture dropImage;
     Texture bucketImage;
-    Sound dropSound;
     Music rainMusic;
     OrthographicCamera camera;
     Rectangle bucket;
-    Array<Rectangle> raindrops;
     long lastDropTime;
     int dropsGathered;
+    private Array<GameObject> gameObjects = new Array<>();
 
     public GameScreen(final Drop game) {
         this.game = game;
 
         // load the images for the droplet and the bucket, 64x64 pixels each
-        dropImage = new Texture(Gdx.files.internal("droplet.png"));
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
         // load the drop sound effect and the rain background "music"
-        dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
         rainMusic.setLooping(true);
 
@@ -54,18 +50,17 @@ public class GameScreen implements Screen {
         bucket.height = 64;
 
         // create the raindrops array and spawn the first raindrop
-        raindrops = new Array<Rectangle>();
         spawnRaindrop();
-
     }
 
     private void spawnRaindrop() {
-        Rectangle raindrop = new Rectangle();
-        raindrop.x = MathUtils.random(0, 800 - 64);
-        raindrop.y = 480;
-        raindrop.width = 64;
-        raindrop.height = 64;
-        raindrops.add(raindrop);
+        Raindrop raindrop = new Raindrop(this.game);
+
+        raindrop.setPosition(MathUtils.random(0, 800 - 64), 480);
+        raindrop.setScale(64, 64);
+
+        gameObjects.add(raindrop);
+
         lastDropTime = TimeUtils.nanoTime();
     }
 
@@ -89,9 +84,11 @@ public class GameScreen implements Screen {
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
         game.batch.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
-        for (Rectangle raindrop : raindrops) {
-            game.batch.draw(dropImage, raindrop.x, raindrop.y);
+
+        for (GameObject gameObject : gameObjects) {
+            gameObject.render(delta);
         }
+
         game.batch.end();
 
         // process user input
@@ -116,20 +113,8 @@ public class GameScreen implements Screen {
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000)
             spawnRaindrop();
 
-        // move the raindrops, remove any that are beneath the bottom edge of
-        // the screen or that hit the bucket. In the later case we increase the
-        // value our drops counter and add a sound effect.
-        Iterator<Rectangle> iter = raindrops.iterator();
-        while (iter.hasNext()) {
-            Rectangle raindrop = iter.next();
-            raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-            if (raindrop.y + 64 < 0)
-                iter.remove();
-            if (raindrop.overlaps(bucket)) {
-                dropsGathered++;
-                dropSound.play();
-                iter.remove();
-            }
+        for (GameObject gameObject : gameObjects) {
+            gameObject.update(delta);
         }
     }
 
@@ -158,9 +143,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        dropImage.dispose();
         bucketImage.dispose();
-        dropSound.dispose();
         rainMusic.dispose();
     }
 }
