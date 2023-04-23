@@ -76,4 +76,13 @@ public abstract class GameObject {
             component.destroy();
         }
     }
+
+    public Component getComponent(Class<? extends Component> componentClass) {
+        for (Component component : components) {
+            if (componentClass.isInstance(component)) {
+                return component;
+            }
+        }
+        return null;
+    }
 }

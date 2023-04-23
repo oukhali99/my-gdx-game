@@ -1,5 +1,6 @@
 package com.mygdx.game.components;
 
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;

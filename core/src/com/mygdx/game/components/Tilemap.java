@@ -11,19 +11,19 @@ public class Tilemap extends Component {
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private  OrthographicCamera camera;
 
-    public Tilemap(Drop game, OrthographicCamera camera) {
+    public Tilemap(Drop game, OrthographicCamera camera, String tilemapPath) {
         super(game);
         this.camera = camera;
+
+        // Load the tilemap
+        TmxMapLoader loader = new TmxMapLoader();
+        map = loader.load(tilemapPath);
+        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
     }
 
     @Override
     public void initialize() {
         super.initialize();
-
-        // Load the tilemap
-        TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load("map/map.tmx");
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
     }
 
     @Override
@@ -39,5 +39,9 @@ public class Tilemap extends Component {
         super.destroy();
         orthogonalTiledMapRenderer.dispose();
         map.dispose();
+    }
+
+    public TiledMap getMap() {
+        return map;
     }
 }

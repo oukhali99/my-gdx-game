@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Tilemap;
+import com.mygdx.game.components.TilemapCollider;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.Player;
 
@@ -40,15 +41,15 @@ public abstract class Level {
         music = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
         music.setLooping(true);
 
-        // Create the player
-        player = new Player(game);
-        gameObjects.add(player);
-
         // Create the tilemap
         GameObject tileMap = new GameObject(game) {
         };
-        tileMap.addComponent(new Tilemap(game, camera));
+        tileMap.addComponent(new Tilemap(game, camera, "map/map.tmx"));
         gameObjects.add(tileMap);
+
+        // Create the player
+        player = new Player(game);
+        gameObjects.add(player);
     }
 
     public abstract String getTilemapPath();
@@ -113,6 +114,6 @@ public abstract class Level {
     }
 
     public void resize(int width, int height) {
-        camera.setToOrtho(false, width, height);
+        //camera.setToOrtho(false, width, height);
     }
 }
