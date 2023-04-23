@@ -8,13 +8,13 @@ public abstract class Component {
     public void update(float delta) {
     }
 
+    public void postUpdate(float delta) {
+    }
+
     public void attachToGameObject(GameObject gameObject) {
         this.gameObject = gameObject;
     }
 
     public void destroy() {
-    }
-
-    public void onGameObjectChanged() {
     }
 }

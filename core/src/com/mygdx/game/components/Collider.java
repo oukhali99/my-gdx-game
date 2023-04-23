@@ -8,20 +8,14 @@ import java.util.List;
 
 public abstract class Collider extends Component {
     private static List<Collider> allColliders = new LinkedList<>();
-    private Rectangle rectangle;
-
-    public Collider() {
-        super();
-        rectangle = new Rectangle();
-    }
 
     @Override
-    public void update(float delta) {
-        super.update(delta);
+    public void postUpdate(float delta) {
+        super.postUpdate(delta);
 
         for (Collider collider : allColliders) {
             if (
-                collider.rectangle.overlaps(rectangle) &&
+                collider.getArea().overlaps(getArea()) &&
                 this != collider
             ) {
                 onCollision(collider.gameObject);
@@ -29,14 +23,14 @@ public abstract class Collider extends Component {
         }
     }
 
-    @Override
-    public void onGameObjectChanged() {
-        super.onGameObjectChanged();
+    public Rectangle getArea() {
         Transform transform = gameObject.getTransform();
+        Rectangle rectangle = new Rectangle();
         rectangle.x = transform.getPosition().x;
         rectangle.y = transform.getPosition().y;
         rectangle.width = transform.getScale().x;
         rectangle.height = transform.getScale().y;
+        return rectangle;
     }
 
     @Override

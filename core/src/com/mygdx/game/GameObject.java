@@ -45,16 +45,20 @@ public abstract class GameObject {
         }
     }
 
+    public void postUpdate(float delta) {
+        for (Component component : components) {
+            component.postUpdate(delta);
+        }
+    }
+
     protected abstract String getTexturePath();
 
     public void setPosition(float x, float y) {
         transform.setPosition(new Vector2(x, y));
-        tellComponentsAboutChange();
     }
 
     public void setScale(float x, float y) {
         transform.setScale(new Vector2(x, y));
-        tellComponentsAboutChange();
     }
 
     public void addComponent(Component component) {
@@ -78,11 +82,7 @@ public abstract class GameObject {
         for (Component component : components) {
             component.destroy();
         }
-    }
 
-    public void tellComponentsAboutChange() {
-        for (Component component : components) {
-            component.onGameObjectChanged();
-        }
+        texture.dispose();
     }
 }

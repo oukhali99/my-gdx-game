@@ -94,7 +94,6 @@ public class GameScreen implements Screen {
             public void update(float delta) {
                 super.update(delta);
                 transform.translate(0, -200 * Gdx.graphics.getDeltaTime());
-                tellComponentsAboutChange();
             }
 
             @Override
@@ -154,6 +153,10 @@ public class GameScreen implements Screen {
 
         for (GameObject gameObject : getGameObjectsAndPreenDestroyed()) {
             gameObject.update(delta);
+        }
+
+        for (GameObject gameObject : getGameObjectsAndPreenDestroyed()) {
+            gameObject.postUpdate(delta);
         }
     }
 
