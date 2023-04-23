@@ -23,8 +23,6 @@ public abstract class Level {
     private List<GameObject> gameObjects;
     private Music music;
     protected OrthographicCamera camera;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
 
     public Level(Drop game) {
         this.game = game;
@@ -42,26 +40,15 @@ public abstract class Level {
         music = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
         music.setLooping(true);
 
-        // Load the tilemap
-        TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load(getTilemapPath());
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
-
         // Create the player
         player = new Player(game);
         gameObjects.add(player);
 
         // Create the tilemap
-        /*
         GameObject tileMap = new GameObject(game) {
-            @Override
-            protected String getTexturePath() {
-                return null;
-            }
         };
-        tileMap.addComponent(new Tilemap());
+        tileMap.addComponent(new Tilemap(game, camera));
         gameObjects.add(tileMap);
-         */
     }
 
     public abstract String getTilemapPath();
@@ -79,9 +66,6 @@ public abstract class Level {
         // tell the SpriteBatch to render in the
         // coordinate system specified by the camera.
         game.batch.setProjectionMatrix(camera.combined);
-
-        orthogonalTiledMapRenderer.setView(camera);
-        orthogonalTiledMapRenderer.render();
 
         // begin a new batch and draw the bucket and
         // all drops
@@ -125,9 +109,6 @@ public abstract class Level {
         for (GameObject gameObject : gameObjects) {
             gameObject.destroy();
         }
-
-        orthogonalTiledMapRenderer.dispose();
-        map.dispose();
         music.dispose();
     }
 
