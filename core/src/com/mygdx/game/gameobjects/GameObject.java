@@ -14,12 +14,11 @@ public abstract class GameObject {
     protected final Drop game;
     private List<Component> components;
     protected Transform transform;
-    protected Texture texture;
     private boolean markedForDestruction;
 
     protected GameObject(final Drop game) {
         this.game = game;
-        this.transform = new Transform();
+        this.transform = new Transform(game);
         this.components = new LinkedList<>();
         this.markedForDestruction = false;
 
@@ -27,17 +26,12 @@ public abstract class GameObject {
     }
 
     protected void initialize() {
-        texture = new Texture(Gdx.files.internal(getTexturePath()));
     }
 
     public void render(float delta) {
-        game.batch.draw(
-            texture,
-            transform.getPosition().x,
-            transform.getPosition().y,
-            transform.getScale().x,
-            transform.getScale().y
-        );
+        for (Component component : components) {
+            component.render(delta);
+        }
     }
 
     public void update(float delta) {
@@ -51,8 +45,6 @@ public abstract class GameObject {
             component.postUpdate(delta);
         }
     }
-
-    protected abstract String getTexturePath();
 
     public void setPosition(float x, float y) {
         transform.setPosition(new Vector2(x, y));
@@ -83,7 +75,5 @@ public abstract class GameObject {
         for (Component component : components) {
             component.destroy();
         }
-
-        texture.dispose();
     }
 }

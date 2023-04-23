@@ -3,11 +3,13 @@ package com.mygdx.game.components;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Drop;
 
 public class Movement extends Component {
     private final float speed;
 
-    public Movement(float speed) {
+    public Movement(Drop game, float speed) {
+        super(game);
         this.speed = speed;
     }
 

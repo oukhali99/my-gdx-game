@@ -1,19 +1,22 @@
 package com.mygdx.game.components;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Drop;
 
 public class Transform extends Component {
     private Vector2 position;
     private Vector2 scale;
     private float rotation;
 
-    public Transform() {
+    public Transform(Drop game) {
+        super(game);
         this.position = new Vector2();
         this.scale = new Vector2(1, 1);
         this.rotation = 0;
     }
 
-    public Transform(Vector2 position, Vector2 scale, float rotation) {
+    public Transform(Drop game, Vector2 position, Vector2 scale, float rotation) {
+        super(game);
         this.position = position;
         this.scale = scale;
         this.rotation = rotation;

@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Component;
+import com.mygdx.game.components.Tilemap;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.Player;
 
@@ -48,6 +50,18 @@ public abstract class Level {
         // Create the player
         player = new Player(game);
         gameObjects.add(player);
+
+        // Create the tilemap
+        /*
+        GameObject tileMap = new GameObject(game) {
+            @Override
+            protected String getTexturePath() {
+                return null;
+            }
+        };
+        tileMap.addComponent(new Tilemap());
+        gameObjects.add(tileMap);
+         */
     }
 
     public abstract String getTilemapPath();
@@ -108,6 +122,10 @@ public abstract class Level {
     }
 
     public void dispose() {
+        for (GameObject gameObject : gameObjects) {
+            gameObject.destroy();
+        }
+
         orthogonalTiledMapRenderer.dispose();
         map.dispose();
         music.dispose();

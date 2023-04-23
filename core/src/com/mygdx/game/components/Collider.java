@@ -1,13 +1,20 @@
 package com.mygdx.game.components;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Collider extends Component {
+public class Collider extends Component {
     private static List<Collider> allColliders = new LinkedList<>();
+
+    private List<Runnable> onCollisionRunnables = new LinkedList<>();
+
+    public Collider(Drop game) {
+        super(game);
+    }
 
     @Override
     public void postUpdate(float delta) {
@@ -45,5 +52,13 @@ public abstract class Collider extends Component {
         allColliders.remove(this);
     }
 
-    public abstract void onCollision(GameObject otherObject);
+    public void onCollision(GameObject otherObject) {
+        for (Runnable runnable : onCollisionRunnables) {
+            runnable.run();
+        }
+    }
+
+    public void addOnCollisionRunnable(Runnable runnable) {
+        onCollisionRunnables.add(runnable);
+    }
 }
