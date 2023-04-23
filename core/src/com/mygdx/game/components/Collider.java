@@ -11,7 +11,7 @@ import java.util.List;
 public class Collider extends Component {
     private static List<Collider> allColliders = new LinkedList<>();
 
-    private List<Runnable> onCollisionRunnables = new LinkedList<>();
+    private List<CollisionRunnable> onCollisionRunnables = new LinkedList<>();
 
     public Collider(Drop game) {
         super(game);
@@ -54,12 +54,16 @@ public class Collider extends Component {
     }
 
     public void onCollision(GameObject otherObject) {
-        for (Runnable runnable : onCollisionRunnables) {
-            runnable.run();
+        for (CollisionRunnable runnable : onCollisionRunnables) {
+            runnable.run(gameObject);
         }
     }
 
-    public void addOnCollisionRunnable(Runnable runnable) {
+    public void addOnCollisionRunnable(CollisionRunnable runnable) {
         onCollisionRunnables.add(runnable);
+    }
+
+    public interface CollisionRunnable {
+        public void run(GameObject otherObject);
     }
 }

@@ -17,6 +17,7 @@ public class Movement extends Component {
     private final float speed;
     private Integer currentKey;
     private float fillCooldown;
+    private Vector2 lastPosition;
 
     public Movement(Drop game, float speed) {
         super(game);
@@ -29,6 +30,7 @@ public class Movement extends Component {
         super.update(delta);
 
         Vector2 position = gameObject.getTransform().getPosition();
+        lastPosition = new Vector2(position);
         float dx = 0, dy = 0;
 
         if (currentKey == null || !Gdx.input.isKeyPressed(currentKey)) {
@@ -71,5 +73,9 @@ public class Movement extends Component {
         }
 
         fillCooldown += delta;
+    }
+
+    public void collided() {
+        gameObject.setPosition(lastPosition.x, lastPosition.y);
     }
 }
