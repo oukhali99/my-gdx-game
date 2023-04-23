@@ -1,40 +1,38 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mygdx.game.components.Collider;
+import com.mygdx.game.components.Component;
 
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameScreen implements Screen {
     final Drop game;
 
-    Texture bucketImage;
-    Music rainMusic;
-    OrthographicCamera camera;
-    Rectangle bucket;
-    long lastDropTime;
-    int dropsGathered;
-    private Array<GameObject> gameObjects = new Array<>();
+    private Music rainMusic;
+    private Sound dropSound;
+    private OrthographicCamera camera;
+    private long lastDropTime;
+    private int dropsGathered;
+    private List<GameObject> gameObjects;
 
     public GameScreen(final Drop game) {
         this.game = game;
-
-        // load the images for the droplet and the bucket, 64x64 pixels each
-        bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+        this.gameObjects = new LinkedList<>();
 
         // load the drop sound effect and the rain background "music"
         rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+        dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         rainMusic.setLooping(true);
 
         // create the camera and the SpriteBatch
@@ -42,23 +40,84 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 800, 480);
 
         // create a Rectangle to logically represent the bucket
-        bucket = new Rectangle();
-        bucket.x = 800 / 2 - 64 / 2; // center the bucket horizontally
-        bucket.y = 20; // bottom left corner of the bucket is 20 pixels above
-        // the bottom screen edge
-        bucket.width = 64;
-        bucket.height = 64;
+        GameObject bucket = new GameObject(game) {
+            @Override
+            public void update(float delta) {
+                super.update(delta);
+
+                float x = getTransform().getPosition().x;
+
+                // process user input
+                if (Gdx.input.isTouched()) {
+                    Vector3 touchPos = new Vector3();
+                    touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+                    camera.unproject(touchPos);
+                    x = touchPos.x - getTransform().getScale().x / 2;
+                }
+
+                // make sure the bucket stays within the screen bounds
+                if (x < 0)
+                    x = 0;
+                if (x > 800 - getTransform().getScale().x)
+                    x = 800 - getTransform().getScale().x;
+
+                setPosition(x, getTransform().getPosition().y);
+            }
+
+            @Override
+            protected String getTexturePath() {
+                return "bucket.png";
+            }
+        };
+        bucket.setPosition(800 / 2 - 64 / 2, 20);
+        bucket.setScale(64, 64);
+
+        // Create the bucket collider
+        Component collider = new Collider() {
+            @Override
+            public void onCollision(GameObject otherObject) {
+                dropSound.play();
+            }
+        };
+        bucket.addComponent(collider);
+
+        // Add the bucket to the game object list
+        gameObjects.add(bucket);
 
         // create the raindrops array and spawn the first raindrop
         spawnRaindrop();
     }
 
     private void spawnRaindrop() {
-        Raindrop raindrop = new Raindrop(this.game);
+        GameObject raindrop = new GameObject(game) {
+            @Override
+            public void update(float delta) {
+                super.update(delta);
+                transform.translate(0, -200 * Gdx.graphics.getDeltaTime());
+                tellComponentsAboutChange();
+            }
 
+            @Override
+            protected String getTexturePath() {
+                return "droplet.png";
+            }
+        };
+
+        // Set the position and scale
         raindrop.setPosition(MathUtils.random(0, 800 - 64), 480);
         raindrop.setScale(64, 64);
 
+        // Add collision component
+        Component collider = new Collider() {
+            @Override
+            public void onCollision(GameObject otherObject) {
+                gameObject.markForDestruction();
+                dropsGathered++;
+            }
+        };
+        raindrop.addComponent(collider);
+
+        // Add to list
         gameObjects.add(raindrop);
 
         lastDropTime = TimeUtils.nanoTime();
@@ -83,39 +142,34 @@ public class GameScreen implements Screen {
         // all drops
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
-        game.batch.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
-
-        for (GameObject gameObject : gameObjects) {
+        for (GameObject gameObject : getGameObjectsAndPreenDestroyed()) {
             gameObject.render(delta);
         }
-
         game.batch.end();
 
-        // process user input
-        if (Gdx.input.isTouched()) {
-            Vector3 touchPos = new Vector3();
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
-            bucket.x = touchPos.x - 64 / 2;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-            bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            bucket.x += 200 * Gdx.graphics.getDeltaTime();
-
-        // make sure the bucket stays within the screen bounds
-        if (bucket.x < 0)
-            bucket.x = 0;
-        if (bucket.x > 800 - 64)
-            bucket.x = 800 - 64;
 
         // check if we need to create a new raindrop
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000)
             spawnRaindrop();
 
-        for (GameObject gameObject : gameObjects) {
+        for (GameObject gameObject : getGameObjectsAndPreenDestroyed()) {
             gameObject.update(delta);
         }
+    }
+
+    private List<GameObject> getGameObjectsAndPreenDestroyed() {
+        List<GameObject> enabledGameObjects = new LinkedList<>();
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject.isMarkedForDestruction()) {
+                gameObject.destroy();
+            }
+            else {
+                enabledGameObjects.add(gameObject);
+            }
+        }
+        gameObjects = enabledGameObjects;
+
+        return enabledGameObjects;
     }
 
     @Override
@@ -126,7 +180,7 @@ public class GameScreen implements Screen {
     public void show() {
         // start the playback of the background music
         // when the screen is shown
-        rainMusic.play();
+        //rainMusic.play();
     }
 
     @Override
@@ -143,7 +197,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        bucketImage.dispose();
         rainMusic.dispose();
     }
 }

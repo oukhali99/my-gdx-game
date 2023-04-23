@@ -2,7 +2,7 @@ package com.mygdx.game.components;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class Transform {
+public class Transform extends Component {
     private Vector2 position;
     private Vector2 scale;
     private float rotation;
