@@ -35,7 +35,7 @@ public abstract class Level {
     public void initialize() {
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 1280, 720);
 
         // load the drop sound effect and the rain background "music"
         music = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
