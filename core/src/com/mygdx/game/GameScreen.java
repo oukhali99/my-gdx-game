@@ -17,10 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GameScreen implements Screen {
-    final Drop game;
-
+    private final Drop game;
     private Music rainMusic;
-    private Sound dropSound;
     private OrthographicCamera camera;
     private long lastDropTime;
     private int dropsGathered;
@@ -32,14 +30,13 @@ public class GameScreen implements Screen {
 
         // load the drop sound effect and the rain background "music"
         rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-        dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         rainMusic.setLooping(true);
 
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        // create a Rectangle to logically represent the bucket
+        // Create bucket
         GameObject bucket = new GameObject(game) {
             @Override
             public void update(float delta) {
@@ -74,6 +71,14 @@ public class GameScreen implements Screen {
 
         // Create the bucket collider
         Component collider = new Collider() {
+            private Sound dropSound;
+
+            @Override
+            public void initialize() {
+                super.initialize();
+                dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+            }
+
             @Override
             public void onCollision(GameObject otherObject) {
                 dropSound.play();
@@ -94,6 +99,12 @@ public class GameScreen implements Screen {
             public void update(float delta) {
                 super.update(delta);
                 transform.translate(0, -200 * Gdx.graphics.getDeltaTime());
+
+                float y = getTransform().getPosition().y;
+                float height = getTransform().getScale().y;
+                if (y < 0 - height) {
+                    markForDestruction();
+                }
             }
 
             @Override
@@ -141,7 +152,7 @@ public class GameScreen implements Screen {
         // all drops
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 480);
-        for (GameObject gameObject : getGameObjectsAndPreenDestroyed()) {
+        for (GameObject gameObject : gameObjects) {
             gameObject.render(delta);
         }
         game.batch.end();
@@ -151,16 +162,18 @@ public class GameScreen implements Screen {
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000)
             spawnRaindrop();
 
-        for (GameObject gameObject : getGameObjectsAndPreenDestroyed()) {
+        for (GameObject gameObject : gameObjects) {
             gameObject.update(delta);
         }
 
-        for (GameObject gameObject : getGameObjectsAndPreenDestroyed()) {
+        for (GameObject gameObject : gameObjects) {
             gameObject.postUpdate(delta);
         }
+
+        preenDestroyedGameObjects();
     }
 
-    private List<GameObject> getGameObjectsAndPreenDestroyed() {
+    private void preenDestroyedGameObjects() {
         List<GameObject> enabledGameObjects = new LinkedList<>();
         for (GameObject gameObject : gameObjects) {
             if (gameObject.isMarkedForDestruction()) {
@@ -171,8 +184,6 @@ public class GameScreen implements Screen {
             }
         }
         gameObjects = enabledGameObjects;
-
-        return enabledGameObjects;
     }
 
     @Override

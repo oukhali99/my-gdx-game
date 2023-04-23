@@ -5,6 +5,13 @@ import com.mygdx.game.GameObject;
 public abstract class Component {
     protected GameObject gameObject;
 
+    public Component() {
+        initialize();
+    }
+
+    public void initialize() {
+    }
+
     public void update(float delta) {
     }
 
