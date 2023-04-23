@@ -3,13 +3,8 @@ package com.mygdx.game.level;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Tilemap;
 import com.mygdx.game.components.TilemapCollider;
 import com.mygdx.game.gameobjects.GameObject;
@@ -44,7 +39,9 @@ public abstract class Level {
         // Create the tilemap
         GameObject tileMap = new GameObject(game) {
         };
-        tileMap.addComponent(new Tilemap(game, camera, "map/map.tmx"));
+        Tilemap tilemapComponent = new Tilemap(game, camera, "map/map.tmx");
+        tileMap.addComponent(tilemapComponent);
+        tileMap.addComponent(new TilemapCollider(game, tilemapComponent.getMap()));
         gameObjects.add(tileMap);
 
         // Create the player
