@@ -1,7 +1,7 @@
 package com.mygdx.game.components;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.GameObject;
+import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;

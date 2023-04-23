@@ -1,8 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Drop;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Transform;
 

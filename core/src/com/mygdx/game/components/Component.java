@@ -1,6 +1,6 @@
 package com.mygdx.game.components;
 
-import com.mygdx.game.GameObject;
+import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class Component {
     protected GameObject gameObject;
