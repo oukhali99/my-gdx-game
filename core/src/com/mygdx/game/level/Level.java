@@ -22,7 +22,7 @@ import java.util.List;
 public abstract class Level {
     private final Drop game;
     protected GameObject player;
-    private List<GameObject> gameObjects;
+    protected List<GameObject> gameObjects;
     private Music music;
     protected OrthographicCamera camera;
 
@@ -48,7 +48,7 @@ public abstract class Level {
         };
 
         // Actual tilemap component
-        Tilemap tilemapComponent = new Tilemap(game, camera, "map/map.tmx");
+        Tilemap tilemapComponent = new Tilemap(game, camera, getTilemapPath());
         tileMap.addComponent(tilemapComponent);
 
         // Collider component
@@ -154,7 +154,7 @@ public abstract class Level {
     public void show() {
         // start the playback of the background music
         // when the screen is shown
-        //rainMusic.play();
+        //music.play();
     }
 
     public void dispose() {
