@@ -32,6 +32,7 @@ public class CombatScreen extends BaseScreen {
         this.fight = fight;
 
         final CombatModePlayer combatModePlayer = new CombatModePlayer(game, fight.player);
+        final CombatModeEnemy combatModeEnemy = new CombatModeEnemy(game, fight.enemy);
         gameObjects.add(combatModePlayer);
         gameObjects.add(new CombatModeEnemy(game, fight.enemy));
 
@@ -61,7 +62,7 @@ public class CombatScreen extends BaseScreen {
         table = new AbilityTable(fight.player.getAbilitiesComponent()) {
             @Override
             protected void onClickedAbility(Ability ability) {
-                Attack attack = new Attack(finalGame, ability, fight.enemy);
+                Attack attack = new Attack(finalGame, ability, combatModePlayer, combatModeEnemy);
                 combatModePlayer.performAttack(attack);
                 //fight.whoseTurnItIs = fight.enemy;
             }

@@ -51,7 +51,7 @@ public abstract class GameObject {
     }
 
     public void setPosition(Vector2 position) {
-        transform.setPosition(position);
+        transform.setPosition(new Vector2(position));
     }
 
     public Vector2 getPosition() {
@@ -63,7 +63,7 @@ public abstract class GameObject {
     }
 
     public void setScale(Vector2 scale) {
-        transform.setScale(scale);
+        transform.setScale(new Vector2(scale));
     }
 
     public Vector2 getScale() {

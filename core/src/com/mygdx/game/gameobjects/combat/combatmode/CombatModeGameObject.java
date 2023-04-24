@@ -9,8 +9,8 @@ import com.mygdx.game.gameobjects.combat.Attack;
 import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 
 public abstract class CombatModeGameObject extends GameObject {
-    private final CombatActor combatActor;
     private Attack attack;
+    private CombatActor combatActor;
 
     public CombatModeGameObject(Drop game, CombatActor combatActor) {
         super(game);
@@ -69,5 +69,9 @@ public abstract class CombatModeGameObject extends GameObject {
     public void performAttack(Attack attack) {
         this.attack = attack;
         attack.start();
+    }
+
+    public void takeDamage(int damage) {
+        combatActor.takeDamage(damage);
     }
 }
