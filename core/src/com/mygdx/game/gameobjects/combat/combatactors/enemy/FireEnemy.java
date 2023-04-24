@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.enemy;
+package com.mygdx.game.gameobjects.combat.combatactors.enemy;
 
 import com.mygdx.game.Drop;
 

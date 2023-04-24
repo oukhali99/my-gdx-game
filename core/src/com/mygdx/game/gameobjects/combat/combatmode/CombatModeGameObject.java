@@ -1,24 +1,29 @@
-package com.mygdx.game.gameobjects.combatmode;
+package com.mygdx.game.gameobjects.combat.combatmode;
 
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Abilities;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Texture;
 import com.mygdx.game.gameobjects.GameObject;
-import org.w3c.dom.Text;
+import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 
 public abstract class CombatModeGameObject extends GameObject {
-    private final GameObject gameObject;
+    private final CombatActor combatActor;
 
-    public CombatModeGameObject(Drop game, GameObject gameObject) {
+    public CombatModeGameObject(Drop game, CombatActor combatActor) {
         super(game);
-        this.gameObject = gameObject;
+        this.combatActor = combatActor;
 
-        Texture gameObjectTexture = (Texture) gameObject.getComponent(Texture.class);
+        // Add the texture
+        Texture gameObjectTexture = (Texture) combatActor.getComponent(Texture.class);
         addComponent(new Texture(game, gameObjectTexture.getTexturePath()));
 
-        setPosition(200, 200);
-        setScale(gameObject.getScale().cpy().scl(4));
+        // Copy the abilities
+        Abilities baseAbilities = (Abilities) combatActor.getComponent(Abilities.class);
+        addComponent(new Abilities(baseAbilities));
+
+        // Scale up
+        setScale(combatActor.getScale().cpy().scl(4));
     }
 
     @Override

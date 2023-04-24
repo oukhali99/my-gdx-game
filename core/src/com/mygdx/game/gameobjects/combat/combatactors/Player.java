@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects;
+package com.mygdx.game.gameobjects.combat.combatactors;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
@@ -6,7 +6,7 @@ import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Movement;
 import com.mygdx.game.components.Texture;
 
-public class Player extends GameObject {
+public class Player extends CombatActor {
     public Player(Drop game) {
         super(game);
 

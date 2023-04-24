@@ -1,19 +1,19 @@
-package com.mygdx.game.gameobjects.enemy;
+package com.mygdx.game.gameobjects.combat.combatactors.enemy;
 
 import com.badlogic.gdx.Screen;
+import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
+import com.mygdx.game.gameobjects.combat.combatactors.Player;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
 import com.mygdx.game.components.Texture;
-import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.Player;
 
-public class Enemy extends GameObject {
+public class Enemy extends CombatActor {
     public Enemy(Drop game) {
         super(game);
 
         final Drop finalGame = game;
-        final GameObject finalGameObject = this;
+        final CombatActor finalGameObject = this;
 
         setPosition(16*20, 16*20);
         setScale(16, 16);
@@ -28,7 +28,7 @@ public class Enemy extends GameObject {
                     Screen combatScreen = new CombatScreen(
                             finalGame,
                             finalGame.getScreen(),
-                            new CombatScreen.Fight(otherGameObject, finalGameObject)
+                            new CombatScreen.Fight((Player) otherGameObject, finalGameObject)
                     );
                     finalGame.setScreen(combatScreen);
                 }

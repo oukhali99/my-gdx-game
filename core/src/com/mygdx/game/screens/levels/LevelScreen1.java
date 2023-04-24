@@ -3,7 +3,7 @@ package com.mygdx.game.screens.levels;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.enemy.EnemyFactory;
+import com.mygdx.game.gameobjects.combat.combatactors.enemy.EnemyFactory;
 
 import java.util.Random;
 

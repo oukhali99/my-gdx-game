@@ -12,6 +12,10 @@ public abstract class Component {
         initialize();
     }
 
+    public Component(Component component) {
+        this.game = component.game;
+    }
+
     public void initialize() {
     }
 
