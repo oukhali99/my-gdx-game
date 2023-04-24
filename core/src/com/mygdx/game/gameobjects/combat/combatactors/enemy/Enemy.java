@@ -6,7 +6,6 @@ import com.mygdx.game.gameobjects.combat.combatactors.Player;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
-import com.mygdx.game.components.Texture;
 
 public class Enemy extends CombatActor {
     public Enemy(Drop game) {
@@ -17,8 +16,6 @@ public class Enemy extends CombatActor {
 
         setPosition(16*20, 16*20);
         setScale(16, 16);
-
-        addComponent(new Texture(game, getTexturePath()));
 
         Collider collider = new Collider(game);
         collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {

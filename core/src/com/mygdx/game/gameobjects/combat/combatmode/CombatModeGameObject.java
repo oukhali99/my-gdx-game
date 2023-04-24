@@ -3,7 +3,7 @@ package com.mygdx.game.gameobjects.combat.combatmode;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Abilities;
 import com.mygdx.game.components.Component;
-import com.mygdx.game.components.Texture;
+import com.mygdx.game.components.texture.HealthDependentTexture;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 
@@ -15,8 +15,13 @@ public abstract class CombatModeGameObject extends GameObject {
         this.combatActor = combatActor;
 
         // Add the texture
-        Texture gameObjectTexture = (Texture) combatActor.getComponent(Texture.class);
-        addComponent(new Texture(game, gameObjectTexture.getTexturePath()));
+        final HealthDependentTexture healthDependentTexture = (HealthDependentTexture) combatActor.getComponent(HealthDependentTexture.class);
+        addComponent(new HealthDependentTexture(healthDependentTexture) {
+            @Override
+            public int getHealth() {
+                return healthDependentTexture.getHealth();
+            }
+        });
 
         // Copy the abilities
         Abilities baseAbilities = (Abilities) combatActor.getComponent(Abilities.class);

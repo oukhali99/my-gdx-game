@@ -4,7 +4,6 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Movement;
-import com.mygdx.game.components.Texture;
 
 public class Player extends CombatActor {
     public Player(Drop game) {
@@ -27,7 +26,10 @@ public class Player extends CombatActor {
             }
         });
         addComponent(collider);
+    }
 
-        addComponent(new Texture(game, "bucket.png"));
+    @Override
+    protected String getTexturePath() {
+        return "bucket.png";
     }
 }

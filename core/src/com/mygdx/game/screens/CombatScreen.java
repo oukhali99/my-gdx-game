@@ -14,6 +14,7 @@ import com.mygdx.game.components.Abilities;
 import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeEnemy;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModePlayer;
+import com.mygdx.game.ui.AbilityTable;
 
 import java.util.Random;
 
@@ -25,7 +26,7 @@ public class CombatScreen extends BaseScreen {
     public CombatScreen(
             Drop game,
             Screen previousScreen,
-            Fight fight
+            final Fight fight
     ) {
         super(game);
         this.previousScreen = previousScreen;
@@ -39,18 +40,12 @@ public class CombatScreen extends BaseScreen {
         final Screen finalPreviousScreen = previousScreen;
         stage = new Stage();
 
-        // Add button table
-        Table table = new Table();
-        table.setFillParent(true);
-        stage.addActor(table);
-
-        // Set up the style
+        // Initialize the style
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
         style.font = font;
-        style.font.setColor(Color.RED);
 
-        // Add stuff to the table
+        // Add exit button
         TextButton exitButton = new TextButton("exit", style);
         exitButton.addListener(new ClickListener() {
             @Override
@@ -60,22 +55,16 @@ public class CombatScreen extends BaseScreen {
                 dispose();
             }
         });
-        table.add(exitButton).pad(10);
+        stage.addActor(exitButton);
 
-        // Add abilities
-        CombatActor playerWhoseTurnItIs = fight.whoseTurnItIs;
-        Abilities abilities = playerWhoseTurnItIs.getAbilitiesComponent();
-        for (final Abilities.Ability ability : abilities.getAbilityList()) {
-            TextButton button = new TextButton(ability.getName(), style);
-            button.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    super.clicked(event, x, y);
-                    ability.display();
-                }
-            });
-            table.add(button).pad(10);
-        }
+        // Add ability table
+        Table table = new AbilityTable(fight.player.getAbilitiesComponent()) {
+            @Override
+            protected void onClickedAbility(Abilities.Ability ability) {
+                fight.enemy.takeDamage(ability.getDamage());
+            }
+        };
+        stage.addActor(table);
     }
 
     @Override

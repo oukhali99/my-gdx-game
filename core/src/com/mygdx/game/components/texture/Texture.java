@@ -1,7 +1,9 @@
-package com.mygdx.game.components;
+package com.mygdx.game.components.texture;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Component;
+import com.mygdx.game.components.Transform;
 
 public class Texture extends Component {
     private com.badlogic.gdx.graphics.Texture texture;
@@ -11,6 +13,12 @@ public class Texture extends Component {
         super(game);
         this.texturePath = texturePath;
         this.texture = new com.badlogic.gdx.graphics.Texture(Gdx.files.internal(texturePath));
+    }
+
+    public Texture(Texture texture) {
+        super(texture.game);
+        this.texture = texture.texture;
+        this.texturePath = texture.texturePath;
     }
 
     @Override

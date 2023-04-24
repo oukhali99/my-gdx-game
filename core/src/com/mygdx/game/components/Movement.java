@@ -2,15 +2,8 @@ package com.mygdx.game.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
-
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
 
 public class Movement extends Component {
     private static final int MOVE_DISTANCE = 16;

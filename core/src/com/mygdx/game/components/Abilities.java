@@ -43,5 +43,9 @@ public class Abilities extends Component {
         public void display() {
             Logger.log("Ability " + name + " for " + damage + " damage");
         }
+
+        public int getDamage() {
+            return damage;
+        }
     }
 }
