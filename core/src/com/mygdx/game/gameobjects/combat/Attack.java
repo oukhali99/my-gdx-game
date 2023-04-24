@@ -6,7 +6,6 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 import com.mygdx.game.utils.Logger;
 
 public class Attack extends GameObject {
@@ -28,7 +27,7 @@ public class Attack extends GameObject {
         target.takeDamage(ability.getDamage());
     }
 
-    float stateTime = 0;
+    private float stateTime = 0;
 
     @Override
     public void render(float delta) {
@@ -41,11 +40,7 @@ public class Attack extends GameObject {
         Vector2 position = getPosition();
         position.add(deltaX, 0);
 
-        // Get the current frame of the animation based on the elapsed time
-        TextureRegion currentFrame = (TextureRegion) ability.getAnimation().getKeyFrame(stateTime, true);
-
-        // Draw the current frame at the current position of the fireball
-        game.batch.draw(currentFrame, position.x, position.y);
+        ability.draw(stateTime, position);
 
         // Update the elapsed time
         stateTime += delta;

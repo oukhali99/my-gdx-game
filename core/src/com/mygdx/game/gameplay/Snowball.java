@@ -1,24 +1,16 @@
 package com.mygdx.game.gameplay;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Drop;
+import com.mygdx.game.utils.SpriteSheet;
 
 public class Snowball extends Ability {
-    public Snowball() {
-        super("Snowball", 8);
+    public Snowball(Drop game) {
+        super(game, "Snowball", 8);
     }
 
     @Override
-    protected Animation initializeAnimation() {
-        Texture myTexture = new Texture(Gdx.files.internal("bucket.png"));
-        TextureRegion[] frames = new TextureRegion[4];
-        int frameWidth = myTexture.getWidth() / 4;
-        int frameHeight = myTexture.getHeight();
-        for (int i = 0; i < 4; i++) {
-            frames[i] = new TextureRegion(myTexture, i * frameWidth, 0, frameWidth, frameHeight);
-        }
-        return new Animation(0.1f, frames);
+    protected SpriteSheet getSpriteSheet() {
+        return new SpriteSheet("bucket.png", 1, 1, new Vector2(32, 32), false);
     }
 }

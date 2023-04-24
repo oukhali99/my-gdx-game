@@ -16,8 +16,8 @@ public abstract class CombatActor extends GameObject {
         this.health = 100;
 
         Abilities abilities = new Abilities(game);
-        abilities.addAbility(new Fireball());
-        abilities.addAbility(new Snowball());
+        abilities.addAbility(new Fireball(game));
+        abilities.addAbility(new Snowball(game));
         addComponent(abilities);
 
         HealthDependentTexture healthDependentTexture = new HealthDependentTexture(game, new MyTexture(game, getTexturePath())) {

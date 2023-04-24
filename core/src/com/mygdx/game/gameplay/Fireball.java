@@ -1,24 +1,16 @@
 package com.mygdx.game.gameplay;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Drop;
+import com.mygdx.game.utils.SpriteSheet;
 
 public class Fireball extends Ability {
-    public Fireball() {
-        super("Fireball", 10);
+    public Fireball(Drop game) {
+        super(game, "Fireball", 10);
     }
 
     @Override
-    protected Animation initializeAnimation() {
-        Texture myTexture = new Texture(Gdx.files.internal("droplet.png"));
-        TextureRegion[] frames = new TextureRegion[4];
-        int frameWidth = myTexture.getWidth() / 4;
-        int frameHeight = myTexture.getHeight();
-        for (int i = 0; i < 4; i++) {
-            frames[i] = new TextureRegion(myTexture, i * frameWidth, 0, frameWidth, frameHeight);
-        }
-        return new Animation(0.1f, frames);
+    protected SpriteSheet getSpriteSheet() {
+        return new SpriteSheet("fireball.png", 2, 2, new Vector2(116, 32), true);
     }
 }
