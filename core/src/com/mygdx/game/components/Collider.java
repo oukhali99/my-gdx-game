@@ -1,6 +1,5 @@
 package com.mygdx.game.components;
 
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
@@ -67,7 +66,7 @@ public class Collider extends Component {
 
     public void onCollision(GameObject otherObject) {
         for (CollisionRunnable runnable : onCollisionRunnables) {
-            runnable.setGameObject(otherObject);
+            runnable.setOtherGameObject(otherObject);
             collisionRunnablesThisFrame.add(runnable);
         }
     }
@@ -77,10 +76,10 @@ public class Collider extends Component {
     }
 
     public static abstract class CollisionRunnable {
-        protected GameObject gameObject;
+        protected GameObject otherGameObject;
 
-        public void setGameObject(GameObject gameObject) {
-            this.gameObject = gameObject;
+        public void setOtherGameObject(GameObject otherGameObject) {
+            this.otherGameObject = otherGameObject;
         }
 
         public abstract void run();

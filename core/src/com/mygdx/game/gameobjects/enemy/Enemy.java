@@ -1,15 +1,19 @@
 package com.mygdx.game.gameobjects.enemy;
 
+import com.badlogic.gdx.Screen;
+import com.mygdx.game.CombatScreen;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
 import com.mygdx.game.components.Texture;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.Player;
-import com.mygdx.game.utils.Logger;
 
 public class Enemy extends GameObject {
     public Enemy(Drop game) {
         super(game);
+
+        final Drop finalGame = game;
+        final GameObject finalGameObject = this;
 
         setPosition(16*20, 16*20);
         setScale(16, 16);
@@ -20,8 +24,14 @@ public class Enemy extends GameObject {
         collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {
             @Override
             public void run() {
-                if (gameObject instanceof Player) {
-                    markForDestruction();
+                if (otherGameObject instanceof Player) {
+                    Screen combatScreen = new CombatScreen(
+                            finalGame,
+                            finalGame.getScreen(),
+                            otherGameObject,
+                            finalGameObject
+                    );
+                    finalGame.setScreen(combatScreen);
                 }
             }
         });
