@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class GameObject {
     protected final Drop game;
-    private List<Component> components;
+    protected List<Component> components;
     protected Transform transform;
     private boolean markedForDestruction;
 

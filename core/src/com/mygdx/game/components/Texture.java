@@ -5,9 +5,11 @@ import com.mygdx.game.Drop;
 
 public class Texture extends Component {
     private com.badlogic.gdx.graphics.Texture texture;
+    private String texturePath;
 
     public Texture(Drop game, String texturePath) {
         super(game);
+        this.texturePath = texturePath;
         this.texture = new com.badlogic.gdx.graphics.Texture(Gdx.files.internal(texturePath));
     }
 
@@ -28,5 +30,9 @@ public class Texture extends Component {
 
     public void destroy() {
         texture.dispose();
+    }
+
+    public String getTexturePath() {
+        return texturePath;
     }
 }

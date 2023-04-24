@@ -2,15 +2,12 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
+import com.mygdx.game.gameobjects.CombatModeGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 
 public class CombatScreen extends BaseScreen {
     private Screen previousScreen;
-    private Fight fight;
-    protected OrthographicCamera camera;
 
     public CombatScreen(
             Drop game,
@@ -19,24 +16,19 @@ public class CombatScreen extends BaseScreen {
     ) {
         super(game);
         this.previousScreen = previousScreen;
-        this.fight = fight;
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1280, 720);
+        gameObjects.add(new CombatModeGameObject(game, fight.player));
+        gameObjects.add(new CombatModeGameObject(game, fight.enemy));
     }
 
     @Override
     public void render(float delta) {
         super.render(delta);
 
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-
         game.batch.begin();
 
-        fight.player.render(delta);
-        fight.enemy.render(delta);
+        //fight.player.render(delta);
+        //fight.enemy.render(delta);
 
         game.batch.end();
 

@@ -5,7 +5,6 @@ import com.mygdx.game.components.Collider;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Movement;
 import com.mygdx.game.components.Texture;
-import com.mygdx.game.utils.Logger;
 
 public class Player extends GameObject {
     public Player(Drop game) {
