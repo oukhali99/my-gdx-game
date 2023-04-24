@@ -49,9 +49,9 @@ public abstract class HealthDependentTexture extends Component {
     }
 
     @Override
-    public void postPostUpdate() {
-        super.postPostUpdate();
-        baseMyTexture.postPostUpdate();
+    public void postPostUpdate(float delta) {
+        super.postPostUpdate(delta);
+        baseMyTexture.postPostUpdate(delta);
     }
 
     public abstract int getHealth();

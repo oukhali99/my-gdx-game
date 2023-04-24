@@ -22,6 +22,10 @@ public abstract class Ability {
 
     protected abstract SpriteSheet getSpriteSheet();
 
+    public Vector2 getScale() {
+        return getSpriteSheet().getScale();
+    }
+
     public String getName() {
         return name;
     }

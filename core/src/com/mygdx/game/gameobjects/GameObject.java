@@ -1,7 +1,5 @@
 package com.mygdx.game.gameobjects;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Component;
@@ -15,12 +13,14 @@ public abstract class GameObject {
     protected List<Component> components;
     protected Transform transform;
     private boolean markedForDestruction;
+    protected List<GameObject> children;
 
     protected GameObject(final Drop game) {
         this.game = game;
         this.transform = new Transform(game);
         this.components = new LinkedList<>();
         this.markedForDestruction = false;
+        this.children = new LinkedList<>();
 
         initialize();
     }
@@ -32,17 +32,26 @@ public abstract class GameObject {
         for (Component component : components) {
             component.render(delta);
         }
+        for (GameObject child : children) {
+            child.render(delta);
+        }
     }
 
     public void update(float delta) {
         for (Component component : components) {
             component.update(delta);
         }
+        for (GameObject child : children) {
+            child.update(delta);
+        }
     }
 
     public void postUpdate(float delta) {
         for (Component component : components) {
             component.postUpdate(delta);
+        }
+        for (GameObject child : children) {
+            child.postUpdate(delta);
         }
     }
 
@@ -91,6 +100,9 @@ public abstract class GameObject {
         for (Component component : components) {
             component.destroy();
         }
+        for (GameObject child : children) {
+            child.destroy();
+        }
     }
 
     public Component getComponent(Class<? extends Component> componentClass) {
@@ -104,7 +116,23 @@ public abstract class GameObject {
 
     public void postPostUpdate(float delta) {
         for (Component component : components) {
-            component.postPostUpdate();
+            component.postPostUpdate(delta);
         }
+        for (GameObject child : children) {
+            child.postPostUpdate(delta);
+        }
+    }
+
+    public void preenDestroyedChildren() {
+        List<GameObject> enabledGameObjects = new LinkedList<>();
+        for (GameObject gameObject : children) {
+            if (gameObject.isMarkedForDestruction()) {
+                gameObject.destroy();
+            }
+            else {
+                enabledGameObjects.add(gameObject);
+            }
+        }
+        children = enabledGameObjects;
     }
 }

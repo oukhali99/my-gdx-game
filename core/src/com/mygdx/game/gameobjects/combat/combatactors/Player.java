@@ -4,6 +4,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Movement;
+import com.mygdx.game.gameobjects.GameObject;
 
 public class Player extends CombatActor {
     public Player(Drop game) {
@@ -18,7 +19,7 @@ public class Player extends CombatActor {
         Collider collider = new Collider(game);
         collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {
             @Override
-            public void run() {
+            public void run(GameObject otherGameObject) {
                 Movement movementComponent = (Movement) getComponent(Movement.class);
                 if (movementComponent != null) {
                     movementComponent.collided();

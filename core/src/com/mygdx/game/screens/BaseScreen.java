@@ -63,6 +63,7 @@ public abstract class BaseScreen implements Screen {
     private void preenDestroyedGameObjects() {
         List<GameObject> enabledGameObjects = new LinkedList<>();
         for (GameObject gameObject : gameObjects) {
+            gameObject.preenDestroyedChildren();
             if (gameObject.isMarkedForDestruction()) {
                 gameObject.destroy();
             }

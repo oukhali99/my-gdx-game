@@ -57,10 +57,10 @@ public class Collider extends Component {
     }
 
     @Override
-    public void postPostUpdate() {
-        super.postPostUpdate();
+    public void postPostUpdate(float delta) {
+        super.postPostUpdate(delta);
         for (CollisionRunnable collisionRunnable : collisionRunnablesThisFrame) {
-            collisionRunnable.run();
+            collisionRunnable.run(collisionRunnable.otherGameObject);
         }
     }
 
@@ -76,12 +76,12 @@ public class Collider extends Component {
     }
 
     public static abstract class CollisionRunnable {
-        protected GameObject otherGameObject;
+        private GameObject otherGameObject;
 
         public void setOtherGameObject(GameObject otherGameObject) {
             this.otherGameObject = otherGameObject;
         }
 
-        public abstract void run();
+        public abstract void run(GameObject otherGameObject);
     }
 }

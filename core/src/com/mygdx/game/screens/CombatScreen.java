@@ -34,7 +34,7 @@ public class CombatScreen extends BaseScreen {
         final CombatModePlayer combatModePlayer = new CombatModePlayer(game, fight.player);
         final CombatModeEnemy combatModeEnemy = new CombatModeEnemy(game, fight.enemy);
         gameObjects.add(combatModePlayer);
-        gameObjects.add(new CombatModeEnemy(game, fight.enemy));
+        gameObjects.add(combatModeEnemy);
 
         // Initialize the stage
         final Drop finalGame = game;

@@ -1,6 +1,7 @@
 package com.mygdx.game.gameobjects.combat.combatactors.enemy;
 
 import com.badlogic.gdx.Screen;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 import com.mygdx.game.gameobjects.combat.combatactors.Player;
 import com.mygdx.game.screens.CombatScreen;
@@ -20,7 +21,7 @@ public class Enemy extends CombatActor {
         Collider collider = new Collider(game);
         collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {
             @Override
-            public void run() {
+            public void run(GameObject otherGameObject) {
                 if (otherGameObject instanceof Player) {
                     Screen combatScreen = new CombatScreen(
                             finalGame,

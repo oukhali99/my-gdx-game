@@ -37,6 +37,6 @@ public class SpriteSheet {
     }
 
     public Vector2 getScale() {
-        return scale;
+        return new Vector2(scale);
     }
 }

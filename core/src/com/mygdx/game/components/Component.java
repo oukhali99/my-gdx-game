@@ -35,6 +35,6 @@ public abstract class Component {
     public void destroy() {
     }
 
-    public void postPostUpdate() {
+    public void postPostUpdate(float delta) {
     }
 }
