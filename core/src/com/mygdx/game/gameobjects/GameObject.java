@@ -50,8 +50,24 @@ public abstract class GameObject {
         transform.setPosition(new Vector2(x, y));
     }
 
+    public void setPosition(Vector2 position) {
+        transform.setPosition(position);
+    }
+
+    public Vector2 getPosition() {
+        return transform.getPosition();
+    }
+
     public void setScale(float x, float y) {
         transform.setScale(new Vector2(x, y));
+    }
+
+    public void setScale(Vector2 scale) {
+        transform.setScale(scale);
+    }
+
+    public Vector2 getScale() {
+        return transform.getScale();
     }
 
     public void addComponent(Component component) {

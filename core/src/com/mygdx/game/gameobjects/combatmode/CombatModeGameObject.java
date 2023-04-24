@@ -1,12 +1,14 @@
-package com.mygdx.game.gameobjects;
+package com.mygdx.game.gameobjects.combatmode;
 
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Texture;
+import com.mygdx.game.gameobjects.GameObject;
 import org.w3c.dom.Text;
 
-public class CombatModeGameObject extends GameObject {
-    private GameObject gameObject;
+public abstract class CombatModeGameObject extends GameObject {
+    private final GameObject gameObject;
 
     public CombatModeGameObject(Drop game, GameObject gameObject) {
         super(game);
@@ -16,7 +18,7 @@ public class CombatModeGameObject extends GameObject {
         addComponent(new Texture(game, gameObjectTexture.getTexturePath()));
 
         setPosition(200, 200);
-        setScale(64, 64);
+        setScale(gameObject.getScale().cpy().scl(4));
     }
 
     @Override

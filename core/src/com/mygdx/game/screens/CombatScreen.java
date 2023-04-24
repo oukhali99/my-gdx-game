@@ -3,8 +3,10 @@ package com.mygdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.CombatModeGameObject;
+import com.mygdx.game.gameobjects.combatmode.CombatModeEnemy;
+import com.mygdx.game.gameobjects.combatmode.CombatModeGameObject;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combatmode.CombatModePlayer;
 
 public class CombatScreen extends BaseScreen {
     private Screen previousScreen;
@@ -17,8 +19,8 @@ public class CombatScreen extends BaseScreen {
         super(game);
         this.previousScreen = previousScreen;
 
-        gameObjects.add(new CombatModeGameObject(game, fight.player));
-        gameObjects.add(new CombatModeGameObject(game, fight.enemy));
+        gameObjects.add(new CombatModePlayer(game, fight.player));
+        gameObjects.add(new CombatModeEnemy(game, fight.enemy));
     }
 
     @Override
