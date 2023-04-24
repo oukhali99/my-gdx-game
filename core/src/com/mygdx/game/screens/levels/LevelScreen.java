@@ -1,6 +1,7 @@
-package com.mygdx.game.level;
+package com.mygdx.game.screens.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,14 +20,14 @@ import com.mygdx.game.gameobjects.Player;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Level {
+public abstract class LevelScreen implements Screen {
     private final Drop game;
     protected GameObject player;
     protected List<GameObject> gameObjects;
     private Music music;
     protected OrthographicCamera camera;
 
-    public Level(Drop game) {
+    public LevelScreen(Drop game) {
         this.game = game;
         this.gameObjects = new LinkedList<>();
 
@@ -166,6 +167,21 @@ public abstract class Level {
             gameObject.destroy();
         }
         music.dispose();
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
     }
 
     public void resize(int width, int height) {

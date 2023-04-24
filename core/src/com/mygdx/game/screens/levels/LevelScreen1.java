@@ -1,16 +1,14 @@
-package com.mygdx.game.level;
+package com.mygdx.game.screens.levels;
 
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Collider;
-import com.mygdx.game.gameobjects.enemy.Enemy;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.enemy.EnemyFactory;
 
 import java.util.Random;
 
-public class Level1 extends Level {
-    public Level1(Drop game) {
+public class LevelScreen1 extends LevelScreen {
+    public LevelScreen1(Drop game) {
         super(game);
 
         for (int i = 0; i < 10; i++) {

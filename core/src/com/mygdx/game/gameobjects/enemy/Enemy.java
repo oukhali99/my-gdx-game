@@ -1,7 +1,7 @@
 package com.mygdx.game.gameobjects.enemy;
 
 import com.badlogic.gdx.Screen;
-import com.mygdx.game.CombatScreen;
+import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
 import com.mygdx.game.components.Texture;
@@ -28,8 +28,7 @@ public class Enemy extends GameObject {
                     Screen combatScreen = new CombatScreen(
                             finalGame,
                             finalGame.getScreen(),
-                            otherGameObject,
-                            finalGameObject
+                            new CombatScreen.Fight(otherGameObject, finalGameObject)
                     );
                     finalGame.setScreen(combatScreen);
                 }
