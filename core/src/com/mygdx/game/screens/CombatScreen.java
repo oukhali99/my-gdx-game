@@ -1,16 +1,13 @@
 package com.mygdx.game.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
-import sun.security.x509.OtherName;
 
-public class CombatScreen implements Screen {
-    private final Drop game;
+public class CombatScreen extends BaseScreen {
     private Screen previousScreen;
     private Fight fight;
     protected OrthographicCamera camera;
@@ -20,7 +17,7 @@ public class CombatScreen implements Screen {
             Screen previousScreen,
             Fight fight
     ) {
-        this.game = game;
+        super(game);
         this.previousScreen = previousScreen;
         this.fight = fight;
 
@@ -29,12 +26,9 @@ public class CombatScreen implements Screen {
     }
 
     @Override
-    public void show() {
-
-    }
-
-    @Override
     public void render(float delta) {
+        super.render(delta);
+
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
@@ -50,31 +44,6 @@ public class CombatScreen implements Screen {
             game.setScreen(previousScreen);
             dispose();
         }
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 
     public static class Fight {

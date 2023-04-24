@@ -7,29 +7,15 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.screens.levels.LevelScreen1;
 
-public class MainMenuScreen implements Screen {
-    final Drop game;
-
-    OrthographicCamera camera;
+public class MainMenuScreen extends BaseScreen {
 
     public MainMenuScreen(final Drop game) {
-        this.game = game;
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1280, 720);
-    }
-
-    @Override
-    public void show() {
-
+        super(game);
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        super.render(delta);
 
         game.batch.begin();
         game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
@@ -40,30 +26,5 @@ public class MainMenuScreen implements Screen {
             game.setScreen(new LevelScreen1(game));
             dispose();
         }
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 }
