@@ -88,20 +88,21 @@ public abstract class BaseScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
     public void hide() {
-
     }
 
     public void resize(int width, int height) {
         //camera.setToOrtho(false, width, height);
+    }
+
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
     }
 }

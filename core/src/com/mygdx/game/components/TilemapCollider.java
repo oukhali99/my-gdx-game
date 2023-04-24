@@ -8,15 +8,18 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.utils.CombinedRectangles;
 
-public class TilemapCollider extends Component {
+public class TilemapCollider extends Collider {
     private TiledMap tiledMap;
     private MapLayers mapLayers;
     protected MapLayer collisionLayer;
+    private CombinedRectangles combinedRectangles;
 
     public TilemapCollider(Drop game, TiledMap tiledMap) {
         super(game);
         this.tiledMap = tiledMap;
+        this.combinedRectangles = new CombinedRectangles();
     }
 
     @Override
@@ -29,15 +32,14 @@ public class TilemapCollider extends Component {
 
         for (MapObject mapObject : collisionLayer.getObjects()) {
             if (mapObject instanceof RectangleMapObject) {
-                final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
-                Collider rectangleCollider = new Collider(game) {
-                    @Override
-                    public Rectangle getArea() {
-                        return rectangleMapObject.getRectangle();
-                    }
-                };
-                rectangleCollider.attachToGameObject(gameObject);
+                RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
+                combinedRectangles.addRectangle(rectangleMapObject.getRectangle());
             }
         }
+    }
+
+    @Override
+    public Rectangle getArea() {
+        return combinedRectangles;
     }
 }

@@ -8,8 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Collider extends Component {
-    private static List<Collider> allColliders = new LinkedList<>();
-
     private List<CollisionRunnable> onCollisionRunnables = new LinkedList<>();
 
     private List<CollisionRunnable> collisionRunnablesThisFrame = new LinkedList<>();
@@ -24,12 +22,14 @@ public class Collider extends Component {
 
         collisionRunnablesThisFrame.clear();
 
-        for (Collider collider : allColliders) {
+        for (GameObject otherGameObject : game.getScreen().getGameObjects()) {
+            Collider collider = (Collider) otherGameObject.getComponent(Collider.class);
             if (
-                collider.getArea().overlaps(getArea()) &&
-                this != collider
+                    collider != null &&
+                    collider.getArea().overlaps(getArea()) &&
+                    this != collider
             ) {
-                onCollision(collider.gameObject);
+                onCollision(otherGameObject);
             }
         }
     }
@@ -42,18 +42,6 @@ public class Collider extends Component {
         rectangle.width = transform.getScale().x;
         rectangle.height = transform.getScale().y;
         return rectangle;
-    }
-
-    @Override
-    public void attachToGameObject(GameObject gameObject) {
-        super.attachToGameObject(gameObject);
-        allColliders.add(this);
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        allColliders.remove(this);
     }
 
     @Override
