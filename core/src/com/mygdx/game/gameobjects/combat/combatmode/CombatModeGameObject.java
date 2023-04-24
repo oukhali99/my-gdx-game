@@ -5,10 +5,12 @@ import com.mygdx.game.components.Abilities;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.texture.HealthDependentTexture;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.Attack;
 import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 
 public abstract class CombatModeGameObject extends GameObject {
     private final CombatActor combatActor;
+    private Attack attack;
 
     public CombatModeGameObject(Drop game, CombatActor combatActor) {
         super(game);
@@ -35,6 +37,10 @@ public abstract class CombatModeGameObject extends GameObject {
     public void render(float delta) {
         super.render(delta);
         //gameObject.render(delta);
+
+        if (attack != null) {
+            attack.render(delta);
+        }
     }
 
     @Override
@@ -58,5 +64,10 @@ public abstract class CombatModeGameObject extends GameObject {
     public void postPostUpdate(float delta) {
         super.postPostUpdate(delta);
         //gameObject.postPostUpdate(delta);
+    }
+
+    public void performAttack(Attack attack) {
+        this.attack = attack;
+        attack.start();
     }
 }

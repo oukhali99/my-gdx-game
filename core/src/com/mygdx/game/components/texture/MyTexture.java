@@ -5,20 +5,20 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Transform;
 
-public class Texture extends Component {
+public class MyTexture extends Component {
     private com.badlogic.gdx.graphics.Texture texture;
     private String texturePath;
 
-    public Texture(Drop game, String texturePath) {
+    public MyTexture(Drop game, String texturePath) {
         super(game);
         this.texturePath = texturePath;
         this.texture = new com.badlogic.gdx.graphics.Texture(Gdx.files.internal(texturePath));
     }
 
-    public Texture(Texture texture) {
-        super(texture.game);
-        this.texture = texture.texture;
-        this.texturePath = texture.texturePath;
+    public MyTexture(MyTexture myTexture) {
+        super(myTexture.game);
+        this.texture = myTexture.texture;
+        this.texturePath = myTexture.texturePath;
     }
 
     @Override

@@ -6,16 +6,16 @@ import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class HealthDependentTexture extends Component {
-    private Texture baseTexture;
+    private MyTexture baseMyTexture;
 
-    public HealthDependentTexture(Drop game, Texture baseTexture) {
+    public HealthDependentTexture(Drop game, MyTexture baseMyTexture) {
         super(game);
-        this.baseTexture = baseTexture;
+        this.baseMyTexture = baseMyTexture;
     }
 
     public HealthDependentTexture(HealthDependentTexture healthDependentTexture) {
         super(healthDependentTexture.game);
-        baseTexture = new Texture(healthDependentTexture.baseTexture);
+        baseMyTexture = new MyTexture(healthDependentTexture.baseMyTexture);
     }
 
     @Override
@@ -26,32 +26,32 @@ public abstract class HealthDependentTexture extends Component {
 
         Color color = game.batch.getColor();
         game.batch.setColor(1, healthFraction, healthFraction, 1);
-        baseTexture.render(delta);
+        baseMyTexture.render(delta);
         game.batch.setColor(color);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        baseTexture.update(delta);
+        baseMyTexture.update(delta);
     }
 
     @Override
     public void postUpdate(float delta) {
         super.postUpdate(delta);
-        baseTexture.postUpdate(delta);
+        baseMyTexture.postUpdate(delta);
     }
 
     @Override
     public void attachToGameObject(GameObject gameObject) {
         super.attachToGameObject(gameObject);
-        baseTexture.attachToGameObject(gameObject);
+        baseMyTexture.attachToGameObject(gameObject);
     }
 
     @Override
     public void postPostUpdate() {
         super.postPostUpdate();
-        baseTexture.postPostUpdate();
+        baseMyTexture.postPostUpdate();
     }
 
     public abstract int getHealth();

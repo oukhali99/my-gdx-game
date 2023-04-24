@@ -1,7 +1,7 @@
 package com.mygdx.game.components;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.utils.Logger;
+import com.mygdx.game.gameplay.Ability;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,25 +27,4 @@ public class Abilities extends Component {
         return abilityList;
     }
 
-    public static class Ability {
-        private final String name;
-        private final int damage;
-
-        public Ability(String name, int damage) {
-            this.name = name;
-            this.damage = damage;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void display() {
-            Logger.log("Ability " + name + " for " + damage + " damage");
-        }
-
-        public int getDamage() {
-            return damage;
-        }
-    }
 }

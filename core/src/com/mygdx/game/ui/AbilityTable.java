@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.components.Abilities;
+import com.mygdx.game.gameplay.Ability;
 
 public abstract class AbilityTable extends Table {
     private Abilities abilities;
@@ -22,7 +23,7 @@ public abstract class AbilityTable extends Table {
         style.font = font;
 
         // Add abilities
-        for (final Abilities.Ability ability : abilities.getAbilityList()) {
+        for (final Ability ability : abilities.getAbilityList()) {
             TextButton button = new TextButton(ability.getName(), style);
             button.addListener(new ClickListener() {
                 @Override
@@ -35,5 +36,5 @@ public abstract class AbilityTable extends Table {
         }
     }
 
-    protected abstract void onClickedAbility(Abilities.Ability ability);
+    protected abstract void onClickedAbility(Ability ability);
 }
