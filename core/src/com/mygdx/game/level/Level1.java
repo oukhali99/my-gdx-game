@@ -24,8 +24,6 @@ public class Level1 extends Level {
             int y = random.nextInt(max - min + 1) + min;
 
             enemy.setPosition(16 * x, 16 * y);
-
-            enemy.addComponent(new Collider(game));
         }
     }
 

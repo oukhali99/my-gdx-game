@@ -85,4 +85,10 @@ public abstract class GameObject {
         }
         return null;
     }
+
+    public void postPostUpdate(float delta) {
+        for (Component component : components) {
+            component.postPostUpdate();
+        }
+    }
 }

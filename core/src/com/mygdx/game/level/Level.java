@@ -135,6 +135,10 @@ public abstract class Level {
             gameObject.postUpdate(delta);
         }
 
+        for (GameObject gameObject : gameObjects) {
+            gameObject.postPostUpdate(delta);
+        }
+
         preenDestroyedGameObjects();
     }
 

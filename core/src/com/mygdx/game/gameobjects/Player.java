@@ -20,9 +20,7 @@ public class Player extends GameObject {
         Collider collider = new Collider(game);
         collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {
             @Override
-            public void run(GameObject otherObject) {
-                Logger.log("Collided with " + otherObject);
-
+            public void run() {
                 Movement movementComponent = (Movement) getComponent(Movement.class);
                 if (movementComponent != null) {
                     movementComponent.collided();

@@ -13,6 +13,8 @@ public class Collider extends Component {
 
     private List<CollisionRunnable> onCollisionRunnables = new LinkedList<>();
 
+    private List<CollisionRunnable> collisionRunnablesThisFrame = new LinkedList<>();
+
     public Collider(Drop game) {
         super(game);
     }
@@ -20,6 +22,8 @@ public class Collider extends Component {
     @Override
     public void postUpdate(float delta) {
         super.postUpdate(delta);
+
+        collisionRunnablesThisFrame.clear();
 
         for (Collider collider : allColliders) {
             if (
@@ -53,9 +57,18 @@ public class Collider extends Component {
         allColliders.remove(this);
     }
 
+    @Override
+    public void postPostUpdate() {
+        super.postPostUpdate();
+        for (CollisionRunnable collisionRunnable : collisionRunnablesThisFrame) {
+            collisionRunnable.run();
+        }
+    }
+
     public void onCollision(GameObject otherObject) {
         for (CollisionRunnable runnable : onCollisionRunnables) {
-            runnable.run(gameObject);
+            runnable.setGameObject(otherObject);
+            collisionRunnablesThisFrame.add(runnable);
         }
     }
 
@@ -63,7 +76,13 @@ public class Collider extends Component {
         onCollisionRunnables.add(runnable);
     }
 
-    public interface CollisionRunnable {
-        public void run(GameObject otherObject);
+    public static abstract class CollisionRunnable {
+        protected GameObject gameObject;
+
+        public void setGameObject(GameObject gameObject) {
+            this.gameObject = gameObject;
+        }
+
+        public abstract void run();
     }
 }
