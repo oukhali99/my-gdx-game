@@ -8,13 +8,14 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseScreen implements Screen {
     protected final Drop game;
-    protected List<BaseGameObject> baseGameObjects;
+    protected List<GameObject> baseGameObjects;
     protected OrthographicCamera camera;
 
     public BaseScreen(Drop game) {
@@ -33,7 +34,7 @@ public abstract class BaseScreen implements Screen {
     public int getGameObjectCountIncludingChildren() {
         int count = 0;
 
-        for (BaseGameObject baseGameObject : baseGameObjects) {
+        for (GameObject baseGameObject : baseGameObjects) {
             count += baseGameObject.getChildren().size() + 1;
         }
 
@@ -57,20 +58,20 @@ public abstract class BaseScreen implements Screen {
         // begin a new batch and draw the bucket and
         // all drops
         game.batch.begin();
-        for (BaseGameObject baseGameObject : baseGameObjects) {
+        for (GameObject baseGameObject : baseGameObjects) {
             baseGameObject.render(delta);
         }
         game.batch.end();
 
-        for (BaseGameObject baseGameObject : baseGameObjects) {
+        for (GameObject baseGameObject : baseGameObjects) {
             baseGameObject.update(delta);
         }
 
-        for (BaseGameObject baseGameObject : baseGameObjects) {
+        for (GameObject baseGameObject : baseGameObjects) {
             baseGameObject.postUpdate(delta);
         }
 
-        for (BaseGameObject baseGameObject : baseGameObjects) {
+        for (GameObject baseGameObject : baseGameObjects) {
             baseGameObject.postPostUpdate(delta);
         }
 
@@ -84,8 +85,8 @@ public abstract class BaseScreen implements Screen {
     }
 
     private void preenDestroyedGameObjects() {
-        List<BaseGameObject> enabledBaseGameObjects = new LinkedList<>();
-        for (BaseGameObject baseGameObject : baseGameObjects) {
+        List<GameObject> enabledBaseGameObjects = new LinkedList<>();
+        for (GameObject baseGameObject : baseGameObjects) {
             baseGameObject.preenDestroyedChildren();
             if (baseGameObject.isMarkedForDestruction()) {
                 baseGameObject.destroy();
@@ -104,7 +105,7 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void dispose() {
-        for (BaseGameObject baseGameObject : baseGameObjects) {
+        for (GameObject baseGameObject : baseGameObjects) {
             baseGameObject.destroy();
         }
     }
@@ -125,7 +126,7 @@ public abstract class BaseScreen implements Screen {
         //camera.setToOrtho(false, width, height);
     }
 
-    public List<BaseGameObject> getGameObjects() {
+    public List<GameObject> getGameObjects() {
         return baseGameObjects;
     }
 

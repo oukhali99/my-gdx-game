@@ -10,6 +10,7 @@ import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.WASDMovement;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameplay.Fireball;
 import com.mygdx.game.gameplay.Snowball;
 
@@ -29,7 +30,7 @@ public class Player extends BaseGameObject {
             public CollisionRunnable getOnCollisionRunnable() {
                 return new CollisionRunnable() {
                     @Override
-                    public void run(BaseGameObject otherBaseGameObject) {
+                    public void run(GameObject otherBaseGameObject) {
                         baseUpdater.onCollision(thisBaseGameObject, otherBaseGameObject);
                     }
                 };

@@ -3,6 +3,7 @@ package com.mygdx.game.components.abilities;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameplay.Ability;
 
@@ -25,7 +26,7 @@ public abstract class BaseAbilities extends BaseComponent {
 
     public abstract void takeDamage(int damage);
 
-    public abstract void performAttack(BaseGameObject thisBaseGameObject, Attack attack);
+    public abstract void performAttack(GameObject thisBaseGameObject, Attack attack);
 
     public abstract Integer getHealth();
 }

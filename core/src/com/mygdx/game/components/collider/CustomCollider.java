@@ -2,6 +2,7 @@ package com.mygdx.game.components.collider;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,10 +16,10 @@ public abstract class CustomCollider extends BaseCollider {
 
 
     @Override
-    public void postUpdate(float delta, List<BaseGameObject> baseGameObjects, BaseGameObject baseGameObject) {
+    public void postUpdate(float delta, List<GameObject> baseGameObjects, GameObject baseGameObject) {
         collisionRunnablesThisFrame.clear();
 
-        for (BaseGameObject otherBaseGameObject : baseGameObjects) {
+        for (GameObject otherBaseGameObject : baseGameObjects) {
             BaseCollider otherBaseCollider = otherBaseGameObject.getCollider();
             if (
                     otherBaseCollider != null &&
@@ -42,7 +43,7 @@ public abstract class CustomCollider extends BaseCollider {
     }
 
     @Override
-    public void onCollision(BaseGameObject otherObject) {
+    public void onCollision(GameObject otherObject) {
         CollisionRunnable runnable = getOnCollisionRunnable();
         runnable.setOtherGameObject(otherObject);
         collisionRunnablesThisFrame.add(runnable);
@@ -57,12 +58,12 @@ public abstract class CustomCollider extends BaseCollider {
 
 
     public static abstract class CollisionRunnable {
-        private BaseGameObject otherBaseGameObject;
+        private GameObject otherBaseGameObject;
 
-        public void setOtherGameObject(BaseGameObject otherBaseGameObject) {
+        public void setOtherGameObject(GameObject otherBaseGameObject) {
             this.otherBaseGameObject = otherBaseGameObject;
         }
 
-        public abstract void run(BaseGameObject otherBaseGameObject);
+        public abstract void run(GameObject otherBaseGameObject);
     }
 }

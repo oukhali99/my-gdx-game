@@ -172,4 +172,18 @@ public abstract class BaseGameObject implements GameObject {
     public BaseAbilities getAbilities() {
         return abilities;
     }
+
+    @Override
+    public Drop getGame() {
+        return game;
+    }
+
+    @Override
+    public boolean equals(GameObject obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        return super.equals(obj);
+    }
 }

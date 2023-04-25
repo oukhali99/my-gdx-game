@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.CombatModeDecorator;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.AttackFactory;
 import com.mygdx.game.gameplay.Ability;
@@ -35,8 +36,8 @@ public class CombatScreen extends BaseScreen {
 
         fight.addObserver(this);
 
-        baseGameObjects.add(fight.player);
-        baseGameObjects.add(fight.enemy);
+        baseGameObjects.add(new CombatModeDecorator(fight.player));
+        baseGameObjects.add(new CombatModeDecorator(fight.enemy));
 
         // Initialize the stage
         stage = new Stage();
@@ -89,7 +90,7 @@ public class CombatScreen extends BaseScreen {
         }
     }
 
-    public void onFightEnded(BaseGameObject winner) {
+    public void onFightEnded(GameObject winner) {
         closeOutOfScreen();
     }
 
@@ -99,12 +100,12 @@ public class CombatScreen extends BaseScreen {
     }
 
     public static class Fight {
-        private BaseGameObject player;
-        private BaseGameObject enemy;
+        private GameObject player;
+        private GameObject enemy;
         private List<CombatScreen> observers;
-        private BaseGameObject whoseTurnItIs;
+        private GameObject whoseTurnItIs;
 
-        public Fight(BaseGameObject player, BaseGameObject enemy) {
+        public Fight(GameObject player, GameObject enemy) {
             this.player = player;
             this.enemy = enemy;
             this.observers = new LinkedList<>();
@@ -115,7 +116,7 @@ public class CombatScreen extends BaseScreen {
             observers.add(observer);
         }
 
-        public void endFight(BaseGameObject winner) {
+        public void endFight(GameObject winner) {
             for (CombatScreen combatScreen : observers) {
                 combatScreen.onFightEnded(winner);
             }
@@ -125,7 +126,7 @@ public class CombatScreen extends BaseScreen {
             whoseTurnItIs = null;
         }
 
-        public void applyDamage(BaseGameObject attacker, BaseGameObject target, int damage) {
+        public void applyDamage(GameObject attacker, GameObject target, int damage) {
             target.getAbilities().takeDamage(damage);
 
             if (target.getAbilities().getHealth() <= 0) {
@@ -135,8 +136,8 @@ public class CombatScreen extends BaseScreen {
             whoseTurnItIs = target;
         }
 
-        public boolean isPlayersTurn(BaseGameObject player) {
-            return whoseTurnItIs == player;
+        public boolean isPlayersTurn(GameObject player) {
+            return whoseTurnItIs.equals(player);
         }
     }
 }

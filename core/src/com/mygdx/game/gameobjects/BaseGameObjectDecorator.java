@@ -1,6 +1,7 @@
 package com.mygdx.game.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
@@ -123,5 +124,15 @@ public class BaseGameObjectDecorator implements GameObject {
     @Override
     public BaseAbilities getAbilities() {
         return gameObject.getAbilities();
+    }
+
+    @Override
+    public Drop getGame() {
+        return gameObject.getGame();
+    }
+
+    @Override
+    public boolean equals(GameObject obj) {
+        return gameObject.equals(obj);
     }
 }

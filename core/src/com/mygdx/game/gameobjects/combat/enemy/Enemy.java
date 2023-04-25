@@ -9,6 +9,7 @@ import com.mygdx.game.components.collider.CustomCollider;
 import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.gameplay.Snowball;
 import com.mygdx.game.screens.CombatScreen;
@@ -35,7 +36,7 @@ public abstract class Enemy extends BaseGameObject {
             public CollisionRunnable getOnCollisionRunnable() {
                 return new CollisionRunnable() {
                     @Override
-                    public void run(BaseGameObject otherBaseGameObject) {
+                    public void run(GameObject otherBaseGameObject) {
                         if (otherBaseGameObject instanceof Player) {
                             Screen combatScreen = new CombatScreen(
                                     finalGame,

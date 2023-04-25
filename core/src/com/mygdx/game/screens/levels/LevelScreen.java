@@ -6,6 +6,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
 import com.mygdx.game.components.renderer.Tilemap;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.screens.BaseScreen;
 
@@ -36,7 +37,7 @@ public abstract class LevelScreen extends BaseScreen {
             public CollisionRunnable getOnCollisionRunnable() {
                 return new CollisionRunnable() {
                     @Override
-                    public void run(BaseGameObject otherBaseGameObject) {
+                    public void run(GameObject otherBaseGameObject) {
                     }
                 };
             }
@@ -59,8 +60,8 @@ public abstract class LevelScreen extends BaseScreen {
 
     public void dispose() {
         super.dispose();
-        for (BaseGameObject baseGameObject : baseGameObjects) {
-            baseGameObject.destroy();
+        for (GameObject gameObject : baseGameObjects) {
+            gameObject.destroy();
         }
         music.dispose();
     }
