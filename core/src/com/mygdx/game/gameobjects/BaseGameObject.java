@@ -49,7 +49,7 @@ public abstract class BaseGameObject implements GameObject {
 
     @Override
     public void render(float delta) {
-        renderer.render(this, delta);
+        getRenderer().render(getThis(), delta);
 
         for (BaseGameObject child : children) {
             child.render(delta);
@@ -58,7 +58,7 @@ public abstract class BaseGameObject implements GameObject {
 
     @Override
     public void update(float delta) {
-        baseUpdater.update(this, delta);
+        getUpdater().update(getThis(), delta);
 
         for (BaseGameObject child : children) {
             child.update(delta);
@@ -67,7 +67,7 @@ public abstract class BaseGameObject implements GameObject {
 
     @Override
     public void postUpdate(float delta) {
-        baseCollider.postUpdate(delta, game.getScreen().getGameObjects(), this);
+        getCollider().postUpdate(delta, game.getScreen().getGameObjects(), getThis());
 
         for (BaseGameObject child : children) {
             child.postUpdate(delta);
@@ -133,7 +133,7 @@ public abstract class BaseGameObject implements GameObject {
 
     @Override
     public void postPostUpdate(float delta) {
-        baseCollider.postPostUpdate(delta);
+        getCollider().postPostUpdate(delta);
 
         for (BaseGameObject child : children) {
             child.postPostUpdate(delta);
@@ -185,5 +185,14 @@ public abstract class BaseGameObject implements GameObject {
         }
 
         return super.equals(obj);
+    }
+
+    @Override
+    public BaseUpdater getUpdater() {
+        return baseUpdater;
+    }
+
+    public GameObject getThis() {
+        return this;
     }
 }

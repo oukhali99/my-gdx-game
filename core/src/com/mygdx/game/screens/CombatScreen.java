@@ -36,8 +36,14 @@ public class CombatScreen extends BaseScreen {
 
         fight.addObserver(this);
 
-        baseGameObjects.add(new CombatModeDecorator(fight.player));
-        baseGameObjects.add(new CombatModeDecorator(fight.enemy));
+        final GameObject player = new CombatModeDecorator(fight.player);
+        final GameObject enemy = new CombatModeDecorator(fight.enemy);
+        baseGameObjects.add(player);
+        baseGameObjects.add(enemy);
+
+        fight.player = player;
+        fight.enemy = enemy;
+        fight.whoseTurnItIs = player;
 
         // Initialize the stage
         stage = new Stage();
@@ -62,8 +68,8 @@ public class CombatScreen extends BaseScreen {
         table = new AbilityTable(fight.player.getAbilities()) {
             @Override
             protected void onClickedAbility(Ability ability) {
-                Attack attack = AttackFactory.getInstance().createAttack(game, ability, fight.player, fight.enemy, fight);
-                fight.player.getAbilities().performAttack(fight.player, attack);
+                Attack attack = AttackFactory.getInstance().createAttack(game, ability, player, enemy, fight);
+                player.getAbilities().performAttack(player, attack);
             }
         };
         stage.addActor(table);
@@ -137,7 +143,7 @@ public class CombatScreen extends BaseScreen {
         }
 
         public boolean isPlayersTurn(GameObject player) {
-            return whoseTurnItIs.equals(player);
+            return player.equals(whoseTurnItIs);
         }
     }
 }

@@ -6,6 +6,7 @@ import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.Renderer;
+import com.mygdx.game.components.updater.BaseUpdater;
 import com.sun.org.apache.xpath.internal.operations.Equals;
 
 import java.util.LinkedList;
@@ -60,4 +61,8 @@ public interface GameObject {
     public Drop getGame();
 
     public boolean equals(GameObject obj);
+
+    public BaseUpdater getUpdater();
+
+    public GameObject getThis();
 }

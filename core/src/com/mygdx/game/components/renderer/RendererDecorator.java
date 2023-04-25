@@ -1,6 +1,6 @@
 package com.mygdx.game.components.renderer;
 
-import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 
 public class RendererDecorator extends Renderer {
     protected Renderer baseRenderer;
@@ -16,7 +16,7 @@ public class RendererDecorator extends Renderer {
     }
 
     @Override
-    public void render(BaseGameObject baseGameObject, float delta) {
+    public void render(GameObject baseGameObject, float delta) {
         baseRenderer.render(baseGameObject, delta);
     }
 }

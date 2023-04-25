@@ -3,6 +3,7 @@ package com.mygdx.game.components.renderer;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class Renderer extends BaseComponent {
     public Renderer(Drop game) {
@@ -13,5 +14,5 @@ public abstract class Renderer extends BaseComponent {
         super(baseRenderer);
     }
 
-    public abstract void render(BaseGameObject baseGameObject, float delta);
+    public abstract void render(GameObject baseGameObject, float delta);
 }
