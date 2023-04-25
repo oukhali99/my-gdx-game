@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.combat.Attack;
+import com.mygdx.game.gameobjects.combat.AttackFactory;
 import com.mygdx.game.gameobjects.combat.CriticalAttack;
 import com.mygdx.game.gameobjects.combat.MissedAttack;
 import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
@@ -69,7 +70,7 @@ public class CombatScreen extends BaseScreen {
         table = new AbilityTable(fight.player.getAbilitiesComponent()) {
             @Override
             protected void onClickedAbility(Ability ability) {
-                Attack attack = new Attack(game, ability, combatModePlayer, combatModeEnemy, fight);
+                Attack attack = AttackFactory.getInstance().createAttack(game, ability, combatModePlayer, combatModeEnemy, fight);
                 combatModePlayer.performAttack(attack);
             }
         };
@@ -92,7 +93,7 @@ public class CombatScreen extends BaseScreen {
         // Enemy's turn
         if (fight.isPlayersTurn(fight.enemy)) {
             Ability ability = fight.enemy.getAbilitiesComponent().getRandomAbility();
-            Attack attack = new Attack(game, ability, combatModeEnemy, combatModePlayer, fight);
+            Attack attack = AttackFactory.getInstance().createAttack(game, ability, combatModeEnemy, combatModePlayer, fight);
             combatModeEnemy.performAttack(attack);
         }
     }
