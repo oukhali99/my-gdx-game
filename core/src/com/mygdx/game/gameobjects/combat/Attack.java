@@ -1,6 +1,8 @@
 package com.mygdx.game.gameobjects.combat;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
@@ -30,8 +32,7 @@ public class Attack extends GameObject {
             public void run(GameObject otherGameObject) {
                 if (otherGameObject == target) {
                     Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
-                    markForDestruction();
-                    fight.applyDamage(attacker, target, getDamage());
+                    resolveAttack(getDamage());
                 }
             }
         });
@@ -66,10 +67,28 @@ public class Attack extends GameObject {
         float deltaX = speed * delta;
         Vector2 scaledAttackVector = new Vector2(attackDirection);
         scaledAttackVector.scl(deltaX);
-        transform.translate(scaledAttackVector);
+        translate(scaledAttackVector);
 
         // Update the elapsed time
         stateTime += delta;
+
+        // Check for out of bounds
+        if (isOutOfBounds()) {
+            resolveAttack(0);
+        }
+    }
+
+    private void resolveAttack(int damage) {
+        markForDestruction();
+        fight.applyDamage(attacker, target, damage);
+    }
+
+    private boolean isOutOfBounds() {
+        return !new Rectangle(0, 0, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2).contains(transform.getCenter());
+    }
+
+    protected void translate(Vector2 scaledAttackVector) {
+        transform.translate(scaledAttackVector);
     }
 
     public CombatScreen.Fight getFight() {
