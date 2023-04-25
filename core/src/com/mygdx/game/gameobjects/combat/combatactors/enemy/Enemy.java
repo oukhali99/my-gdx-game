@@ -8,7 +8,9 @@ import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Collider;
 
-public class Enemy extends CombatActor {
+import java.util.Random;
+
+public abstract class Enemy extends CombatActor {
     public Enemy(Drop game) {
         super(game);
 
@@ -30,12 +32,16 @@ public class Enemy extends CombatActor {
                     );
                     finalGame.setScreen(combatScreen);
                 }
+                else {
+                    Random random = new Random();
+                    boolean xPositive = random.nextFloat() < 0.5f;
+                    boolean yPositive = random.nextFloat() < 0.5f;
+                    transform.translate(xPositive ? 1 : -1, yPositive ? 1 : -1);
+                }
             }
         });
         addComponent(collider);
     }
 
-    protected String getTexturePath() {
-        return "droplet.png";
-    }
+    protected abstract String getTexturePath();
 }

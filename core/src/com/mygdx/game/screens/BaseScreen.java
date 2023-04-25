@@ -79,7 +79,7 @@ public abstract class BaseScreen implements Screen {
 
         game.batch.setProjectionMatrix(new Matrix4().setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         game.batch.begin();
-        getFont().draw(game.batch, "GameObject count " + getGameObjectCountIncludingChildren(), 1000, 700);
+        //getFont().draw(game.batch, "GameObject count " + getGameObjectCountIncludingChildren(), 1000, 700);
         game.batch.end();
     }
 

@@ -13,11 +13,11 @@ public class EnemyFactory {
 
         switch (randomInt) {
             case 0:
-                return new Enemy(game);
+                return new WaterEnemy(game);
             case 1:
-                return new FireEnemy(game);
+                return new AlienEnemy(game);
             case 2:
-                return new Enemy(game);
+                return new AlienEnemy2(game);
             default:
                 throw new IllegalStateException("Unexpected value: " + randomInt);
         }
