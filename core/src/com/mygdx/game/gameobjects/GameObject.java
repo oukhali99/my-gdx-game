@@ -135,4 +135,8 @@ public abstract class GameObject {
         }
         children = enabledGameObjects;
     }
+
+    public List<GameObject> getChildren() {
+        return children;
+    }
 }
