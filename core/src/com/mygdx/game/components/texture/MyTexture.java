@@ -24,15 +24,18 @@ public class MyTexture extends Component {
     @Override
     public void render(float delta) {
         super.render(delta);
+        draw(delta);
+    }
 
+    protected void draw(float delta) {
         Transform transform = gameObject.getTransform();
 
         game.batch.draw(
-            texture,
-            transform.getPosition().x,
-            transform.getPosition().y,
-            transform.getScale().x,
-            transform.getScale().y
+                texture,
+                transform.getPosition().x,
+                transform.getPosition().y,
+                transform.getScale().x,
+                transform.getScale().y
         );
     }
 
