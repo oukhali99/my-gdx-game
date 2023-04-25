@@ -11,10 +11,10 @@ import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;
 
 public class Attack extends GameObject {
-    private final Ability ability;
-    private final CombatModeGameObject attacker;
-    private final CombatModeGameObject target;
-    private final CombatScreen.Fight fight;
+    protected final Ability ability;
+    protected final CombatModeGameObject attacker;
+    protected final CombatModeGameObject target;
+    protected final CombatScreen.Fight fight;
     private final Vector2 attackDirection;
 
     public Attack(final Drop game, final Ability ability, final CombatModeGameObject attacker, final CombatModeGameObject target, final CombatScreen.Fight fight) {
@@ -31,7 +31,7 @@ public class Attack extends GameObject {
                 if (otherGameObject == target) {
                     Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
                     markForDestruction();
-                    fight.applyDamage(attacker, target, ability.getDamage());
+                    fight.applyDamage(attacker, target, getDamage());
                 }
             }
         });
@@ -71,5 +71,9 @@ public class Attack extends GameObject {
 
     public CombatScreen.Fight getFight() {
         return fight;
+    }
+
+    protected int getDamage() {
+        return ability.getDamage();
     }
 }
