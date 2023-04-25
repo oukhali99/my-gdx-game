@@ -3,12 +3,10 @@ package com.mygdx.game.gameobjects.combat.combatactors;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
-import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.collider.CustomCollider;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.WASDMovement;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.utils.Logger;
 
 public class Player extends CombatActor {
     public Player(Drop game) {
@@ -26,7 +24,6 @@ public class Player extends CombatActor {
                 return new CollisionRunnable() {
                     @Override
                     public void run(GameObject otherGameObject) {
-                        Logger.log("Collided with " + otherGameObject);
                         baseUpdater.onCollision(thisGameObject, otherGameObject);
                     }
                 };

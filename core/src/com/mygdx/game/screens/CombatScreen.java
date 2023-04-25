@@ -67,8 +67,7 @@ public class CombatScreen extends BaseScreen {
         stage.addActor(exitButton);
 
         // Add ability table
-        /*
-        table = new AbilityTable(fight.player.getAbilitiesComponent()) {
+        table = new AbilityTable(fight.player.getAbilities()) {
             @Override
             protected void onClickedAbility(Ability ability) {
                 Attack attack = AttackFactory.getInstance().createAttack(game, ability, combatModePlayer, combatModeEnemy, fight);
@@ -76,8 +75,6 @@ public class CombatScreen extends BaseScreen {
             }
         };
         stage.addActor(table);
-
-         */
     }
 
     @Override
@@ -91,11 +88,11 @@ public class CombatScreen extends BaseScreen {
         stage.act(delta);
         stage.draw();
 
-        //table.setVisible(fight.isPlayersTurn(fight.player));
+        table.setVisible(fight.isPlayersTurn(fight.player));
 
         // Enemy's turn
         if (fight.isPlayersTurn(fight.enemy)) {
-            Ability ability = fight.enemy.getAbilitiesComponent().getRandomAbility();
+            Ability ability = fight.enemy.getAbilities().getRandomAbility();
             Attack attack = AttackFactory.getInstance().createAttack(game, ability, combatModeEnemy, combatModePlayer, fight);
             combatModeEnemy.performAttack(attack);
         }

@@ -4,6 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.abilities.BaseAbilities;
+import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.collider.NoCollisions;
 import com.mygdx.game.components.renderer.Renderer;
@@ -22,6 +24,7 @@ public abstract class GameObject {
     protected Renderer renderer;
     protected BaseUpdater baseUpdater;
     protected BaseCollider baseCollider;
+    protected BaseAbilities abilities;
 
     protected GameObject(final Drop game) {
         this.game = game;
@@ -32,6 +35,7 @@ public abstract class GameObject {
         this.renderer = new NoTexture(game);
         this.baseUpdater = new NoUpdate(game);
         this.baseCollider = new NoCollisions(game);
+        this.abilities = new NoAbilities(game);
 
         initialize();
     }
@@ -151,5 +155,9 @@ public abstract class GameObject {
 
     public void setCollider(BaseCollider collider) {
         this.baseCollider = collider;
+    }
+
+    public BaseAbilities getAbilities() {
+        return abilities;
     }
 }

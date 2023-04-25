@@ -2,6 +2,7 @@ package com.mygdx.game.gameobjects.combat.combatactors;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.Abilities;
+import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.GameObject;
@@ -15,24 +16,11 @@ public abstract class CombatActor extends GameObject {
         super(game);
         this.health = 100;
 
-        Abilities abilities = new Abilities(game);
+        abilities = new Abilities(game);
         abilities.addAbility(new Fireball(game));
         abilities.addAbility(new Snowball(game));
-        addComponent(abilities);
-
-        HealthDependentTexture healthDependentTexture = new HealthDependentTexture(game, new MyTexture(game, getTexturePath())) {
-            @Override
-            public int getHealth() {
-                return health;
-            }
-        };
-        addComponent(healthDependentTexture);
 
         renderer = new MyTexture(game, getTexturePath());
-    }
-
-    public Abilities getAbilitiesComponent() {
-        return (Abilities) getComponent(Abilities.class);
     }
 
     public void takeDamage(int damage) {
