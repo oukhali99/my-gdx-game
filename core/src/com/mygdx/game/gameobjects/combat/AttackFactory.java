@@ -1,7 +1,8 @@
 package com.mygdx.game.gameobjects.combat;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.screens.CombatScreen;
 
@@ -20,7 +21,7 @@ public class AttackFactory {
         return instance;
     }
 
-    public Attack createAttack(Drop game, Ability ability, GameObject attacker, GameObject target, CombatScreen.Fight fight) {
+    public Attack createAttack(Drop game, Ability ability, BaseGameObject attacker, BaseGameObject target, CombatScreen.Fight fight) {
         int randomInt = RANDOM.nextInt(NUM_TYPES);
 
         Attack baseAttack = new Attack(game, ability, attacker, target, fight);
@@ -29,9 +30,9 @@ public class AttackFactory {
             case 0:
                 return baseAttack;
             case 1:
-                return new MissedAttack(game, baseAttack);
+                return baseAttack;
             case 2:
-                return new CriticalAttack(game, baseAttack);
+                return baseAttack;
             default:
                 throw new IllegalStateException("Unexpected value: " + randomInt);
         }

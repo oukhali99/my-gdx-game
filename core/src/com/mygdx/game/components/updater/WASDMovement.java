@@ -3,7 +3,7 @@ package com.mygdx.game.components.updater;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 public class WASDMovement extends BaseUpdaterDecorator {
     private static final int MOVE_DISTANCE = 16;
@@ -19,9 +19,9 @@ public class WASDMovement extends BaseUpdaterDecorator {
     }
 
     @Override
-    public void update(GameObject gameObject, float delta) {
-        super.update(gameObject, delta);
-        Vector2 position = gameObject.getTransform().getPosition();
+    public void update(BaseGameObject baseGameObject, float delta) {
+        super.update(baseGameObject, delta);
+        Vector2 position = baseGameObject.getTransform().getPosition();
         lastPosition = new Vector2(position);
         float dx = 0, dy = 0;
 
@@ -60,7 +60,7 @@ public class WASDMovement extends BaseUpdaterDecorator {
                 default:
                     break;
             }
-            gameObject.setPosition(position);
+            baseGameObject.setPosition(position);
 
             fillCooldown = 0;
         }
@@ -69,8 +69,8 @@ public class WASDMovement extends BaseUpdaterDecorator {
     }
 
     @Override
-    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
-        super.onCollision(gameObject, otherGameObject);
-        gameObject.setPosition(lastPosition);
+    public void onCollision(BaseGameObject baseGameObject, BaseGameObject otherBaseGameObject) {
+        super.onCollision(baseGameObject, otherBaseGameObject);
+        baseGameObject.setPosition(lastPosition);
     }
 }

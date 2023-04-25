@@ -7,19 +7,19 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseScreen implements Screen {
     protected final Drop game;
-    protected List<GameObject> gameObjects;
+    protected List<BaseGameObject> baseGameObjects;
     protected OrthographicCamera camera;
 
     public BaseScreen(Drop game) {
         this.game = game;
-        this.gameObjects = new LinkedList<>();
+        this.baseGameObjects = new LinkedList<>();
 
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
@@ -33,8 +33,8 @@ public abstract class BaseScreen implements Screen {
     public int getGameObjectCountIncludingChildren() {
         int count = 0;
 
-        for (GameObject gameObject : gameObjects) {
-            count += gameObject.getChildren().size() + 1;
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            count += baseGameObject.getChildren().size() + 1;
         }
 
         return count;
@@ -57,21 +57,21 @@ public abstract class BaseScreen implements Screen {
         // begin a new batch and draw the bucket and
         // all drops
         game.batch.begin();
-        for (GameObject gameObject : gameObjects) {
-            gameObject.render(delta);
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            baseGameObject.render(delta);
         }
         game.batch.end();
 
-        for (GameObject gameObject : gameObjects) {
-            gameObject.update(delta);
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            baseGameObject.update(delta);
         }
 
-        for (GameObject gameObject : gameObjects) {
-            gameObject.postUpdate(delta);
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            baseGameObject.postUpdate(delta);
         }
 
-        for (GameObject gameObject : gameObjects) {
-            gameObject.postPostUpdate(delta);
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            baseGameObject.postPostUpdate(delta);
         }
 
         preenDestroyedGameObjects();
@@ -84,17 +84,17 @@ public abstract class BaseScreen implements Screen {
     }
 
     private void preenDestroyedGameObjects() {
-        List<GameObject> enabledGameObjects = new LinkedList<>();
-        for (GameObject gameObject : gameObjects) {
-            gameObject.preenDestroyedChildren();
-            if (gameObject.isMarkedForDestruction()) {
-                gameObject.destroy();
+        List<BaseGameObject> enabledBaseGameObjects = new LinkedList<>();
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            baseGameObject.preenDestroyedChildren();
+            if (baseGameObject.isMarkedForDestruction()) {
+                baseGameObject.destroy();
             }
             else {
-                enabledGameObjects.add(gameObject);
+                enabledBaseGameObjects.add(baseGameObject);
             }
         }
-        gameObjects = enabledGameObjects;
+        baseGameObjects = enabledBaseGameObjects;
     }
 
     public void show() {
@@ -104,8 +104,8 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void dispose() {
-        for (GameObject gameObject : gameObjects) {
-            gameObject.destroy();
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            baseGameObject.destroy();
         }
     }
 
@@ -125,8 +125,8 @@ public abstract class BaseScreen implements Screen {
         //camera.setToOrtho(false, width, height);
     }
 
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
+    public List<BaseGameObject> getGameObjects() {
+        return baseGameObjects;
     }
 
     public OrthographicCamera getCamera() {

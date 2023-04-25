@@ -8,19 +8,19 @@ import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.collider.CustomCollider;
 import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.gameplay.Snowball;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;
 
-public abstract class Enemy extends GameObject {
+public abstract class Enemy extends BaseGameObject {
     public Enemy(Drop game) {
         super(game);
 
         final Drop finalGame = game;
-        final GameObject finalGameObject = this;
+        final BaseGameObject finalBaseGameObject = this;
 
         setPosition(16*20, 16*20);
         setScale(16, 16);
@@ -35,12 +35,12 @@ public abstract class Enemy extends GameObject {
             public CollisionRunnable getOnCollisionRunnable() {
                 return new CollisionRunnable() {
                     @Override
-                    public void run(GameObject otherGameObject) {
-                        if (otherGameObject instanceof Player) {
+                    public void run(BaseGameObject otherBaseGameObject) {
+                        if (otherBaseGameObject instanceof Player) {
                             Screen combatScreen = new CombatScreen(
                                     finalGame,
                                     finalGame.getScreen(),
-                                    new CombatScreen.Fight((Player) otherGameObject, finalGameObject)
+                                    new CombatScreen.Fight((Player) otherBaseGameObject, finalBaseGameObject)
                             );
                             finalGame.setScreen(combatScreen);
                         }

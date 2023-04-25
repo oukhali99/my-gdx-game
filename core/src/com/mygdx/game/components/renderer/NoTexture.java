@@ -1,7 +1,7 @@
 package com.mygdx.game.components.renderer;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 public class NoTexture extends Renderer {
     public NoTexture(Drop game) {
@@ -9,7 +9,7 @@ public class NoTexture extends Renderer {
     }
 
     @Override
-    public void render(GameObject gameObject, float delta) {
+    public void render(BaseGameObject baseGameObject, float delta) {
 
     }
 

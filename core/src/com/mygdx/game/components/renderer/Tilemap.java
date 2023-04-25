@@ -5,7 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 public class Tilemap extends Renderer {
     private TiledMap map;
@@ -23,7 +23,7 @@ public class Tilemap extends Renderer {
     }
 
     @Override
-    public void render(GameObject gameObject, float delta) {
+    public void render(BaseGameObject baseGameObject, float delta) {
         orthogonalTiledMapRenderer.setView(camera);
         orthogonalTiledMapRenderer.render();
     }

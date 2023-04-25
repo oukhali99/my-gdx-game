@@ -1,7 +1,7 @@
 package com.mygdx.game.components.updater;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 public class NoUpdate extends BaseUpdater {
     public NoUpdate(Drop game) {
@@ -14,12 +14,12 @@ public class NoUpdate extends BaseUpdater {
     }
 
     @Override
-    public void update(GameObject gameObject, float delta) {
+    public void update(BaseGameObject baseGameObject, float delta) {
 
     }
 
     @Override
-    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
+    public void onCollision(BaseGameObject baseGameObject, BaseGameObject otherBaseGameObject) {
 
     }
 }

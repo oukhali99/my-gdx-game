@@ -3,7 +3,7 @@ package com.mygdx.game.components.renderer;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 public class MyTexture extends Renderer {
     private com.badlogic.gdx.graphics.Texture texture;
@@ -22,12 +22,12 @@ public class MyTexture extends Renderer {
     }
 
     @Override
-    public void render(GameObject gameObject, float delta) {
-        draw(gameObject, delta);
+    public void render(BaseGameObject baseGameObject, float delta) {
+        draw(baseGameObject, delta);
     }
 
-    public void draw(GameObject gameObject, float delta) {
-        Transform transform = gameObject.getTransform();
+    public void draw(BaseGameObject baseGameObject, float delta) {
+        Transform transform = baseGameObject.getTransform();
 
         game.batch.draw(
                 texture,

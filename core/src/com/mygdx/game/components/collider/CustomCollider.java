@@ -1,7 +1,7 @@
 package com.mygdx.game.components.collider;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,17 +15,17 @@ public abstract class CustomCollider extends BaseCollider {
 
 
     @Override
-    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject) {
+    public void postUpdate(float delta, List<BaseGameObject> baseGameObjects, BaseGameObject baseGameObject) {
         collisionRunnablesThisFrame.clear();
 
-        for (GameObject otherGameObject : gameObjects) {
-            BaseCollider otherBaseCollider = otherGameObject.getCollider();
+        for (BaseGameObject otherBaseGameObject : baseGameObjects) {
+            BaseCollider otherBaseCollider = otherBaseGameObject.getCollider();
             if (
                     otherBaseCollider != null &&
                     overlaps(otherBaseCollider) &&
                     this != otherBaseCollider
             ) {
-                onCollision(otherGameObject);
+                onCollision(otherBaseGameObject);
             }
         }
     }
@@ -37,12 +37,12 @@ public abstract class CustomCollider extends BaseCollider {
     @Override
     public void postPostUpdate(float delta) {
         for (CollisionRunnable collisionRunnable : collisionRunnablesThisFrame) {
-            collisionRunnable.run(collisionRunnable.otherGameObject);
+            collisionRunnable.run(collisionRunnable.otherBaseGameObject);
         }
     }
 
     @Override
-    public void onCollision(GameObject otherObject) {
+    public void onCollision(BaseGameObject otherObject) {
         CollisionRunnable runnable = getOnCollisionRunnable();
         runnable.setOtherGameObject(otherObject);
         collisionRunnablesThisFrame.add(runnable);
@@ -57,12 +57,12 @@ public abstract class CustomCollider extends BaseCollider {
 
 
     public static abstract class CollisionRunnable {
-        private GameObject otherGameObject;
+        private BaseGameObject otherBaseGameObject;
 
-        public void setOtherGameObject(GameObject otherGameObject) {
-            this.otherGameObject = otherGameObject;
+        public void setOtherGameObject(BaseGameObject otherBaseGameObject) {
+            this.otherBaseGameObject = otherBaseGameObject;
         }
 
-        public abstract void run(GameObject otherGameObject);
+        public abstract void run(BaseGameObject otherBaseGameObject);
     }
 }

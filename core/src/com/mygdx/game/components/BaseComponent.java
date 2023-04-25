@@ -1,7 +1,6 @@
 package com.mygdx.game.components;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class BaseComponent implements Component {
     protected final Drop game;

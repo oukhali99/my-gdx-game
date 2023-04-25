@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat;
+package com.mygdx.game.gameobjects.combat.attacks;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
@@ -7,33 +7,33 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.collider.CustomCollider;
 import com.mygdx.game.gameplay.Ability;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;
 
-public class Attack extends GameObject {
+public class Attack extends BaseGameObject {
     protected final Ability ability;
-    protected final GameObject attacker;
-    protected final GameObject target;
+    protected final BaseGameObject attacker;
+    protected final BaseGameObject target;
     protected final CombatScreen.Fight fight;
     private final Vector2 attackDirection;
 
-    public Attack(final Drop game, final Ability ability, final GameObject attacker, final GameObject target, final CombatScreen.Fight fight) {
+    public Attack(final Drop game, final Ability ability, final BaseGameObject attacker, final BaseGameObject target, final CombatScreen.Fight fight) {
         super(game);
         this.ability = ability;
         this.target = target;
         this.attacker = attacker;
         this.fight = fight;
 
-        final GameObject thisGameObject = this;
+        final BaseGameObject thisBaseGameObject = this;
         baseCollider = new CustomCollider(game) {
             @Override
             public CollisionRunnable getOnCollisionRunnable() {
                 return new CollisionRunnable() {
                     @Override
-                    public void run(GameObject otherGameObject) {
-                        if (otherGameObject == target) {
-                            Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
+                    public void run(BaseGameObject otherBaseGameObject) {
+                        if (otherBaseGameObject == target) {
+                            Logger.log("Attacked " + otherBaseGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
                             resolveAttack(getDamage());
                         }
                     }

@@ -1,154 +1,56 @@
 package com.mygdx.game.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
-import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
-import com.mygdx.game.components.collider.NoCollisions;
-import com.mygdx.game.components.renderer.NoTexture;
 import com.mygdx.game.components.renderer.Renderer;
-import com.mygdx.game.components.updater.BaseUpdater;
-import com.mygdx.game.components.updater.NoUpdate;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class GameObject {
-    protected final Drop game;
-    protected Transform transform;
-    private boolean markedForDestruction;
-    protected List<GameObject> children;
-    protected Renderer renderer;
-    protected BaseUpdater baseUpdater;
-    protected BaseCollider baseCollider;
-    protected BaseAbilities abilities;
+public interface GameObject {
+    public Renderer getRenderer();
 
-    protected GameObject(final Drop game) {
-        this.game = game;
-        this.transform = new Transform(game);
-        this.markedForDestruction = false;
-        this.children = new LinkedList<>();
+    public void setRenderer(Renderer renderer);
 
-        this.renderer = new NoTexture(game);
-        this.baseUpdater = new NoUpdate(game);
-        this.baseCollider = new NoCollisions(game);
-        this.abilities = new NoAbilities(game);
-    }
+    public void render(float delta);
 
-    public Renderer getRenderer() {
-        return renderer;
-    }
+    public void update(float delta);
 
-    public void setRenderer(Renderer renderer) {
-        this.renderer = renderer;
-    }
+    public void postUpdate(float delta);
 
-    public void render(float delta) {
-        renderer.render(this, delta);
+    public void setPosition(float x, float y);
 
-        for (GameObject child : children) {
-            child.render(delta);
-        }
-    }
+    public void setPosition(Vector2 position);
 
-    public void update(float delta) {
-        baseUpdater.update(this, delta);
+    public Vector2 getPosition();
 
-        for (GameObject child : children) {
-            child.update(delta);
-        }
-    }
+    public void setScale(float x, float y);
 
-    public void postUpdate(float delta) {
-        baseCollider.postUpdate(delta, game.getScreen().getGameObjects(), this);
+    public void setScale(Vector2 scale);
 
-        for (GameObject child : children) {
-            child.postUpdate(delta);
-        }
-    }
+    public Vector2 getScale();
 
-    public void setPosition(float x, float y) {
-        transform.setPosition(new Vector2(x, y));
-    }
+    public BaseCollider getCollider();
 
-    public void setPosition(Vector2 position) {
-        transform.setPosition(new Vector2(position));
-    }
+    public Transform getTransform();
 
-    public Vector2 getPosition() {
-        return transform.getPosition();
-    }
+    public boolean isMarkedForDestruction();
 
-    public void setScale(float x, float y) {
-        transform.setScale(new Vector2(x, y));
-    }
+    public void markForDestruction();
 
-    public void setScale(Vector2 scale) {
-        transform.setScale(new Vector2(scale));
-    }
+    public void destroy();
 
-    public Vector2 getScale() {
-        return transform.getScale();
-    }
+    public void postPostUpdate(float delta);
 
-    public BaseCollider getCollider() {
-        return baseCollider;
-    }
+    public void preenDestroyedChildren();
 
-    public Transform getTransform() {
-        return transform;
-    }
+    public List<BaseGameObject> getChildren();
 
-    public boolean isMarkedForDestruction() {
-        return markedForDestruction;
-    }
+    public void addChild(BaseGameObject child);
 
-    public void markForDestruction() {
-        markedForDestruction = true;
-    }
+    public void setCollider(BaseCollider collider);
 
-    public void destroy() {
-        for (GameObject child : children) {
-            child.destroy();
-        }
-    }
-
-    public void postPostUpdate(float delta) {
-        baseCollider.postPostUpdate(delta);
-
-        for (GameObject child : children) {
-            child.postPostUpdate(delta);
-        }
-    }
-
-    public void preenDestroyedChildren() {
-        List<GameObject> enabledGameObjects = new LinkedList<>();
-        for (GameObject gameObject : children) {
-            if (gameObject.isMarkedForDestruction()) {
-                gameObject.destroy();
-            }
-            else {
-                enabledGameObjects.add(gameObject);
-            }
-        }
-        children = enabledGameObjects;
-    }
-
-    public List<GameObject> getChildren() {
-        return new LinkedList<>(children);
-    }
-
-    public void addChild(GameObject child) {
-        children.add(child);
-    }
-
-    public void setCollider(BaseCollider collider) {
-        this.baseCollider = collider;
-    }
-
-    public BaseAbilities getAbilities() {
-        return abilities;
-    }
+    public BaseAbilities getAbilities();
 }

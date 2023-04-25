@@ -2,7 +2,7 @@ package com.mygdx.game.screens.levels;
 
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.combat.enemy.EnemyFactory;
 
 import java.util.Random;
@@ -12,8 +12,8 @@ public class LevelScreen1 extends LevelScreen {
         super(game);
 
         for (int i = 0; i < 10; i++) {
-            GameObject enemy = EnemyFactory.createRandomEnemy(game);
-            gameObjects.add(enemy);
+            BaseGameObject enemy = EnemyFactory.createRandomEnemy(game);
+            baseGameObjects.add(enemy);
 
             Random random = new Random();
             int max = 40;

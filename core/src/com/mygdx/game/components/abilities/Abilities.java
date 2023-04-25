@@ -2,8 +2,8 @@ package com.mygdx.game.components.abilities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.Attack;
+import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.LinkedList;
@@ -49,8 +49,8 @@ public class Abilities extends BaseAbilities {
     }
 
     @Override
-    public void performAttack(GameObject thisGameObject ,Attack attack) {
-        thisGameObject.addChild(attack);
+    public void performAttack(BaseGameObject thisBaseGameObject, Attack attack) {
+        thisBaseGameObject.addChild(attack);
         attack.getFight().endTurn();
     }
 

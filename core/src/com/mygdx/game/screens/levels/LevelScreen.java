@@ -5,19 +5,19 @@ import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
 import com.mygdx.game.components.renderer.Tilemap;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.screens.BaseScreen;
 
 import java.util.LinkedList;
 
 public abstract class LevelScreen extends BaseScreen {
-    protected GameObject player;
+    protected BaseGameObject player;
     private Music music;
 
     public LevelScreen(Drop game) {
         super(game);
-        this.gameObjects = new LinkedList<>();
+        this.baseGameObjects = new LinkedList<>();
 
         // load the drop sound effect and the rain background "music"
         music = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
@@ -25,7 +25,7 @@ public abstract class LevelScreen extends BaseScreen {
 
 
         // Create the tilemap
-        GameObject tileMap = new GameObject(game) {
+        BaseGameObject tileMap = new BaseGameObject(game) {
         };
 
         // Actual tilemap component
@@ -36,18 +36,18 @@ public abstract class LevelScreen extends BaseScreen {
             public CollisionRunnable getOnCollisionRunnable() {
                 return new CollisionRunnable() {
                     @Override
-                    public void run(GameObject otherGameObject) {
+                    public void run(BaseGameObject otherBaseGameObject) {
                     }
                 };
             }
         });
 
-        gameObjects.add(tileMap);
+        baseGameObjects.add(tileMap);
 
 
         // Create the player
         player = new Player(game);
-        gameObjects.add(player);
+        baseGameObjects.add(player);
     }
 
     public abstract String getTilemapPath();
@@ -59,8 +59,8 @@ public abstract class LevelScreen extends BaseScreen {
 
     public void dispose() {
         super.dispose();
-        for (GameObject gameObject : gameObjects) {
-            gameObject.destroy();
+        for (BaseGameObject baseGameObject : baseGameObjects) {
+            baseGameObject.destroy();
         }
         music.dispose();
     }

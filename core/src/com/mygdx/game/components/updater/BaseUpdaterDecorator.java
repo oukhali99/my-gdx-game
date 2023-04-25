@@ -1,7 +1,6 @@
 package com.mygdx.game.components.updater;
 
-import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.BaseGameObject;
 
 public class BaseUpdaterDecorator extends BaseUpdater {
     private BaseUpdater baseUpdater;
@@ -17,12 +16,12 @@ public class BaseUpdaterDecorator extends BaseUpdater {
     }
 
     @Override
-    public void update(GameObject gameObject, float delta) {
-        baseUpdater.update(gameObject, delta);
+    public void update(BaseGameObject baseGameObject, float delta) {
+        baseUpdater.update(baseGameObject, delta);
     }
 
     @Override
-    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
-        baseUpdater.onCollision(gameObject, otherGameObject);
+    public void onCollision(BaseGameObject baseGameObject, BaseGameObject otherBaseGameObject) {
+        baseUpdater.onCollision(baseGameObject, otherBaseGameObject);
     }
 }
