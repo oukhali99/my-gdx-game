@@ -36,7 +36,7 @@ public abstract class Enemy extends CombatActor {
                     Random random = new Random();
                     boolean xPositive = random.nextFloat() < 0.5f;
                     boolean yPositive = random.nextFloat() < 0.5f;
-                    transform.translate(xPositive ? 1 : -1, yPositive ? 1 : -1);
+                    transform.translate(xPositive ? 16 : -16, yPositive ? 16 : -16);
                 }
             }
         });

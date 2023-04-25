@@ -11,6 +11,6 @@ public class Snowball extends Ability {
 
     @Override
     protected SpriteSheet getSpriteSheet() {
-        return new SpriteSheet("bucket.png", 1, 1, new Vector2(32, 32), false);
+        return new SpriteSheet("snowball.png", 1, 1, new Vector2(32, 32), false);
     }
 }

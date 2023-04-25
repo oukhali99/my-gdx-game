@@ -24,7 +24,7 @@ public abstract class HealthDependentTexture extends Component {
 
         float healthFraction = (float) getHealth() / 100;
 
-        Color color = game.batch.getColor();
+        Color color = new Color(game.batch.getColor());
         game.batch.setColor(1, healthFraction, healthFraction, 1);
         baseMyTexture.render(delta);
         game.batch.setColor(color);

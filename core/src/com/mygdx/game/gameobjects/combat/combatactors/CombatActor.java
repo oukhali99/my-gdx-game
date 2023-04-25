@@ -35,6 +35,11 @@ public abstract class CombatActor extends GameObject {
 
     public void takeDamage(int damage) {
         health -= damage;
+
+        if (health <= 0) {
+            health = 0;
+            markForDestruction();
+        }
     }
 
     protected abstract String getTexturePath();
