@@ -5,7 +5,6 @@ import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class BaseComponent implements Component {
     protected final Drop game;
-    protected GameObject gameObject;
 
     public BaseComponent(Drop game) {
         this.game = game;
@@ -15,8 +14,7 @@ public abstract class BaseComponent implements Component {
         this.game = baseComponent.game;
     }
 
-    @Override
-    public void attachToGameObject(GameObject gameObject) {
-        this.gameObject = gameObject;
+    public Drop getGame() {
+        return game;
     }
 }

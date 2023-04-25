@@ -5,29 +5,27 @@ import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.collider.Collider;
-import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.CombinedRectangles;
 
-public class TilemapCollider extends Collider {
+public abstract class TilemapCustomCollider extends CustomCollider {
     private TiledMap tiledMap;
     private MapLayers mapLayers;
     protected MapLayer collisionLayer;
     private CombinedRectangles combinedRectangles;
 
-    public TilemapCollider(Drop game, TiledMap tiledMap) {
+    public TilemapCustomCollider(Drop game, String tilemapPath) {
         super(game);
-        this.tiledMap = tiledMap;
         this.combinedRectangles = new CombinedRectangles();
-    }
 
-    @Override
-    public void attachToGameObject(GameObject gameObject) {
-        super.attachToGameObject(gameObject);
+        // Load the tilemap
+        TmxMapLoader loader = new TmxMapLoader();
+        tiledMap = loader.load(tilemapPath);
 
-        // Get the fields
+        // Get the collision layer
         mapLayers = tiledMap.getLayers();
         collisionLayer = mapLayers.get("Collision");
 

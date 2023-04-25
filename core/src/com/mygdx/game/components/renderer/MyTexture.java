@@ -1,12 +1,11 @@
-package com.mygdx.game.components.texture;
+package com.mygdx.game.components.renderer;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.BaseComponent;
-import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Transform;
+import com.mygdx.game.gameobjects.GameObject;
 
-public class MyTexture extends BaseComponent implements Component {
+public class MyTexture extends Renderer {
     private com.badlogic.gdx.graphics.Texture texture;
     private String texturePath;
 
@@ -16,28 +15,18 @@ public class MyTexture extends BaseComponent implements Component {
         this.texture = new com.badlogic.gdx.graphics.Texture(Gdx.files.internal(texturePath));
     }
 
-    public MyTexture(MyTexture myTexture) {
-        super(myTexture.game);
-        this.texture = myTexture.texture;
-        this.texturePath = myTexture.texturePath;
+    public MyTexture(MyTexture baseMyTexture) {
+        super(baseMyTexture.game);
+        this.texture = baseMyTexture.texture;
+        this.texturePath = baseMyTexture.texturePath;
     }
 
     @Override
-    public void render(float delta) {
-        draw(delta);
+    public void render(GameObject gameObject, float delta) {
+        draw(gameObject, delta);
     }
 
-    @Override
-    public void update(float delta) {
-
-    }
-
-    @Override
-    public void postUpdate(float delta) {
-
-    }
-
-    protected void draw(float delta) {
+    public void draw(GameObject gameObject, float delta) {
         Transform transform = gameObject.getTransform();
 
         game.batch.draw(
@@ -49,13 +38,9 @@ public class MyTexture extends BaseComponent implements Component {
         );
     }
 
+    @Override
     public void destroy() {
         texture.dispose();
-    }
-
-    @Override
-    public void postPostUpdate(float delta) {
-
     }
 
     public String getTexturePath() {

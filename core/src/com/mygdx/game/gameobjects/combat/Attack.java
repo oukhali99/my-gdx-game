@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.collider.Collider;
+import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.collider.CustomCollider;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
@@ -25,17 +26,32 @@ public class Attack extends GameObject {
         this.attacker = attacker;
         this.fight = fight;
 
-        Collider collider = new Collider(game);
-        collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {
+        final GameObject thisGameObject = this;
+        baseCollider = new CustomCollider(game) {
             @Override
-            public void run(GameObject otherGameObject) {
-                if (otherGameObject == target) {
-                    Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
-                    resolveAttack(getDamage());
-                }
+            public CollisionRunnable getOnCollisionRunnable() {
+                return new CollisionRunnable() {
+                    @Override
+                    public void run(GameObject otherGameObject) {
+                        if (otherGameObject == target) {
+                            Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
+                            resolveAttack(getDamage());
+                        }
+                    }
+                };
             }
-        });
-        addComponent(collider);
+
+            @Override
+            public Rectangle getArea() {
+                Transform transform = getTransform();
+                Rectangle rectangle = new Rectangle();
+                rectangle.x = transform.getPosition().x;
+                rectangle.y = transform.getPosition().y;
+                rectangle.width = transform.getScale().x;
+                rectangle.height = transform.getScale().y;
+                return rectangle;
+            }
+        };
 
         setPosition(attacker.getPosition());
         setScale(ability.getScale());

@@ -84,27 +84,7 @@ public class Transform extends BaseComponent implements Component {
     }
 
     @Override
-    public void render(float delta) {
-
-    }
-
-    @Override
-    public void update(float delta) {
-
-    }
-
-    @Override
-    public void postUpdate(float delta) {
-
-    }
-
-    @Override
     public void destroy() {
-
-    }
-
-    @Override
-    public void postPostUpdate(float delta) {
 
     }
 }

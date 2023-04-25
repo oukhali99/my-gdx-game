@@ -1,10 +1,14 @@
 package com.mygdx.game.gameobjects.combat.combatactors;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.collider.Collider;
-import com.mygdx.game.components.BaseComponent;
-import com.mygdx.game.components.movement.Movement;
+import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.CustomCollider;
+import com.mygdx.game.components.updater.NoUpdate;
+import com.mygdx.game.components.updater.WASDMovement;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.utils.Logger;
 
 public class Player extends CombatActor {
     public Player(Drop game) {
@@ -13,20 +17,32 @@ public class Player extends CombatActor {
         setPosition(16*20, 16*20);
         setScale(16, 16);
 
-        BaseComponent movement = new Movement(game, 8);
-        addComponent(movement);
+        baseUpdater = new WASDMovement(new NoUpdate(game), 8);
 
-        Collider collider = new Collider(game);
-        collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {
+        final GameObject thisGameObject = this;
+        baseCollider = new CustomCollider(game) {
             @Override
-            public void run(GameObject otherGameObject) {
-                Movement movementComponent = (Movement) getComponent(Movement.class);
-                if (movementComponent != null) {
-                    movementComponent.collided();
-                }
+            public CollisionRunnable getOnCollisionRunnable() {
+                return new CollisionRunnable() {
+                    @Override
+                    public void run(GameObject otherGameObject) {
+                        Logger.log("Collided with " + otherGameObject);
+                        baseUpdater.onCollision(thisGameObject, otherGameObject);
+                    }
+                };
             }
-        });
-        addComponent(collider);
+
+            @Override
+            public Rectangle getArea() {
+                Transform transform = getTransform();
+                Rectangle rectangle = new Rectangle();
+                rectangle.x = transform.getPosition().x;
+                rectangle.y = transform.getPosition().y;
+                rectangle.width = transform.getScale().x;
+                rectangle.height = transform.getScale().y;
+                return rectangle;
+            }
+        };
     }
 
     @Override

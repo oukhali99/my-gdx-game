@@ -2,15 +2,9 @@ package com.mygdx.game.screens.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.tilemap.Tilemap;
-import com.mygdx.game.components.collider.TilemapCollider;
+import com.mygdx.game.components.collider.TilemapCustomCollider;
+import com.mygdx.game.components.renderer.Tilemap;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.combatactors.Player;
 import com.mygdx.game.screens.BaseScreen;
@@ -35,46 +29,18 @@ public abstract class LevelScreen extends BaseScreen {
         };
 
         // Actual tilemap component
-        Tilemap tilemapComponent = new Tilemap(game, camera, getTilemapPath());
-        tileMap.addComponent(tilemapComponent);
+        tileMap.setRenderer(new Tilemap(game, camera, getTilemapPath()));
 
-        // Collider component
-        TilemapCollider tilemapCollider = new TilemapCollider(game, tilemapComponent.getMap()) {
+        tileMap.setCollider(new TilemapCustomCollider(game, getTilemapPath()) {
             @Override
-            public void destroy() {
-                super.destroy();
-                shapeRenderer.dispose();
-            }
-
-            private ShapeRenderer shapeRenderer = new ShapeRenderer();
-
-            @Override
-            public void update(float delta) {
-                super.update(delta);
-
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-                // Set the color to red
-                shapeRenderer.setColor(Color.RED);
-
-                // Draw a rectangle at position (x=100, y=100) with width=100 and height=50
-                for (MapObject mapObject : collisionLayer.getObjects()) {
-                    if (mapObject instanceof RectangleMapObject) {
-                        RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
-                        Rectangle rectangle = rectangleMapObject.getRectangle();
-
-                        Vector3 rectPos = new Vector3(rectangle.x, rectangle.y, 0);
-                        camera.project(rectPos);
-
-                        //shapeRenderer.rect(rectPos.x, rectPos.y, rectangle.width, rectangle.height);
+            public CollisionRunnable getOnCollisionRunnable() {
+                return new CollisionRunnable() {
+                    @Override
+                    public void run(GameObject otherGameObject) {
                     }
-                }
-
-                // End the shape renderer
-                shapeRenderer.end();
+                };
             }
-        };
-        tileMap.addComponent(tilemapCollider);
+        });
 
         gameObjects.add(tileMap);
 

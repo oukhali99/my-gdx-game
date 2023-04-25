@@ -4,52 +4,68 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.NoCollisions;
+import com.mygdx.game.components.renderer.Renderer;
+import com.mygdx.game.components.renderer.NoTexture;
+import com.mygdx.game.components.updater.NoUpdate;
+import com.mygdx.game.components.updater.BaseUpdater;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class GameObject {
     protected final Drop game;
-    protected List<BaseComponent> baseComponents;
     protected Transform transform;
     private boolean markedForDestruction;
     protected List<GameObject> children;
+    protected Renderer renderer;
+    protected BaseUpdater baseUpdater;
+    protected BaseCollider baseCollider;
 
     protected GameObject(final Drop game) {
         this.game = game;
         this.transform = new Transform(game);
-        this.baseComponents = new LinkedList<>();
         this.markedForDestruction = false;
         this.children = new LinkedList<>();
 
+        this.renderer = new NoTexture(game);
+        this.baseUpdater = new NoUpdate(game);
+        this.baseCollider = new NoCollisions(game);
+
         initialize();
+    }
+
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
     }
 
     protected void initialize() {
     }
 
     public void render(float delta) {
-        for (BaseComponent baseComponent : baseComponents) {
-            baseComponent.render(delta);
-        }
+        renderer.render(this, delta);
+
         for (GameObject child : children) {
             child.render(delta);
         }
     }
 
     public void update(float delta) {
-        for (BaseComponent baseComponent : baseComponents) {
-            baseComponent.update(delta);
-        }
+        baseUpdater.update(this, delta);
+
         for (GameObject child : children) {
             child.update(delta);
         }
     }
 
     public void postUpdate(float delta) {
-        for (BaseComponent baseComponent : baseComponents) {
-            baseComponent.postUpdate(delta);
-        }
+        baseCollider.postUpdate(delta, game.getScreen().getGameObjects(), this);
+
         for (GameObject child : children) {
             child.postUpdate(delta);
         }
@@ -80,8 +96,10 @@ public abstract class GameObject {
     }
 
     public void addComponent(BaseComponent baseComponent) {
-        baseComponents.add(baseComponent);
-        baseComponent.attachToGameObject(this);
+    }
+
+    public BaseCollider getCollider() {
+        return baseCollider;
     }
 
     public Transform getTransform() {
@@ -97,27 +115,18 @@ public abstract class GameObject {
     }
 
     public void destroy() {
-        for (BaseComponent baseComponent : baseComponents) {
-            baseComponent.destroy();
-        }
         for (GameObject child : children) {
             child.destroy();
         }
     }
 
     public BaseComponent getComponent(Class<? extends BaseComponent> componentClass) {
-        for (BaseComponent baseComponent : baseComponents) {
-            if (componentClass.isInstance(baseComponent)) {
-                return baseComponent;
-            }
-        }
         return null;
     }
 
     public void postPostUpdate(float delta) {
-        for (BaseComponent baseComponent : baseComponents) {
-            baseComponent.postPostUpdate(delta);
-        }
+        baseCollider.postPostUpdate(delta);
+
         for (GameObject child : children) {
             child.postPostUpdate(delta);
         }
@@ -138,5 +147,9 @@ public abstract class GameObject {
 
     public List<GameObject> getChildren() {
         return children;
+    }
+
+    public void setCollider(BaseCollider collider) {
+        this.baseCollider = collider;
     }
 }
