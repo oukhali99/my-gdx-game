@@ -49,7 +49,10 @@ public class Attack extends GameObject {
     @Override
     public void render(float delta) {
         super.render(delta);
+        draw(delta);
+    }
 
+    protected void draw(float delta) {
         ability.draw(stateTime, transform);
     }
 
@@ -57,7 +60,7 @@ public class Attack extends GameObject {
     public void update(float delta) {
         super.update(delta);
 
-        float speed = 1000;
+        float speed = 700;
 
         // Update the position of the fireball based on the elapsed time and speed
         float deltaX = speed * delta;
