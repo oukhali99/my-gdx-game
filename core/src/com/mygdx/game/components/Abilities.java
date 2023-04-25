@@ -1,5 +1,6 @@
 package com.mygdx.game.components;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameplay.Ability;
 
@@ -25,6 +26,15 @@ public class Abilities extends Component {
 
     public List<Ability> getAbilityList() {
         return abilityList;
+    }
+
+    public Ability getRandomAbility() {
+        int size = abilityList.size();
+        if (size == 0) {
+            return null;
+        }
+        int randomIndex = MathUtils.random(0, size - 1);
+        return abilityList.get(randomIndex);
     }
 
 }

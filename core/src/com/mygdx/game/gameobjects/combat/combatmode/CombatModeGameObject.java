@@ -37,6 +37,7 @@ public abstract class CombatModeGameObject extends GameObject {
 
     public void performAttack(Attack attack) {
         children.add(attack);
+        attack.getFight().endTurn();
     }
 
     public void takeDamage(int damage) {
@@ -45,5 +46,9 @@ public abstract class CombatModeGameObject extends GameObject {
 
     public int getHealth() {
         return combatActor.getHealth();
+    }
+
+    public CombatActor getCombatActor() {
+        return combatActor;
     }
 }

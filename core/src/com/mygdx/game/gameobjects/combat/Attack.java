@@ -14,12 +14,15 @@ public class Attack extends GameObject {
     private final Ability ability;
     private final CombatModeGameObject attacker;
     private final CombatModeGameObject target;
+    private final CombatScreen.Fight fight;
+    private final Vector2 attackDirection;
 
     public Attack(final Drop game, final Ability ability, final CombatModeGameObject attacker, final CombatModeGameObject target, final CombatScreen.Fight fight) {
         super(game);
         this.ability = ability;
         this.target = target;
         this.attacker = attacker;
+        this.fight = fight;
 
         Collider collider = new Collider(game);
         collider.addOnCollisionRunnable(new Collider.CollisionRunnable() {
@@ -28,11 +31,7 @@ public class Attack extends GameObject {
                 if (otherGameObject == target) {
                     Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
                     markForDestruction();
-                    target.takeDamage(ability.getDamage());
-
-                    if (target.getHealth() <= 0) {
-                        fight.endFight(attacker);
-                    }
+                    fight.applyDamage(attacker, target, ability.getDamage());
                 }
             }
         });
@@ -40,6 +39,9 @@ public class Attack extends GameObject {
 
         setPosition(attacker.getPosition());
         setScale(ability.getScale());
+
+        attackDirection = target.getPosition().sub(attacker.getPosition()).nor();
+        transform.setRotationFromVector(attackDirection);
     }
 
     private float stateTime = 0;
@@ -48,20 +50,26 @@ public class Attack extends GameObject {
     public void render(float delta) {
         super.render(delta);
 
-        ability.draw(stateTime, transform.getPosition());
+        ability.draw(stateTime, transform);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
 
-        float speed = 200;
+        float speed = 1000;
 
         // Update the position of the fireball based on the elapsed time and speed
         float deltaX = speed * delta;
-        transform.translate(deltaX, 0);
+        Vector2 scaledAttackVector = new Vector2(attackDirection);
+        scaledAttackVector.scl(deltaX);
+        transform.translate(scaledAttackVector);
 
         // Update the elapsed time
         stateTime += delta;
+    }
+
+    public CombatScreen.Fight getFight() {
+        return fight;
     }
 }

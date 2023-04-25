@@ -23,7 +23,7 @@ public class Transform extends Component {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return new Vector2(position);
     }
 
     public void setPosition(Vector2 position) {
@@ -31,7 +31,7 @@ public class Transform extends Component {
     }
 
     public Vector2 getScale() {
-        return scale;
+        return new Vector2(scale);
     }
 
     public void setScale(Vector2 scale) {
@@ -64,5 +64,22 @@ public class Transform extends Component {
 
     public void rotate(float angle) {
         this.rotation += angle;
+    }
+
+    public void setRotationFromVector(Vector2 vector) {
+        // Get the angle in degrees between the vector and the positive x-axis
+        float angleDegrees = vector.angle();
+
+        // Set the rotation of this transform to the angle
+        setRotation(angleDegrees);
+    }
+
+    public Vector2 getCenter() {
+        // Calculate the center point
+        float centerX = position.x + (scale.x / 2.0f);
+        float centerY = position.y + (scale.y / 2.0f);
+
+        // Return a new vector representing the center point
+        return new Vector2(centerX, centerY);
     }
 }

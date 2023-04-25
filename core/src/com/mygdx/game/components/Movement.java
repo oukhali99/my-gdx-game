@@ -61,6 +61,7 @@ public class Movement extends Component {
                 default:
                     break;
             }
+            gameObject.setPosition(position);
 
             fillCooldown = 0;
         }

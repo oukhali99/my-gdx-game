@@ -128,4 +128,8 @@ public abstract class BaseScreen implements Screen {
     public List<GameObject> getGameObjects() {
         return gameObjects;
     }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
 }

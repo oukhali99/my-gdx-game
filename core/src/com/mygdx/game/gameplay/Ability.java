@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Transform;
 import com.mygdx.game.utils.Logger;
 import com.mygdx.game.utils.SpriteSheet;
 
@@ -42,11 +43,22 @@ public abstract class Ability {
         return animation;
     }
 
-    public void draw(float stateTime, Vector2 position) {
+    public void draw(float stateTime, Transform transform) {
         // Get the current frame of the animation based on the elapsed time
         TextureRegion currentFrame = (TextureRegion) getAnimation().getKeyFrame(stateTime, true);
 
         // Draw the current frame at the current position of the fireball
-        game.batch.draw(currentFrame, position.x, position.y, getSpriteSheet().getScale().x, getSpriteSheet().getScale().y);
+        game.batch.draw(
+                currentFrame,
+                transform.getPosition().x,
+                transform.getPosition().y,
+                transform.getScale().x / 2f,
+                transform.getScale().y / 2f,
+                getSpriteSheet().getScale().x,
+                getSpriteSheet().getScale().y,
+                1,
+                1,
+                transform.getRotation()
+        );
     }
 }
