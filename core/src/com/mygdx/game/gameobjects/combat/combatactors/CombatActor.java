@@ -1,7 +1,7 @@
 package com.mygdx.game.gameobjects.combat.combatactors;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Abilities;
+import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.texture.HealthDependentTexture;
 import com.mygdx.game.components.texture.MyTexture;
 import com.mygdx.game.gameobjects.GameObject;

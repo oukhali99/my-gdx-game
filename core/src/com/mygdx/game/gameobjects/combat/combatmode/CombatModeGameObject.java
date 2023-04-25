@@ -1,8 +1,8 @@
 package com.mygdx.game.gameobjects.combat.combatmode;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Abilities;
-import com.mygdx.game.components.Collider;
+import com.mygdx.game.components.abilities.Abilities;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.texture.HealthDependentTexture;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.Attack;

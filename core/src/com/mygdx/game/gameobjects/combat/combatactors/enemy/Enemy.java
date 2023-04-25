@@ -6,7 +6,7 @@ import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 import com.mygdx.game.gameobjects.combat.combatactors.Player;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Collider;
+import com.mygdx.game.components.collider.Collider;
 
 import java.util.Random;
 

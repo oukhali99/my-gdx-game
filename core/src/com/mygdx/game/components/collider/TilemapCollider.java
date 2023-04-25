@@ -1,4 +1,4 @@
-package com.mygdx.game.components;
+package com.mygdx.game.components.collider;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.CombinedRectangles;
 

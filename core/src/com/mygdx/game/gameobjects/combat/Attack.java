@@ -1,11 +1,10 @@
 package com.mygdx.game.gameobjects.combat;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Collider;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;

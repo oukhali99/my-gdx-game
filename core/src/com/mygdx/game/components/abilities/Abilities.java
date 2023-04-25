@@ -1,7 +1,8 @@
-package com.mygdx.game.components;
+package com.mygdx.game.components.abilities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Component;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.LinkedList;

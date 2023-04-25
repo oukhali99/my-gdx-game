@@ -1,7 +1,9 @@
-package com.mygdx.game.components;
+package com.mygdx.game.components.collider;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Component;
+import com.mygdx.game.components.Transform;
 import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;

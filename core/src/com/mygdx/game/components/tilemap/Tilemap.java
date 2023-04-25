@@ -1,10 +1,11 @@
-package com.mygdx.game.components;
+package com.mygdx.game.components.tilemap;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Component;
 
 public class Tilemap extends Component {
     private TiledMap map;

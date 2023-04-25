@@ -1,9 +1,9 @@
 package com.mygdx.game.gameobjects.combat.combatactors;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Collider;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.Component;
-import com.mygdx.game.components.Movement;
+import com.mygdx.game.components.movement.Movement;
 import com.mygdx.game.gameobjects.GameObject;
 
 public class Player extends CombatActor {
