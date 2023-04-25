@@ -7,11 +7,8 @@ import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.updater.BaseUpdater;
-import com.sun.org.apache.xpath.internal.operations.Equals;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Observer;
 
 public interface GameObject {
     public Renderer getRenderer();
