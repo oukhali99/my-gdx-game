@@ -2,10 +2,11 @@ package com.mygdx.game.components.texture;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Transform;
 
-public class MyTexture extends Component {
+public class MyTexture extends BaseComponent implements Component {
     private com.badlogic.gdx.graphics.Texture texture;
     private String texturePath;
 
@@ -23,8 +24,17 @@ public class MyTexture extends Component {
 
     @Override
     public void render(float delta) {
-        super.render(delta);
         draw(delta);
+    }
+
+    @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
+    public void postUpdate(float delta) {
+
     }
 
     protected void draw(float delta) {
@@ -41,6 +51,11 @@ public class MyTexture extends Component {
 
     public void destroy() {
         texture.dispose();
+    }
+
+    @Override
+    public void postPostUpdate(float delta) {
+
     }
 
     public String getTexturePath() {

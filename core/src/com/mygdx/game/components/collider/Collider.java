@@ -2,6 +2,7 @@ package com.mygdx.game.components.collider;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.gameobjects.GameObject;
@@ -9,7 +10,7 @@ import com.mygdx.game.gameobjects.GameObject;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Collider extends Component {
+public class Collider extends BaseComponent implements Component {
     private List<CollisionRunnable> onCollisionRunnables = new LinkedList<>();
 
     private List<CollisionRunnable> collisionRunnablesThisFrame = new LinkedList<>();
@@ -19,9 +20,15 @@ public class Collider extends Component {
     }
 
     @Override
-    public void postUpdate(float delta) {
-        super.postUpdate(delta);
+    public void render(float delta) {
+    }
 
+    @Override
+    public void update(float delta) {
+    }
+
+    @Override
+    public void postUpdate(float delta) {
         collisionRunnablesThisFrame.clear();
 
         for (GameObject otherGameObject : game.getScreen().getGameObjects()) {
@@ -36,6 +43,11 @@ public class Collider extends Component {
         }
     }
 
+    @Override
+    public void destroy() {
+
+    }
+
     public Rectangle getArea() {
         Transform transform = gameObject.getTransform();
         Rectangle rectangle = new Rectangle();
@@ -48,7 +60,6 @@ public class Collider extends Component {
 
     @Override
     public void postPostUpdate(float delta) {
-        super.postPostUpdate(delta);
         for (CollisionRunnable collisionRunnable : collisionRunnablesThisFrame) {
             collisionRunnable.run(collisionRunnable.otherGameObject);
         }

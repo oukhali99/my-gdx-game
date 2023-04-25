@@ -5,9 +5,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Component;
 
-public class Tilemap extends Component {
+public class Tilemap extends BaseComponent implements Component {
     private TiledMap map;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private  OrthographicCamera camera;
@@ -23,23 +24,30 @@ public class Tilemap extends Component {
     }
 
     @Override
-    public void initialize() {
-        super.initialize();
-    }
-
-    @Override
     public void render(float delta) {
-        super.render(delta);
-
         orthogonalTiledMapRenderer.setView(camera);
         orthogonalTiledMapRenderer.render();
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
+    public void postUpdate(float delta) {
+
+    }
+
+    @Override
     public void destroy() {
-        super.destroy();
         orthogonalTiledMapRenderer.dispose();
         map.dispose();
+    }
+
+    @Override
+    public void postPostUpdate(float delta) {
+
     }
 
     public TiledMap getMap() {

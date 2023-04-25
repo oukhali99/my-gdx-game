@@ -3,38 +3,17 @@ package com.mygdx.game.components;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 
-public abstract class Component {
-    protected final Drop game;
-    protected GameObject gameObject;
+public interface Component {
 
-    public Component(Drop game) {
-        this.game = game;
-        initialize();
-    }
+    public void render(float delta);
 
-    public Component(Component component) {
-        this.game = component.game;
-    }
+    public void update(float delta);
 
-    public void initialize() {
-    }
+    public void postUpdate(float delta);
 
-    public void render(float delta) {
-    }
+    public void attachToGameObject(GameObject gameObject);
 
-    public void update(float delta) {
-    }
+    public void destroy();
 
-    public void postUpdate(float delta) {
-    }
-
-    public void attachToGameObject(GameObject gameObject) {
-        this.gameObject = gameObject;
-    }
-
-    public void destroy() {
-    }
-
-    public void postPostUpdate(float delta) {
-    }
+    public void postPostUpdate(float delta);
 }

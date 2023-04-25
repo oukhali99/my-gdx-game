@@ -2,13 +2,14 @@ package com.mygdx.game.components.abilities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Abilities extends Component {
+public class Abilities extends BaseComponent implements Component {
     private final List<Ability> abilityList;
 
     public Abilities(Drop game) {
@@ -38,4 +39,28 @@ public class Abilities extends Component {
         return abilityList.get(randomIndex);
     }
 
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
+    public void postUpdate(float delta) {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void postPostUpdate(float delta) {
+
+    }
 }

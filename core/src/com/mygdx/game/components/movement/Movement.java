@@ -4,9 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Component;
 
-public class Movement extends Component {
+public class Movement extends BaseComponent implements Component {
     private static final int MOVE_DISTANCE = 16;
     private final float speed;
     private Integer currentKey;
@@ -20,9 +21,12 @@ public class Movement extends Component {
     }
 
     @Override
-    public void update(float delta) {
-        super.update(delta);
+    public void render(float delta) {
 
+    }
+
+    @Override
+    public void update(float delta) {
         Vector2 position = gameObject.getTransform().getPosition();
         lastPosition = new Vector2(position);
         float dx = 0, dy = 0;
@@ -68,6 +72,21 @@ public class Movement extends Component {
         }
 
         fillCooldown += delta;
+    }
+
+    @Override
+    public void postUpdate(float delta) {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void postPostUpdate(float delta) {
+
     }
 
     public void collided() {

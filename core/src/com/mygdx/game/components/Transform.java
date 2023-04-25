@@ -3,7 +3,7 @@ package com.mygdx.game.components;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 
-public class Transform extends Component {
+public class Transform extends BaseComponent implements Component {
     private Vector2 position;
     private Vector2 scale;
     private float rotation;
@@ -81,5 +81,30 @@ public class Transform extends Component {
 
         // Return a new vector representing the center point
         return new Vector2(centerX, centerY);
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
+    public void postUpdate(float delta) {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void postPostUpdate(float delta) {
+
     }
 }

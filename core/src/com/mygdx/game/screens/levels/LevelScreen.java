@@ -46,13 +46,7 @@ public abstract class LevelScreen extends BaseScreen {
                 shapeRenderer.dispose();
             }
 
-            private ShapeRenderer shapeRenderer;
-
-            @Override
-            public void initialize() {
-                super.initialize();
-                shapeRenderer = new ShapeRenderer();
-            }
+            private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
             @Override
             public void update(float delta) {
