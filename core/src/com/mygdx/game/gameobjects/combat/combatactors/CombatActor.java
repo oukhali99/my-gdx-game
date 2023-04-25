@@ -38,4 +38,8 @@ public abstract class CombatActor extends GameObject {
     }
 
     protected abstract String getTexturePath();
+
+    public int getHealth() {
+        return health;
+    }
 }

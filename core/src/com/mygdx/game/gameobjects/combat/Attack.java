@@ -7,6 +7,7 @@ import com.mygdx.game.components.Collider;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;
 
 public class Attack extends GameObject {
@@ -14,7 +15,7 @@ public class Attack extends GameObject {
     private final CombatModeGameObject attacker;
     private final CombatModeGameObject target;
 
-    public Attack(final Drop game, final Ability ability, final CombatModeGameObject attacker, final CombatModeGameObject target) {
+    public Attack(final Drop game, final Ability ability, final CombatModeGameObject attacker, final CombatModeGameObject target, final CombatScreen.Fight fight) {
         super(game);
         this.ability = ability;
         this.target = target;
@@ -28,6 +29,10 @@ public class Attack extends GameObject {
                     Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
                     markForDestruction();
                     target.takeDamage(ability.getDamage());
+
+                    if (target.getHealth() <= 0) {
+                        fight.endFight(attacker);
+                    }
                 }
             }
         });

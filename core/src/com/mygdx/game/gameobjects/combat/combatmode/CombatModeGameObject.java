@@ -42,4 +42,8 @@ public abstract class CombatModeGameObject extends GameObject {
     public void takeDamage(int damage) {
         combatActor.takeDamage(damage);
     }
+
+    public int getHealth() {
+        return combatActor.getHealth();
+    }
 }

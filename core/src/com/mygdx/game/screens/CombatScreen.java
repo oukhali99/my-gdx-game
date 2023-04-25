@@ -9,12 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.combat.Attack;
 import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeEnemy;
+import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModePlayer;
+import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.ui.AbilityTable;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class CombatScreen extends BaseScreen {
     private Screen previousScreen;
@@ -31,6 +35,8 @@ public class CombatScreen extends BaseScreen {
         this.previousScreen = previousScreen;
         this.fight = fight;
 
+        fight.addObserver(this);
+
         final CombatModePlayer combatModePlayer = new CombatModePlayer(game, fight.player);
         final CombatModeEnemy combatModeEnemy = new CombatModeEnemy(game, fight.enemy);
         gameObjects.add(combatModePlayer);
@@ -38,7 +44,6 @@ public class CombatScreen extends BaseScreen {
 
         // Initialize the stage
         final Drop finalGame = game;
-        final Screen finalPreviousScreen = previousScreen;
         stage = new Stage();
 
         // Initialize the style
@@ -52,8 +57,7 @@ public class CombatScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                finalGame.setScreen(finalPreviousScreen);
-                dispose();
+                closeOutOfScreen();
             }
         });
         stage.addActor(exitButton);
@@ -62,7 +66,7 @@ public class CombatScreen extends BaseScreen {
         table = new AbilityTable(fight.player.getAbilitiesComponent()) {
             @Override
             protected void onClickedAbility(Ability ability) {
-                Attack attack = new Attack(finalGame, ability, combatModePlayer, combatModeEnemy);
+                Attack attack = new Attack(finalGame, ability, combatModePlayer, combatModeEnemy, fight);
                 combatModePlayer.performAttack(attack);
                 //fight.whoseTurnItIs = fight.enemy;
             }
@@ -89,15 +93,36 @@ public class CombatScreen extends BaseScreen {
         }
     }
 
+    public void onFightEnded(CombatModeGameObject winner) {
+        closeOutOfScreen();
+    }
+
+    private void closeOutOfScreen() {
+        game.setScreen(previousScreen);
+        dispose();
+    }
+
     public static class Fight {
         private CombatActor player;
         private CombatActor enemy;
         private CombatActor whoseTurnItIs;
+        private List<CombatScreen> observers;
 
         public Fight(CombatActor player, CombatActor enemy) {
             this.player = player;
             this.enemy = enemy;
             this.whoseTurnItIs = player;
+            this.observers = new LinkedList<>();
+        }
+
+        public void addObserver(CombatScreen observer) {
+            observers.add(observer);
+        }
+
+        public void endFight(CombatModeGameObject winner) {
+            for (CombatScreen combatScreen : observers) {
+                combatScreen.onFightEnded(winner);
+            }
         }
     }
 }
