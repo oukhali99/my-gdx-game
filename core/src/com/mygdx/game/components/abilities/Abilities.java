@@ -2,6 +2,8 @@ package com.mygdx.game.components.abilities;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Drop;
+import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.Attack;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.LinkedList;
@@ -9,10 +11,12 @@ import java.util.List;
 
 public class Abilities extends BaseAbilities {
     private final List<Ability> abilityList;
+    private int health;
 
     public Abilities(Drop game) {
         super(game);
         this.abilityList = new LinkedList<>();
+        this.health = 100;
     }
 
     @Override
@@ -33,6 +37,26 @@ public class Abilities extends BaseAbilities {
         }
         int randomIndex = MathUtils.random(0, size - 1);
         return abilityList.get(randomIndex);
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            health = 0;
+        }
+    }
+
+    @Override
+    public void performAttack(GameObject thisGameObject ,Attack attack) {
+        thisGameObject.addChild(attack);
+        attack.getFight().endTurn();
+    }
+
+    @Override
+    public Integer getHealth() {
+        return health;
     }
 
     @Override

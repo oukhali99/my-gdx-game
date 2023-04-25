@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.collider.CustomCollider;
-import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.screens.CombatScreen;
@@ -14,12 +13,12 @@ import com.mygdx.game.utils.Logger;
 
 public class Attack extends GameObject {
     protected final Ability ability;
-    protected final CombatModeGameObject attacker;
-    protected final CombatModeGameObject target;
+    protected final GameObject attacker;
+    protected final GameObject target;
     protected final CombatScreen.Fight fight;
     private final Vector2 attackDirection;
 
-    public Attack(final Drop game, final Ability ability, final CombatModeGameObject attacker, final CombatModeGameObject target, final CombatScreen.Fight fight) {
+    public Attack(final Drop game, final Ability ability, final GameObject attacker, final GameObject target, final CombatScreen.Fight fight) {
         super(game);
         this.ability = ability;
         this.target = target;

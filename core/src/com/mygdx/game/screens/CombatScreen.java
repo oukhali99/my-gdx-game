@@ -9,14 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.Attack;
 import com.mygdx.game.gameobjects.combat.AttackFactory;
-import com.mygdx.game.gameobjects.combat.CriticalAttack;
-import com.mygdx.game.gameobjects.combat.MissedAttack;
-import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
-import com.mygdx.game.gameobjects.combat.combatmode.CombatModeEnemy;
-import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
-import com.mygdx.game.gameobjects.combat.combatmode.CombatModePlayer;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.ui.AbilityTable;
 
@@ -28,8 +23,6 @@ public class CombatScreen extends BaseScreen {
     private Fight fight;
     private Stage stage;
     private Table table;
-    final CombatModePlayer combatModePlayer;
-    final CombatModeEnemy combatModeEnemy;
 
     public CombatScreen(
             final Drop game,
@@ -42,10 +35,8 @@ public class CombatScreen extends BaseScreen {
 
         fight.addObserver(this);
 
-        combatModePlayer = new CombatModePlayer(game, fight.player);
-        combatModeEnemy = new CombatModeEnemy(game, fight.enemy);
-        gameObjects.add(combatModePlayer);
-        gameObjects.add(combatModeEnemy);
+        gameObjects.add(fight.player);
+        gameObjects.add(fight.enemy);
 
         // Initialize the stage
         stage = new Stage();
@@ -70,8 +61,8 @@ public class CombatScreen extends BaseScreen {
         table = new AbilityTable(fight.player.getAbilities()) {
             @Override
             protected void onClickedAbility(Ability ability) {
-                Attack attack = AttackFactory.getInstance().createAttack(game, ability, combatModePlayer, combatModeEnemy, fight);
-                combatModePlayer.performAttack(attack);
+                Attack attack = AttackFactory.getInstance().createAttack(game, ability, fight.player, fight.enemy, fight);
+                fight.player.getAbilities().performAttack(fight.player, attack);
             }
         };
         stage.addActor(table);
@@ -93,12 +84,12 @@ public class CombatScreen extends BaseScreen {
         // Enemy's turn
         if (fight.isPlayersTurn(fight.enemy)) {
             Ability ability = fight.enemy.getAbilities().getRandomAbility();
-            Attack attack = AttackFactory.getInstance().createAttack(game, ability, combatModeEnemy, combatModePlayer, fight);
-            combatModeEnemy.performAttack(attack);
+            Attack attack = AttackFactory.getInstance().createAttack(game, ability, fight.enemy, fight.player, fight);
+            fight.enemy.getAbilities().performAttack(fight.enemy, attack);
         }
     }
 
-    public void onFightEnded(CombatModeGameObject winner) {
+    public void onFightEnded(GameObject winner) {
         closeOutOfScreen();
     }
 
@@ -108,12 +99,12 @@ public class CombatScreen extends BaseScreen {
     }
 
     public static class Fight {
-        private CombatActor player;
-        private CombatActor enemy;
+        private GameObject player;
+        private GameObject enemy;
         private List<CombatScreen> observers;
-        private CombatActor whoseTurnItIs;
+        private GameObject whoseTurnItIs;
 
-        public Fight(CombatActor player, CombatActor enemy) {
+        public Fight(GameObject player, GameObject enemy) {
             this.player = player;
             this.enemy = enemy;
             this.observers = new LinkedList<>();
@@ -124,7 +115,7 @@ public class CombatScreen extends BaseScreen {
             observers.add(observer);
         }
 
-        public void endFight(CombatModeGameObject winner) {
+        public void endFight(GameObject winner) {
             for (CombatScreen combatScreen : observers) {
                 combatScreen.onFightEnded(winner);
             }
@@ -134,17 +125,17 @@ public class CombatScreen extends BaseScreen {
             whoseTurnItIs = null;
         }
 
-        public void applyDamage(CombatModeGameObject attacker, CombatModeGameObject target, int damage) {
-            target.takeDamage(damage);
+        public void applyDamage(GameObject attacker, GameObject target, int damage) {
+            target.getAbilities().takeDamage(damage);
 
-            if (target.getHealth() <= 0) {
+            if (target.getAbilities().getHealth() <= 0) {
                 endFight(attacker);
             }
 
-            whoseTurnItIs = target.getCombatActor();
+            whoseTurnItIs = target;
         }
 
-        public boolean isPlayersTurn(CombatActor player) {
+        public boolean isPlayersTurn(GameObject player) {
             return whoseTurnItIs == player;
         }
     }

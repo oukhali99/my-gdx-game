@@ -2,16 +2,15 @@ package com.mygdx.game.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.collider.NoCollisions;
-import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.renderer.NoTexture;
-import com.mygdx.game.components.updater.NoUpdate;
+import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.updater.BaseUpdater;
+import com.mygdx.game.components.updater.NoUpdate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -36,8 +35,6 @@ public abstract class GameObject {
         this.baseUpdater = new NoUpdate(game);
         this.baseCollider = new NoCollisions(game);
         this.abilities = new NoAbilities(game);
-
-        initialize();
     }
 
     public Renderer getRenderer() {
@@ -46,9 +43,6 @@ public abstract class GameObject {
 
     public void setRenderer(Renderer renderer) {
         this.renderer = renderer;
-    }
-
-    protected void initialize() {
     }
 
     public void render(float delta) {
@@ -99,9 +93,6 @@ public abstract class GameObject {
         return transform.getScale();
     }
 
-    public void addComponent(BaseComponent baseComponent) {
-    }
-
     public BaseCollider getCollider() {
         return baseCollider;
     }
@@ -122,10 +113,6 @@ public abstract class GameObject {
         for (GameObject child : children) {
             child.destroy();
         }
-    }
-
-    public BaseComponent getComponent(Class<? extends BaseComponent> componentClass) {
-        return null;
     }
 
     public void postPostUpdate(float delta) {
@@ -150,7 +137,11 @@ public abstract class GameObject {
     }
 
     public List<GameObject> getChildren() {
-        return children;
+        return new LinkedList<>(children);
+    }
+
+    public void addChild(GameObject child) {
+        children.add(child);
     }
 
     public void setCollider(BaseCollider collider) {

@@ -6,7 +6,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
 import com.mygdx.game.components.renderer.Tilemap;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.combatactors.Player;
+import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.screens.BaseScreen;
 
 import java.util.LinkedList;

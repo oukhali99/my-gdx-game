@@ -4,32 +4,22 @@ import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 
-public abstract class HealthDependentTexture extends Renderer {
-    private Renderer baseMyTexture;
-
-    public HealthDependentTexture(Drop game, MyTexture baseMyTexture) {
-        super(game);
-        this.baseMyTexture = baseMyTexture;
+public class HealthDependentTexture extends RendererDecorator {
+    public HealthDependentTexture(Renderer baseRenderer) {
+        super(baseRenderer);
     }
 
-    public HealthDependentTexture(HealthDependentTexture healthDependentTexture) {
-        super(healthDependentTexture.baseMyTexture);
+    public int getHealth(GameObject gameObject) {
+        return gameObject.getAbilities().getHealth();
     }
-
-    public abstract int getHealth();
 
     @Override
     public void render(GameObject gameObject, float delta) {
-        float healthFraction = (float) getHealth() / 100;
+        float healthFraction = (float) getHealth(gameObject) / 100;
 
         Color color = new Color(game.batch.getColor());
         game.batch.setColor(1, healthFraction, healthFraction, 1);
-        baseMyTexture.render(gameObject, delta);
+        super.render(gameObject, delta);
         game.batch.setColor(color);
-    }
-
-    @Override
-    public void destroy() {
-        baseMyTexture.destroy();
     }
 }

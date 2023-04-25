@@ -1,26 +1,34 @@
-package com.mygdx.game.gameobjects.combat.combatactors.enemy;
+package com.mygdx.game.gameobjects.combat.enemy;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.collider.CustomCollider;
+import com.mygdx.game.components.renderer.HealthDependentTexture;
+import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.combatactors.CombatActor;
-import com.mygdx.game.gameobjects.combat.combatactors.Player;
+import com.mygdx.game.gameobjects.combat.Player;
+import com.mygdx.game.gameplay.Snowball;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;
 
-public abstract class Enemy extends CombatActor {
+public abstract class Enemy extends GameObject {
     public Enemy(Drop game) {
         super(game);
 
         final Drop finalGame = game;
-        final CombatActor finalGameObject = this;
+        final GameObject finalGameObject = this;
 
         setPosition(16*20, 16*20);
         setScale(16, 16);
+
+        renderer = new HealthDependentTexture(new MyTexture(game, getTexturePath()));
+
+        abilities = new Abilities(game);
+        abilities.addAbility(new Snowball(game));
 
         baseCollider = new CustomCollider(game) {
             @Override

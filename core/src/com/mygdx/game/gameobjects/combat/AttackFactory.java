@@ -1,10 +1,7 @@
 package com.mygdx.game.gameobjects.combat;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.combat.combatactors.enemy.AlienEnemy;
-import com.mygdx.game.gameobjects.combat.combatactors.enemy.AlienEnemy2;
-import com.mygdx.game.gameobjects.combat.combatactors.enemy.WaterEnemy;
-import com.mygdx.game.gameobjects.combat.combatmode.CombatModeGameObject;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.screens.CombatScreen;
 
@@ -23,7 +20,7 @@ public class AttackFactory {
         return instance;
     }
 
-    public Attack createAttack(Drop game, Ability ability, CombatModeGameObject attacker, CombatModeGameObject target, CombatScreen.Fight fight) {
+    public Attack createAttack(Drop game, Ability ability, GameObject attacker, GameObject target, CombatScreen.Fight fight) {
         int randomInt = RANDOM.nextInt(NUM_TYPES);
 
         Attack baseAttack = new Attack(game, ability, attacker, target, fight);

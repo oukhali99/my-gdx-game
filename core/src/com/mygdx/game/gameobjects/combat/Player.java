@@ -1,14 +1,20 @@
-package com.mygdx.game.gameobjects.combat.combatactors;
+package com.mygdx.game.gameobjects.combat;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.collider.CustomCollider;
+import com.mygdx.game.components.renderer.HealthDependentTexture;
+import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.WASDMovement;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameplay.Fireball;
+import com.mygdx.game.gameplay.Snowball;
 
-public class Player extends CombatActor {
+public class Player extends GameObject {
     public Player(Drop game) {
         super(game);
 
@@ -16,6 +22,7 @@ public class Player extends CombatActor {
         setScale(16, 16);
 
         baseUpdater = new WASDMovement(new NoUpdate(game), 8);
+        renderer = new HealthDependentTexture(new MyTexture(game, "bucket.png"));
 
         final GameObject thisGameObject = this;
         baseCollider = new CustomCollider(game) {
@@ -40,10 +47,9 @@ public class Player extends CombatActor {
                 return rectangle;
             }
         };
-    }
 
-    @Override
-    protected String getTexturePath() {
-        return "bucket.png";
+        abilities = new Abilities(game);
+        abilities.addAbility(new Fireball(game));
+        abilities.addAbility(new Snowball(game));
     }
 }

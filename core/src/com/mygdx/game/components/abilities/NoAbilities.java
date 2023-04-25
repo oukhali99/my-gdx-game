@@ -1,6 +1,8 @@
 package com.mygdx.game.components.abilities;
 
 import com.mygdx.game.Drop;
+import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.Attack;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.List;
@@ -27,6 +29,21 @@ public class NoAbilities extends BaseAbilities {
 
     @Override
     public Ability getRandomAbility() {
+        return null;
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+
+    }
+
+    @Override
+    public void performAttack(GameObject thisGameObject , Attack attack) {
+
+    }
+
+    @Override
+    public Integer getHealth() {
         return null;
     }
 }
