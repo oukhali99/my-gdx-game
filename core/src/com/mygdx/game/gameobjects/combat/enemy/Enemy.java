@@ -46,8 +46,8 @@ public abstract class Enemy extends BaseGameObject {
     }
 
     @Override
-    public void onCollision(GameObject otherGameObject) {
-        super.onCollision(otherGameObject);
+    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
+        super.onCollision(gameObject, otherGameObject);
         if (otherGameObject instanceof Player) {
             Screen combatScreen = new CombatScreen(
                     game,

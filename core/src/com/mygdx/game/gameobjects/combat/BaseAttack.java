@@ -54,6 +54,7 @@ public class BaseAttack extends BaseGameObject implements Attack {
             public void update(GameObject gameObject, float delta) {
                 super.update(gameObject, delta);
 
+                Attack attack = (Attack) gameObject;
                 float speed = 700;
 
                 // Update the position of the fireball based on the elapsed time and speed
@@ -67,7 +68,8 @@ public class BaseAttack extends BaseGameObject implements Attack {
 
                 // Check for out of bounds
                 if (isOutOfBounds()) {
-                    resolveAttack(0);
+                    markForDestruction();
+                    fight.applyDamage(attacker, target, attack.getDamage());
                 }
             }
         };
@@ -80,11 +82,6 @@ public class BaseAttack extends BaseGameObject implements Attack {
                 ability.draw(stateTime, transform);
             }
         };
-    }
-
-    private void resolveAttack(int damage) {
-        markForDestruction();
-        fight.applyDamage(attacker, target, damage);
     }
 
     private boolean isOutOfBounds() {
@@ -100,16 +97,20 @@ public class BaseAttack extends BaseGameObject implements Attack {
         return fight;
     }
 
-    protected int getDamage() {
+    public Integer getDamage() {
         return ability.getDamage();
     }
 
     @Override
-    public void onCollision(GameObject otherGameObject) {
-        super.onCollision(otherGameObject);
+    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
+        super.onCollision(gameObject, otherGameObject);
+
+        Attack attack = (Attack) gameObject;
+
         if (otherGameObject == target) {
             Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
-            resolveAttack(getDamage());
+            markForDestruction();
+            fight.applyDamage(attacker, target, attack.getDamage());
         }
     }
 }

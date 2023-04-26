@@ -128,6 +128,6 @@ public abstract class BaseGameObject implements GameObject {
         return baseUpdater;
     }
 
-    public void onCollision(GameObject otherGameObject) {
+    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
     }
 }

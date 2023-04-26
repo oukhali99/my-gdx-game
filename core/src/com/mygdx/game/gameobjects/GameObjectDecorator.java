@@ -98,7 +98,7 @@ public class GameObjectDecorator implements GameObject {
     }
 
     @Override
-    public void onCollision(GameObject otherGameObject) {
-        gameObject.onCollision(otherGameObject);
+    public void onCollision(GameObject givenGameObject, GameObject otherGameObject) {
+        gameObject.onCollision(givenGameObject, otherGameObject);
     }
 }

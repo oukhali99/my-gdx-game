@@ -52,5 +52,5 @@ public interface GameObject {
 
     public BaseUpdater getUpdater();
 
-    public void onCollision(GameObject otherGameObject);
+    public void onCollision(GameObject gameObject, GameObject otherGameObject);
 }

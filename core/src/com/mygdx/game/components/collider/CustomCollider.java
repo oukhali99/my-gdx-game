@@ -37,7 +37,7 @@ public abstract class CustomCollider extends BaseCollider {
     @Override
     public void postPostUpdate(GameObject gameObject, float delta) {
         for (GameObject otherGameObject : collisionObjectsThisFrame) {
-            gameObject.onCollision(otherGameObject);
+            gameObject.onCollision(gameObject, otherGameObject);
         }
     }
 

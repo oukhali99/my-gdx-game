@@ -45,8 +45,8 @@ public class Player extends BaseGameObject {
     }
 
     @Override
-    public void onCollision(GameObject otherGameObject) {
-        super.onCollision(otherGameObject);
+    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
+        super.onCollision(gameObject, otherGameObject);
         baseUpdater.onCollision(this, otherGameObject);
     }
 }
