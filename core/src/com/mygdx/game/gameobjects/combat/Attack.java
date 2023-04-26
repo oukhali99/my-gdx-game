@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.collider.CustomCollider;
+import com.mygdx.game.components.renderer.RendererDecorator;
+import com.mygdx.game.components.updater.BaseUpdaterDecorator;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.screens.CombatScreen;
@@ -17,6 +19,7 @@ public class Attack extends GameObject {
     protected final GameObject target;
     protected final CombatScreen.Fight fight;
     private final Vector2 attackDirection;
+    private float stateTime = 0;
 
     public Attack(final Drop game, final Ability ability, final GameObject attacker, final GameObject target, final CombatScreen.Fight fight) {
         super(game);
@@ -57,39 +60,38 @@ public class Attack extends GameObject {
 
         attackDirection = target.getPosition().sub(attacker.getPosition()).nor();
         transform.setRotationFromVector(attackDirection);
-    }
 
-    private float stateTime = 0;
+        baseUpdater = new BaseUpdaterDecorator(baseUpdater) {
+            @Override
+            public void update(GameObject gameObject, float delta) {
+                super.update(gameObject, delta);
 
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-        draw(delta);
-    }
+                float speed = 700;
 
-    protected void draw(float delta) {
-        ability.draw(stateTime, transform);
-    }
+                // Update the position of the fireball based on the elapsed time and speed
+                float deltaX = speed * delta;
+                Vector2 scaledAttackVector = new Vector2(attackDirection);
+                scaledAttackVector.scl(deltaX);
+                translate(scaledAttackVector);
 
-    @Override
-    public void update(float delta) {
-        super.update(delta);
+                // Update the elapsed time
+                stateTime += delta;
 
-        float speed = 700;
+                // Check for out of bounds
+                if (isOutOfBounds()) {
+                    resolveAttack(0);
+                }
+            }
+        };
 
-        // Update the position of the fireball based on the elapsed time and speed
-        float deltaX = speed * delta;
-        Vector2 scaledAttackVector = new Vector2(attackDirection);
-        scaledAttackVector.scl(deltaX);
-        translate(scaledAttackVector);
+        renderer = new RendererDecorator(renderer) {
+            @Override
+            public void render(GameObject gameObject, float delta) {
+                super.render(gameObject, delta);
 
-        // Update the elapsed time
-        stateTime += delta;
-
-        // Check for out of bounds
-        if (isOutOfBounds()) {
-            resolveAttack(0);
-        }
+                ability.draw(stateTime, transform);
+            }
+        };
     }
 
     private void resolveAttack(int damage) {

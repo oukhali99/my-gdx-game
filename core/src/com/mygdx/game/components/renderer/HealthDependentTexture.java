@@ -18,7 +18,7 @@ public class HealthDependentTexture extends RendererDecorator {
         float healthFraction = (float) getHealth(gameObject) / 100;
 
         Color color = new Color(game.batch.getColor());
-        game.batch.setColor(1, healthFraction, healthFraction, 1);
+        game.batch.setColor(new Color(1, healthFraction, healthFraction, 1).mul(color));
         super.render(gameObject, delta);
         game.batch.setColor(color);
     }

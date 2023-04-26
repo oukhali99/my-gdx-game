@@ -40,7 +40,10 @@ public abstract class Enemy extends GameObject {
                             Screen combatScreen = new CombatScreen(
                                     finalGame,
                                     finalGame.getScreen(),
-                                    new CombatScreen.Fight((Player) otherGameObject, finalGameObject)
+                                    new CombatScreen.Fight(
+                                            otherGameObject,
+                                            finalGameObject
+                                    )
                             );
                             finalGame.setScreen(combatScreen);
                         }

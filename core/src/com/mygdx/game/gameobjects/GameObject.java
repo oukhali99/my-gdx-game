@@ -45,30 +45,6 @@ public abstract class GameObject {
         this.renderer = renderer;
     }
 
-    public void render(float delta) {
-        renderer.render(this, delta);
-
-        for (GameObject child : children) {
-            child.render(delta);
-        }
-    }
-
-    public void update(float delta) {
-        baseUpdater.update(this, delta);
-
-        for (GameObject child : children) {
-            child.update(delta);
-        }
-    }
-
-    public void postUpdate(float delta) {
-        baseCollider.postUpdate(delta, game.getScreen().getGameObjects(), this);
-
-        for (GameObject child : children) {
-            child.postUpdate(delta);
-        }
-    }
-
     public void setPosition(float x, float y) {
         transform.setPosition(new Vector2(x, y));
     }
@@ -115,14 +91,6 @@ public abstract class GameObject {
         }
     }
 
-    public void postPostUpdate(float delta) {
-        baseCollider.postPostUpdate(delta);
-
-        for (GameObject child : children) {
-            child.postPostUpdate(delta);
-        }
-    }
-
     public void preenDestroyedChildren() {
         List<GameObject> enabledGameObjects = new LinkedList<>();
         for (GameObject gameObject : children) {
@@ -150,5 +118,13 @@ public abstract class GameObject {
 
     public BaseAbilities getAbilities() {
         return abilities;
+    }
+
+    public Drop getGame() {
+        return game;
+    }
+
+    public BaseUpdater getUpdater() {
+        return baseUpdater;
     }
 }

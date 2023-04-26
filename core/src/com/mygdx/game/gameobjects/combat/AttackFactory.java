@@ -29,9 +29,9 @@ public class AttackFactory {
             case 0:
                 return baseAttack;
             case 1:
-                return new MissedAttack(game, baseAttack);
+                return baseAttack;
             case 2:
-                return new CriticalAttack(game, baseAttack);
+                return baseAttack;
             default:
                 throw new IllegalStateException("Unexpected value: " + randomInt);
         }
