@@ -17,4 +17,16 @@ public abstract class BaseComponent implements Component {
     public Drop getGame() {
         return game;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof BaseComponentDecorator) {
+            BaseComponentDecorator baseComponentDecorator = (BaseComponentDecorator) obj;
+            if (baseComponentDecorator.equals(this)) {
+                return true;
+            }
+        }
+
+        return super.equals(obj);
+    }
 }

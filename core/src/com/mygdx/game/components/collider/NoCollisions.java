@@ -12,12 +12,7 @@ public class NoCollisions extends BaseCollider {
     }
 
     @Override
-    public void onCollision(GameObject otherObject) {
-
-    }
-
-    @Override
-    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject) {
+    public void lookForCollisions(float delta, List<GameObject> gameObjects, GameObject gameObject) {
 
     }
 
@@ -27,7 +22,7 @@ public class NoCollisions extends BaseCollider {
     }
 
     @Override
-    public void postPostUpdate(GameObject gameObject, float delta) {
+    public void handleCollisionsThisFrame(GameObject gameObject, float delta) {
 
     }
 

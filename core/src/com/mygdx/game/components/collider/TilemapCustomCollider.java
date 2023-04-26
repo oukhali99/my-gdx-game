@@ -6,13 +6,12 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.CombinedRectangles;
 
-public class TilemapCustomCollider extends CustomCollider {
+public class TilemapCustomCollider extends BaseCollider {
     private TiledMap tiledMap;
     private MapLayers mapLayers;
     protected MapLayer collisionLayer;

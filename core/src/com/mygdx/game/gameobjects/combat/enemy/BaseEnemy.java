@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
-import com.mygdx.game.components.collider.CustomCollider;
+import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.BaseGameObject;
@@ -34,7 +34,7 @@ public abstract class BaseEnemy extends BaseGameObject implements Enemy {
         abilities = new Abilities(game);
         abilities.addAbility(new Snowball(game));
 
-        baseCollider = new CustomCollider(game) {
+        baseCollider = new BaseCollider(game) {
             @Override
             public Rectangle getArea(GameObject gameObject) {
                 Transform transform = gameObject.getTransform();

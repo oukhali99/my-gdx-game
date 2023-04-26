@@ -7,11 +7,11 @@ import com.mygdx.game.gameobjects.GameObject;
 import java.util.List;
 
 public interface Collider extends Component {
-    public void onCollision(GameObject otherObject);
+    public void lookForCollisions(float delta, List<GameObject> gameObjects, GameObject gameObject);
 
-    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject);
-
-    public void postPostUpdate(GameObject gameObject, float delta);
+    public void handleCollisionsThisFrame(GameObject gameObject, float delta);
 
     public Rectangle getArea(GameObject gameObject);
+
+    public List<GameObject> getCollisionObjectsThisFrame();
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
-import com.mygdx.game.components.collider.CustomCollider;
+import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.RendererDecorator;
 import com.mygdx.game.components.updater.BaseUpdaterDecorator;
 import com.mygdx.game.gameobjects.BaseGameObject;
@@ -30,7 +30,7 @@ public class BaseAttack extends BaseGameObject implements Attack {
         this.fight = fight;
 
         final GameObject thisGameObject = this;
-        baseCollider = new CustomCollider(game) {
+        baseCollider = new BaseCollider(game) {
             @Override
             public Rectangle getArea(GameObject gameObject) {
                 Transform transform = gameObject.getTransform();

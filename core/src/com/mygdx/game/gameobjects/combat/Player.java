@@ -1,11 +1,11 @@
 package com.mygdx.game.gameobjects.combat;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
-import com.mygdx.game.components.collider.CustomCollider;
+import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.DestroyOtherGameObjectCollider;
 import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
@@ -26,7 +26,7 @@ public class Player extends BaseGameObject {
         renderer = new HealthDependentTexture(new MyTexture(game, "bucket.png"));
 
         final GameObject thisGameObject = this;
-        baseCollider = new CustomCollider(game) {
+        baseCollider = new BaseCollider(game) {
             @Override
             public Rectangle getArea(GameObject gameObject) {
                 Transform transform = gameObject.getTransform();
@@ -38,6 +38,7 @@ public class Player extends BaseGameObject {
                 return rectangle;
             }
         };
+        baseCollider = new DestroyOtherGameObjectCollider(baseCollider);
 
         abilities = new Abilities(game);
         abilities.addAbility(new Fireball(game));

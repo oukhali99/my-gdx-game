@@ -17,4 +17,13 @@ public class BaseComponentDecorator implements Component {
     public Drop getGame() {
         return baseComponent.getGame();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (baseComponent.equals(obj)) {
+            return true;
+        }
+
+        return super.equals(obj);
+    }
 }

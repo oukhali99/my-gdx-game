@@ -15,22 +15,22 @@ public class BaseColliderDecorator extends BaseComponentDecorator implements Col
     }
 
     @Override
-    public void onCollision(GameObject otherObject) {
-        baseCollider.onCollision(otherObject);
+    public void lookForCollisions(float delta, List<GameObject> gameObjects, GameObject gameObject) {
+        baseCollider.lookForCollisions(delta, gameObjects, gameObject);
     }
 
     @Override
-    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject) {
-        baseCollider.postUpdate(delta, gameObjects, gameObject);
-    }
-
-    @Override
-    public void postPostUpdate(GameObject gameObject, float delta) {
-        baseCollider.postPostUpdate(gameObject, delta);
+    public void handleCollisionsThisFrame(GameObject gameObject, float delta) {
+        baseCollider.handleCollisionsThisFrame(gameObject, delta);
     }
 
     @Override
     public Rectangle getArea(GameObject gameObject) {
         return baseCollider.getArea(gameObject);
+    }
+
+    @Override
+    public List<GameObject> getCollisionObjectsThisFrame() {
+        return baseCollider.getCollisionObjectsThisFrame();
     }
 }
