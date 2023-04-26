@@ -2,7 +2,7 @@ package com.mygdx.game.gameobjects.combat.enemy;
 
 import com.mygdx.game.Drop;
 
-public class AlienEnemy extends Enemy {
+public class AlienEnemy extends BaseEnemy {
     public AlienEnemy(Drop game) {
         super(game);
         setScale(32, 32);
