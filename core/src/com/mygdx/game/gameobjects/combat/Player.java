@@ -38,7 +38,6 @@ public class Player extends BaseGameObject {
                 return rectangle;
             }
         };
-        baseCollider = new DestroyOtherGameObjectCollider(baseCollider);
 
         abilities = new Abilities(game);
         abilities.addAbility(new Fireball(game));

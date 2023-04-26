@@ -9,19 +9,29 @@ public class EnemyFactory {
     private static final Random RANDOM = new Random();
 
     public static Enemy createRandomEnemy(Drop game) {
-        int randomInt = 3;
+        int randomInt = RANDOM.nextInt(3);
+
+        Enemy enemy;
 
         switch (randomInt) {
             case 0:
-                return new WaterEnemy(game);
+                enemy = new WaterEnemy(game);
+                break;
             case 1:
-                return new AlienEnemy(game);
+                enemy = new AlienEnemy(game);
+                break;
             case 2:
-                return new AlienEnemy2(game);
-            case 3:
-                return new InvincibleEnemyDecorator(new WaterEnemy(game));
+                enemy = new AlienEnemy2(game);
+                break;
             default:
-                throw new IllegalStateException("Unexpected value: " + randomInt);
+                enemy = new WaterEnemy(game);
+                break;
         }
+
+        if (RANDOM.nextFloat() < 0.1f) {
+            enemy = new InvincibleEnemyDecorator(enemy);
+        }
+
+        return enemy;
     }
 }

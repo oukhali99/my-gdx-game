@@ -23,17 +23,12 @@ public class AttackFactory {
     public Attack createAttack(Drop game, Ability ability, GameObject attacker, GameObject target, CombatScreen.Fight fight) {
         int randomInt = RANDOM.nextInt(NUM_TYPES);
 
-        Attack baseAttack = new CriticalAttackDecorator(new BaseAttack(game, ability, attacker, target, fight));
+        Attack baseAttack = new BaseAttack(game, ability, attacker, target, fight);
 
-        switch (randomInt) {
-            case 0:
-                return baseAttack;
-            case 1:
-                return baseAttack;
-            case 2:
-                return baseAttack;
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomInt);
+        if (RANDOM.nextFloat() < 0.2f) {
+            baseAttack = new CriticalAttackDecorator(baseAttack);
         }
+
+        return baseAttack;
     }
 }
