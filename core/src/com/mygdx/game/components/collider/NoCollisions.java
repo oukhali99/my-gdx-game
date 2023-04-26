@@ -32,7 +32,7 @@ public class NoCollisions extends BaseCollider {
     }
 
     @Override
-    public Rectangle getArea() {
+    public Rectangle getArea(GameObject gameObject) {
         return new Rectangle(0, 0, 0, 0);
     }
 }

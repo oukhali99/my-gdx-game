@@ -22,6 +22,13 @@ public class Transform extends BaseComponent implements Component {
         this.rotation = rotation;
     }
 
+    public Transform(Transform transform) {
+        super(transform.game);
+        this.position = new Vector2(transform.position);
+        this.scale = new Vector2(transform.scale);
+        this.rotation = transform.rotation;
+    }
+
     public Vector2 getPosition() {
         return new Vector2(position);
     }

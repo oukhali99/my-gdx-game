@@ -28,8 +28,8 @@ public class Player extends BaseGameObject {
         final GameObject thisGameObject = this;
         baseCollider = new CustomCollider(game) {
             @Override
-            public Rectangle getArea() {
-                Transform transform = getTransform();
+            public Rectangle getArea(GameObject gameObject) {
+                Transform transform = gameObject.getTransform();
                 Rectangle rectangle = new Rectangle();
                 rectangle.x = transform.getPosition().x;
                 rectangle.y = transform.getPosition().y;

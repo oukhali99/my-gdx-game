@@ -19,5 +19,5 @@ public abstract class BaseCollider extends BaseComponent {
 
     public abstract void postPostUpdate(GameObject gameObject, float delta);
 
-    public abstract Rectangle getArea();
+    public abstract Rectangle getArea(GameObject gameObject);
 }

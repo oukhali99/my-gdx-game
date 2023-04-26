@@ -34,7 +34,7 @@ public class GameObjectDecorator implements GameObject {
     }
 
     public Vector2 getPosition() {
-        return gameObject.getPosition();
+        return getTransform().getPosition();
     }
 
     public void setScale(float x, float y) {
@@ -46,7 +46,7 @@ public class GameObjectDecorator implements GameObject {
     }
 
     public Vector2 getScale() {
-        return gameObject.getScale();
+        return getTransform().getScale();
     }
 
     public BaseCollider getCollider() {

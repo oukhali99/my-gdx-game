@@ -22,7 +22,7 @@ public abstract class CustomCollider extends BaseCollider {
             BaseCollider otherBaseCollider = otherGameObject.getCollider();
             if (
                     otherBaseCollider != null &&
-                    overlaps(otherBaseCollider) &&
+                    overlaps(gameObject, otherGameObject, otherBaseCollider) &&
                     this != otherBaseCollider
             ) {
                 onCollision(otherGameObject);
@@ -30,8 +30,8 @@ public abstract class CustomCollider extends BaseCollider {
         }
     }
 
-    private boolean overlaps(BaseCollider otherCollider) {
-        return getArea().overlaps(otherCollider.getArea()) || otherCollider.getArea().overlaps(getArea());
+    private boolean overlaps(GameObject gameObject, GameObject otherGameObject, BaseCollider otherCollider) {
+        return getArea(gameObject).overlaps(otherCollider.getArea(otherGameObject)) || otherCollider.getArea(otherGameObject).overlaps(getArea(gameObject));
     }
 
     @Override

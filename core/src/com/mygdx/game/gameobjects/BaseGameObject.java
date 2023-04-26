@@ -74,7 +74,7 @@ public abstract class BaseGameObject implements GameObject {
     }
 
     public Transform getTransform() {
-        return transform;
+        return new Transform(transform);
     }
 
     public boolean isMarkedForDestruction() {

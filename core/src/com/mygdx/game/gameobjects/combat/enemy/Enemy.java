@@ -10,7 +10,7 @@ import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.Player;
+import com.mygdx.game.gameobjects.combat.*;
 import com.mygdx.game.gameplay.Snowball;
 import com.mygdx.game.screens.CombatScreen;
 
@@ -33,8 +33,8 @@ public abstract class Enemy extends BaseGameObject {
 
         baseCollider = new CustomCollider(game) {
             @Override
-            public Rectangle getArea() {
-                Transform transform = getTransform();
+            public Rectangle getArea(GameObject gameObject) {
+                Transform transform = gameObject.getTransform();
                 Rectangle rectangle = new Rectangle();
                 rectangle.x = transform.getPosition().x;
                 rectangle.y = transform.getPosition().y;
@@ -53,13 +53,13 @@ public abstract class Enemy extends BaseGameObject {
                     game,
                     game.getScreen(),
                     new CombatScreen.Fight(
-                            otherGameObject,
-                            this
+                            new CombatModeDecoratorLeft(otherGameObject),
+                            new CombatModeDecoratorRight(this)
                     )
             );
             game.setScreen(combatScreen);
         }
-        else {
+        else if (!(otherGameObject instanceof Attack)) {
             Random random = new Random();
             boolean xPositive = random.nextFloat() < 0.5f;
             boolean yPositive = random.nextFloat() < 0.5f;

@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.CombinedRectangles;
 
 public class TilemapCustomCollider extends CustomCollider {
@@ -38,7 +39,7 @@ public class TilemapCustomCollider extends CustomCollider {
     }
 
     @Override
-    public Rectangle getArea() {
+    public Rectangle getArea(GameObject gameObject) {
         return combinedRectangles;
     }
 }
