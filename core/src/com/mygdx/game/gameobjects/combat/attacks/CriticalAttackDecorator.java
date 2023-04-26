@@ -9,10 +9,12 @@ import com.mygdx.game.screens.CombatScreen;
 
 public class CriticalAttackDecorator extends GameObjectDecorator implements Attack {
     private Attack attack;
+    private float flashFill;
 
     public CriticalAttackDecorator(Attack attack) {
         super(attack);
         this.attack = attack;
+        this.flashFill = 0;
     }
 
     @Override
@@ -31,13 +33,19 @@ public class CriticalAttackDecorator extends GameObjectDecorator implements Atta
             @Override
             public void render(GameObject gameObject, float delta) {
                 Color originalColor = new Color(getGame().batch.getColor());
-                getGame().batch.setColor(new Color(
-                        new Color(0.5f, 1, 0.5f, 1).mul(
-                                originalColor
-                        )
-                ));
+                if (flashFill > 0.2f) {
+                    getGame().batch.setColor(new Color(
+                            new Color(1, 0, 0, 1).mul(
+                                    originalColor
+                            )
+                    ));
+                    if (flashFill > 0.4f) {
+                        flashFill = 0;
+                    }
+                }
                 super.render(gameObject, delta);
                 getGame().batch.setColor(originalColor);
+                flashFill += delta;
             }
         };
     }
