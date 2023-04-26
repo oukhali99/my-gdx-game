@@ -1,10 +1,11 @@
-package com.mygdx.game.gameobjects.combat;
+package com.mygdx.game.gameobjects.combat.attacks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.renderer.RendererDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.GameObjectDecorator;
+import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.screens.CombatScreen;
 
 public class CriticalAttackDecorator extends GameObjectDecorator implements Attack {

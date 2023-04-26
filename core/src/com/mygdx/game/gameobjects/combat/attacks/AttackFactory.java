@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat;
+package com.mygdx.game.gameobjects.combat.attacks;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;

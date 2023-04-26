@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat;
+package com.mygdx.game.gameobjects.combat.attacks;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;

@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.Attack;
-import com.mygdx.game.gameobjects.combat.AttackFactory;
+import com.mygdx.game.gameobjects.combat.attacks.Attack;
+import com.mygdx.game.gameobjects.combat.attacks.AttackFactory;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.ui.AbilityTable;
 

@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat;
+package com.mygdx.game.gameobjects.combat.combatmode;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gameobjects.GameObject;

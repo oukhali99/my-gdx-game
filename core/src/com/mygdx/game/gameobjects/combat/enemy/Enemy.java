@@ -11,6 +11,9 @@ import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.*;
+import com.mygdx.game.gameobjects.combat.attacks.Attack;
+import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorLeft;
+import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorRight;
 import com.mygdx.game.gameplay.Snowball;
 import com.mygdx.game.screens.CombatScreen;
 
