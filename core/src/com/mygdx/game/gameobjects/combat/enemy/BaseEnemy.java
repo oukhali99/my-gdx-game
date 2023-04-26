@@ -57,7 +57,7 @@ public abstract class BaseEnemy extends BaseGameObject implements Enemy {
                     game.getScreen(),
                     new CombatScreen.Fight(
                             new CombatModeDecoratorLeft(otherGameObject),
-                            new CombatModeDecoratorRight(this)
+                            new CombatModeDecoratorRight(gameObject)
                     )
             );
             game.setScreen(combatScreen);

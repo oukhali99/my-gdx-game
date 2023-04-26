@@ -9,7 +9,7 @@ public class EnemyFactory {
     private static final Random RANDOM = new Random();
 
     public static Enemy createRandomEnemy(Drop game) {
-        int randomInt = RANDOM.nextInt(4);
+        int randomInt = 3;
 
         switch (randomInt) {
             case 0:
@@ -19,9 +19,7 @@ public class EnemyFactory {
             case 2:
                 return new AlienEnemy2(game);
             case 3:
-                Enemy enemy = new EnemyDecorator(new WaterEnemy(game));
-                enemy.setAbilities(new InvincibleDecorator(enemy.getAbilities()));
-                return enemy;
+                return new InvincibleEnemyDecorator(new WaterEnemy(game));
             default:
                 throw new IllegalStateException("Unexpected value: " + randomInt);
         }

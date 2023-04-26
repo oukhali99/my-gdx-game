@@ -108,7 +108,7 @@ public class BaseAttack extends BaseGameObject implements Attack {
         Attack attack = (Attack) gameObject;
 
         if (otherGameObject == target) {
-            Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
+            Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + attack.getDamage() + " damage");
             markForDestruction();
             fight.applyDamage(attacker, target, attack.getDamage());
         }
