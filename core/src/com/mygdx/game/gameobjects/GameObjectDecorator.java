@@ -89,6 +89,11 @@ public class GameObjectDecorator implements GameObject {
         return gameObject.getAbilities();
     }
 
+    @Override
+    public void setAbilities(BaseAbilities abilities) {
+        gameObject.setAbilities(abilities);
+    }
+
     public Drop getGame() {
         return gameObject.getGame();
     }

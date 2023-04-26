@@ -3,6 +3,7 @@ package com.mygdx.game.gameobjects;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.Renderer;
@@ -47,6 +48,8 @@ public interface GameObject {
     public void setCollider(BaseCollider collider);
 
     public BaseAbilities getAbilities();
+
+    public void setAbilities(BaseAbilities abilities);
 
     public Drop getGame();
 
