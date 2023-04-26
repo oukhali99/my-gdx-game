@@ -7,17 +7,9 @@ import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.List;
 
-public abstract class BaseCollider extends BaseComponent {
+public abstract class BaseCollider extends BaseComponent implements Collider {
 
     public BaseCollider(Drop game) {
         super(game);
     }
-
-    public abstract void onCollision(GameObject otherObject);
-
-    public abstract void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject);
-
-    public abstract void postPostUpdate(GameObject gameObject, float delta);
-
-    public abstract Rectangle getArea(GameObject gameObject);
 }

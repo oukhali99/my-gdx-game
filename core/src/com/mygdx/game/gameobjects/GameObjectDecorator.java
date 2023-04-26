@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
-import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.updater.Updater;
 
@@ -49,7 +49,7 @@ public class GameObjectDecorator implements GameObject {
         return getTransform().getScale();
     }
 
-    public BaseCollider getCollider() {
+    public Collider getCollider() {
         return gameObject.getCollider();
     }
 
@@ -81,7 +81,7 @@ public class GameObjectDecorator implements GameObject {
         gameObject.addChild(child);
     }
 
-    public void setCollider(BaseCollider collider) {
+    public void setCollider(Collider collider) {
         gameObject.setCollider(collider);
     }
 

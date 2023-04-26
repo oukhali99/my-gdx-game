@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
-import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.updater.Updater;
 
@@ -27,7 +27,7 @@ public interface GameObject {
 
     public Vector2 getScale();
 
-    public BaseCollider getCollider();
+    public Collider getCollider();
 
     public Transform getTransform();
 
@@ -43,7 +43,7 @@ public interface GameObject {
 
     public void addChild(GameObject child);
 
-    public void setCollider(BaseCollider collider);
+    public void setCollider(Collider collider);
 
     public BaseAbilities getAbilities();
 

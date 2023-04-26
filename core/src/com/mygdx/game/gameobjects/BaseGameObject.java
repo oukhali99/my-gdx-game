@@ -5,7 +5,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.abilities.NoAbilities;
-import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.NoCollisions;
 import com.mygdx.game.components.renderer.NoTexture;
 import com.mygdx.game.components.renderer.Renderer;
@@ -22,7 +22,7 @@ public abstract class BaseGameObject implements GameObject {
     protected List<GameObject> children;
     protected Renderer renderer;
     protected Updater baseUpdater;
-    protected BaseCollider baseCollider;
+    protected Collider baseCollider;
     protected BaseAbilities abilities;
 
     protected BaseGameObject(final Drop game) {
@@ -69,7 +69,7 @@ public abstract class BaseGameObject implements GameObject {
         return transform.getScale();
     }
 
-    public BaseCollider getCollider() {
+    public Collider getCollider() {
         return baseCollider;
     }
 
@@ -112,7 +112,7 @@ public abstract class BaseGameObject implements GameObject {
         children.add(child);
     }
 
-    public void setCollider(BaseCollider collider) {
+    public void setCollider(Collider collider) {
         this.baseCollider = collider;
     }
 
