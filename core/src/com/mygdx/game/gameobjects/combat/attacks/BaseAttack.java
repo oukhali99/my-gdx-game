@@ -88,10 +88,6 @@ public class BaseAttack extends BaseGameObject implements Attack {
         return !new Rectangle(0, 0, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2).contains(transform.getCenter());
     }
 
-    protected void translate(Vector2 scaledAttackVector) {
-        transform.translate(scaledAttackVector);
-    }
-
     @Override
     public CombatScreen.Fight getFight() {
         return fight;

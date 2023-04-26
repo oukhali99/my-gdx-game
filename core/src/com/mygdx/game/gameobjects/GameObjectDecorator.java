@@ -106,4 +106,9 @@ public class GameObjectDecorator implements GameObject {
     public void onCollision(GameObject givenGameObject, GameObject otherGameObject) {
         gameObject.onCollision(givenGameObject, otherGameObject);
     }
+
+    @Override
+    public void translate(Vector2 amount) {
+        gameObject.translate(amount);
+    }
 }

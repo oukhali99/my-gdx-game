@@ -135,4 +135,9 @@ public abstract class BaseGameObject implements GameObject {
 
     public void onCollision(GameObject gameObject, GameObject otherGameObject) {
     }
+
+    @Override
+    public void translate(Vector2 amount) {
+        transform.translate(amount);
+    }
 }

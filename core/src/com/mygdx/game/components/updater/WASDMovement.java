@@ -6,71 +6,87 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gameobjects.GameObject;
 
 public class WASDMovement extends BaseUpdaterDecorator {
-    private static final int MOVE_DISTANCE = 16;
     private final float speed;
-    private Integer currentKey;
-    private float fillCooldown;
-    private Vector2 lastPosition;
+    private MoveCommand currentMoveCommand;
 
     public WASDMovement(Updater baseUpdater, float speed) {
         super(baseUpdater);
         this.speed = speed;
-        this.fillCooldown = 1 / speed;
+        this.currentMoveCommand = null;
     }
 
     @Override
     public void update(GameObject gameObject, float delta) {
         super.update(gameObject, delta);
-        Vector2 position = gameObject.getTransform().getPosition();
-        lastPosition = new Vector2(position);
-        float dx = 0, dy = 0;
+        Vector2 initialPosition = gameObject.getPosition();
 
-        if (currentKey == null || !Gdx.input.isKeyPressed(currentKey)) {
-            if (currentKey != null && !Gdx.input.isKeyPressed(currentKey)) {
-                currentKey = null;
-            }
+        if (currentMoveCommand == null || currentMoveCommand.isCommandComplete(initialPosition)) {
+            Vector2 destination = new Vector2(initialPosition);
+            Vector2 directionUnit = new Vector2(0, 0);
 
             if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-                currentKey = Input.Keys.A;
+                directionUnit.add(Vector2.X.cpy().scl(-1));
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-                currentKey = Input.Keys.D;
+            if (Gdx.input.isKeyPressed(Input.Keys.D) && directionUnit.isZero()) {
+                directionUnit.add(Vector2.X.cpy().scl(1));
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-                currentKey = Input.Keys.W;
+            if (Gdx.input.isKeyPressed(Input.Keys.W) && directionUnit.isZero()) {
+                directionUnit.add(Vector2.Y.cpy().scl(1));
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-                currentKey = Input.Keys.S;
+            if (Gdx.input.isKeyPressed(Input.Keys.S) && directionUnit.isZero()) {
+                directionUnit.add(Vector2.Y.cpy().scl(-1));
             }
-        }
-        else if (currentKey != null && fillCooldown >= 1 / speed) {
-            switch (currentKey) {
-                case (Input.Keys.A):
-                    position.x -= MOVE_DISTANCE;
-                    break;
-                case (Input.Keys.D):
-                    position.x += MOVE_DISTANCE;
-                    break;
-                case (Input.Keys.W):
-                    position.y += MOVE_DISTANCE;
-                    break;
-                case (Input.Keys.S):
-                    position.y -= MOVE_DISTANCE;
-                    break;
-                default:
-                    break;
-            }
-            gameObject.setPosition(position);
+            directionUnit.scl(16);
+            destination.add(directionUnit);
 
-            fillCooldown = 0;
+            currentMoveCommand = new MoveCommand(gameObject, destination, speed);
         }
-
-        fillCooldown += delta;
+        else {
+            currentMoveCommand.continueExecuting(gameObject, delta);
+        }
     }
 
     @Override
     public void onCollision(GameObject gameObject, GameObject otherGameObject) {
         super.onCollision(gameObject, otherGameObject);
-        gameObject.setPosition(lastPosition);
+        //gameObject.setPosition(lastPosition);
+        if (currentMoveCommand != null) {
+            currentMoveCommand.onCollision(gameObject);
+            currentMoveCommand = null;
+        }
+    }
+
+    private class MoveCommand {
+        private Vector2 destination;
+        private float speed;
+        private Vector2 lastPosition;
+
+        private MoveCommand(GameObject gameObject, Vector2 destination, float speed) {
+            this.destination = destination;
+            this.speed = speed;
+            this.lastPosition = gameObject.getPosition();
+        }
+
+        private boolean isCommandComplete(Vector2 position) {
+            return position.epsilonEquals(destination, 2);
+        }
+
+        private void continueExecuting(GameObject gameObject, float delta) {
+            Vector2 position = gameObject.getPosition();
+            Vector2 moveDirection = destination.cpy().sub(position).nor();
+            Vector2 moveVector = moveDirection.scl(delta * speed);
+
+            lastPosition = new Vector2(position);
+
+            gameObject.translate(moveVector);
+
+            if (isCommandComplete(gameObject.getPosition())) {
+                gameObject.setPosition(destination);
+            }
+        }
+
+        public void onCollision(GameObject gameObject) {
+            gameObject.setPosition(lastPosition);
+        }
     }
 }

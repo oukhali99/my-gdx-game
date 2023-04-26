@@ -43,13 +43,12 @@ public abstract class LevelScreen extends BaseScreen {
         tileMapGameObject.setCollider(new TilemapCustomCollider(game, myTiledMap));
 
         // Create the player
-        player = new Player(game);
+        player = new Player(game, myTiledMap);
         gameObjects.add(player);
 
         // Move the player to the center
         player.setPosition(
-                myTiledMap.getTiledMap().getProperties().get("width", Integer.class) * 16 / 2,
-                myTiledMap.getTiledMap().getProperties().get("height", Integer.class) * 16 / 2
+            myTiledMap.getSizeInPixels().scl(0.5f)
         );
     }
 
