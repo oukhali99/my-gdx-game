@@ -32,19 +32,6 @@ public class BaseAttack extends BaseGameObject implements Attack {
         final GameObject thisGameObject = this;
         baseCollider = new CustomCollider(game) {
             @Override
-            public CollisionRunnable getOnCollisionRunnable() {
-                return new CollisionRunnable() {
-                    @Override
-                    public void run(GameObject otherGameObject) {
-                        if (otherGameObject == target) {
-                            Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
-                            resolveAttack(getDamage());
-                        }
-                    }
-                };
-            }
-
-            @Override
             public Rectangle getArea() {
                 Transform transform = getTransform();
                 Rectangle rectangle = new Rectangle();
@@ -115,5 +102,14 @@ public class BaseAttack extends BaseGameObject implements Attack {
 
     protected int getDamage() {
         return ability.getDamage();
+    }
+
+    @Override
+    public void onCollision(GameObject otherGameObject) {
+        super.onCollision(otherGameObject);
+        if (otherGameObject == target) {
+            Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + ability.getDamage() + " damage");
+            resolveAttack(getDamage());
+        }
     }
 }

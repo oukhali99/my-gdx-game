@@ -27,7 +27,7 @@ public class NoCollisions extends BaseCollider {
     }
 
     @Override
-    public void postPostUpdate(float delta) {
+    public void postPostUpdate(GameObject gameObject, float delta) {
 
     }
 

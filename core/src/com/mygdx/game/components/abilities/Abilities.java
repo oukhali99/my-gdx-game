@@ -49,7 +49,7 @@ public class Abilities extends BaseAbilities {
     }
 
     @Override
-    public void performAttack(GameObject thisGameObject ,Attack attack) {
+    public void performAttack(GameObject thisGameObject, Attack attack) {
         thisGameObject.addChild(attack);
         attack.getFight().endTurn();
     }

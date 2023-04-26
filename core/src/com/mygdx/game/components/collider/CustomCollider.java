@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class CustomCollider extends BaseCollider {
-    private List<CollisionRunnable> collisionRunnablesThisFrame = new LinkedList<>();
+    private List<GameObject> collisionObjectsThisFrame = new LinkedList<>();
 
     public CustomCollider(Drop game) {
         super(game);
@@ -16,7 +16,7 @@ public abstract class CustomCollider extends BaseCollider {
 
     @Override
     public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject) {
-        collisionRunnablesThisFrame.clear();
+        collisionObjectsThisFrame.clear();
 
         for (GameObject otherGameObject : gameObjects) {
             BaseCollider otherBaseCollider = otherGameObject.getCollider();
@@ -35,34 +35,19 @@ public abstract class CustomCollider extends BaseCollider {
     }
 
     @Override
-    public void postPostUpdate(float delta) {
-        for (CollisionRunnable collisionRunnable : collisionRunnablesThisFrame) {
-            collisionRunnable.run(collisionRunnable.otherGameObject);
+    public void postPostUpdate(GameObject gameObject, float delta) {
+        for (GameObject otherGameObject : collisionObjectsThisFrame) {
+            gameObject.onCollision(otherGameObject);
         }
     }
 
     @Override
     public void onCollision(GameObject otherObject) {
-        CollisionRunnable runnable = getOnCollisionRunnable();
-        runnable.setOtherGameObject(otherObject);
-        collisionRunnablesThisFrame.add(runnable);
+        collisionObjectsThisFrame.add(otherObject);
     }
 
     @Override
     public void destroy() {
 
-    }
-
-    public abstract CollisionRunnable getOnCollisionRunnable();
-
-
-    public static abstract class CollisionRunnable {
-        private GameObject otherGameObject;
-
-        public void setOtherGameObject(GameObject otherGameObject) {
-            this.otherGameObject = otherGameObject;
-        }
-
-        public abstract void run(GameObject otherGameObject);
     }
 }

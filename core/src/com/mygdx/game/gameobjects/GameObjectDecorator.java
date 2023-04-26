@@ -96,4 +96,9 @@ public class GameObjectDecorator implements GameObject {
     public BaseUpdater getUpdater() {
         return gameObject.getUpdater();
     }
+
+    @Override
+    public void onCollision(GameObject otherGameObject) {
+        gameObject.onCollision(otherGameObject);
+    }
 }

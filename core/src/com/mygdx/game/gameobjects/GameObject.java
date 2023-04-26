@@ -51,4 +51,6 @@ public interface GameObject {
     public Drop getGame();
 
     public BaseUpdater getUpdater();
+
+    public void onCollision(GameObject otherGameObject);
 }

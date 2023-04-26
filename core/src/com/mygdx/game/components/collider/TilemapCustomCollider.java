@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.utils.CombinedRectangles;
 
-public abstract class TilemapCustomCollider extends CustomCollider {
+public class TilemapCustomCollider extends CustomCollider {
     private TiledMap tiledMap;
     private MapLayers mapLayers;
     protected MapLayer collisionLayer;

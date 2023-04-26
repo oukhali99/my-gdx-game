@@ -33,32 +33,6 @@ public abstract class Enemy extends BaseGameObject {
 
         baseCollider = new CustomCollider(game) {
             @Override
-            public CollisionRunnable getOnCollisionRunnable() {
-                return new CollisionRunnable() {
-                    @Override
-                    public void run(GameObject otherGameObject) {
-                        if (otherGameObject instanceof Player) {
-                            Screen combatScreen = new CombatScreen(
-                                    finalGame,
-                                    finalGame.getScreen(),
-                                    new CombatScreen.Fight(
-                                            otherGameObject,
-                                            finalGameObject
-                                    )
-                            );
-                            finalGame.setScreen(combatScreen);
-                        }
-                        else {
-                            Random random = new Random();
-                            boolean xPositive = random.nextFloat() < 0.5f;
-                            boolean yPositive = random.nextFloat() < 0.5f;
-                            transform.translate(xPositive ? 16 : -16, yPositive ? 16 : -16);
-                        }
-                    }
-                };
-            }
-
-            @Override
             public Rectangle getArea() {
                 Transform transform = getTransform();
                 Rectangle rectangle = new Rectangle();
@@ -69,6 +43,28 @@ public abstract class Enemy extends BaseGameObject {
                 return rectangle;
             }
         };
+    }
+
+    @Override
+    public void onCollision(GameObject otherGameObject) {
+        super.onCollision(otherGameObject);
+        if (otherGameObject instanceof Player) {
+            Screen combatScreen = new CombatScreen(
+                    game,
+                    game.getScreen(),
+                    new CombatScreen.Fight(
+                            otherGameObject,
+                            this
+                    )
+            );
+            game.setScreen(combatScreen);
+        }
+        else {
+            Random random = new Random();
+            boolean xPositive = random.nextFloat() < 0.5f;
+            boolean yPositive = random.nextFloat() < 0.5f;
+            transform.translate(xPositive ? 16 : -16, yPositive ? 16 : -16);
+        }
     }
 
     protected abstract String getTexturePath();

@@ -83,10 +83,10 @@ public abstract class BaseScreen implements Screen {
         }
 
         for (GameObject gameObject : gameObjects) {
-            gameObject.getCollider().postPostUpdate(delta);
+            gameObject.getCollider().postPostUpdate(gameObject, delta);
 
             for (GameObject child : gameObject.getChildren()) {
-                child.getCollider().postPostUpdate(delta);
+                child.getCollider().postPostUpdate(gameObject, delta);
             }
         }
 

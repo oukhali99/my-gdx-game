@@ -28,16 +28,6 @@ public class Player extends BaseGameObject {
         final GameObject thisGameObject = this;
         baseCollider = new CustomCollider(game) {
             @Override
-            public CollisionRunnable getOnCollisionRunnable() {
-                return new CollisionRunnable() {
-                    @Override
-                    public void run(GameObject otherGameObject) {
-                        baseUpdater.onCollision(thisGameObject, otherGameObject);
-                    }
-                };
-            }
-
-            @Override
             public Rectangle getArea() {
                 Transform transform = getTransform();
                 Rectangle rectangle = new Rectangle();
@@ -52,5 +42,11 @@ public class Player extends BaseGameObject {
         abilities = new Abilities(game);
         abilities.addAbility(new Fireball(game));
         abilities.addAbility(new Snowball(game));
+    }
+
+    @Override
+    public void onCollision(GameObject otherGameObject) {
+        super.onCollision(otherGameObject);
+        baseUpdater.onCollision(this, otherGameObject);
     }
 }

@@ -32,16 +32,7 @@ public abstract class LevelScreen extends BaseScreen {
         // Actual tilemap component
         tileMap.setRenderer(new Tilemap(game, camera, getTilemapPath()));
 
-        tileMap.setCollider(new TilemapCustomCollider(game, getTilemapPath()) {
-            @Override
-            public CollisionRunnable getOnCollisionRunnable() {
-                return new CollisionRunnable() {
-                    @Override
-                    public void run(GameObject otherGameObject) {
-                    }
-                };
-            }
-        });
+        tileMap.setCollider(new TilemapCustomCollider(game, getTilemapPath()));
 
         gameObjects.add(tileMap);
 
