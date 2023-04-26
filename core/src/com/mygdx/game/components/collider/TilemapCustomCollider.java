@@ -10,23 +10,21 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.CombinedRectangles;
+import com.mygdx.game.utils.MyTiledMap;
 
 public class TilemapCustomCollider extends BaseCollider {
-    private TiledMap tiledMap;
+    private MyTiledMap tiledMap;
     private MapLayers mapLayers;
     protected MapLayer collisionLayer;
     private CombinedRectangles combinedRectangles;
 
-    public TilemapCustomCollider(Drop game, String tilemapPath) {
+    public TilemapCustomCollider(Drop game, MyTiledMap tiledMap) {
         super(game);
         this.combinedRectangles = new CombinedRectangles();
-
-        // Load the tilemap
-        TmxMapLoader loader = new TmxMapLoader();
-        tiledMap = loader.load(tilemapPath);
+        this.tiledMap = tiledMap;
 
         // Get the collision layer
-        mapLayers = tiledMap.getLayers();
+        mapLayers = tiledMap.getTiledMap().getLayers();
         collisionLayer = mapLayers.get("Collision");
 
         for (MapObject mapObject : collisionLayer.getObjects()) {

@@ -27,7 +27,7 @@ public class LevelScreen1 extends LevelScreen {
 
     @Override
     public String getTilemapPath() {
-        return "map/map.tmx";
+        return "map/map2.tmx";
     }
 
     @Override

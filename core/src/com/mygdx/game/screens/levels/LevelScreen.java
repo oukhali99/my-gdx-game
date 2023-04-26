@@ -2,19 +2,23 @@ package com.mygdx.game.screens.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
-import com.mygdx.game.components.renderer.Tilemap;
+import com.mygdx.game.components.renderer.TilemapRenderer;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.screens.BaseScreen;
+import com.mygdx.game.utils.MyTiledMap;
 
 import java.util.LinkedList;
 
 public abstract class LevelScreen extends BaseScreen {
     protected GameObject player;
     private Music music;
+    private MyTiledMap myTiledMap;
 
     public LevelScreen(Drop game) {
         super(game);
@@ -26,20 +30,27 @@ public abstract class LevelScreen extends BaseScreen {
 
 
         // Create the tilemap
-        GameObject tileMap = new BaseGameObject(game) {
+        GameObject tileMapGameObject = new BaseGameObject(game) {
         };
+        gameObjects.add(tileMapGameObject);
+
+        // Load the tiled map
+        myTiledMap = new MyTiledMap(getTilemapPath());
 
         // Actual tilemap component
-        tileMap.setRenderer(new Tilemap(game, camera, getTilemapPath()));
+        tileMapGameObject.setRenderer(new TilemapRenderer(game, camera, myTiledMap));
 
-        tileMap.setCollider(new TilemapCustomCollider(game, getTilemapPath()));
-
-        gameObjects.add(tileMap);
-
+        tileMapGameObject.setCollider(new TilemapCustomCollider(game, myTiledMap));
 
         // Create the player
         player = new Player(game);
         gameObjects.add(player);
+
+        // Move the player to the center
+        player.setPosition(
+                myTiledMap.getTiledMap().getProperties().get("width", Integer.class) * 16 / 2,
+                myTiledMap.getTiledMap().getProperties().get("height", Integer.class) * 16 / 2
+        );
     }
 
     public abstract String getTilemapPath();
@@ -55,6 +66,7 @@ public abstract class LevelScreen extends BaseScreen {
             gameObject.destroy();
         }
         music.dispose();
+        myTiledMap.dispose();
     }
 
     public void resize(int width, int height) {

@@ -6,20 +6,19 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.utils.MyTiledMap;
 
-public class Tilemap extends BaseRenderer {
-    private TiledMap map;
+public class TilemapRenderer extends BaseRenderer {
+    private MyTiledMap map;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private  OrthographicCamera camera;
 
-    public Tilemap(Drop game, OrthographicCamera camera, String tilemapPath) {
+    public TilemapRenderer(Drop game, OrthographicCamera camera, MyTiledMap map) {
         super(game);
         this.camera = camera;
+        this.map = map;
 
-        // Load the tilemap
-        TmxMapLoader loader = new TmxMapLoader();
-        map = loader.load(tilemapPath);
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map);
+        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(map.getTiledMap());
     }
 
     @Override
@@ -31,10 +30,5 @@ public class Tilemap extends BaseRenderer {
     @Override
     public void destroy() {
         orthogonalTiledMapRenderer.dispose();
-        map.dispose();
-    }
-
-    public TiledMap getMap() {
-        return map;
     }
 }
