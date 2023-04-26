@@ -19,7 +19,7 @@ public class EnemyFactory {
             case 2:
                 return new AlienEnemy2(game);
             case 3:
-                Enemy enemy = new WaterEnemy(game);
+                Enemy enemy = new EnemyDecorator(new WaterEnemy(game));
                 enemy.setAbilities(new InvincibleDecorator(enemy.getAbilities()));
                 return enemy;
             default:
