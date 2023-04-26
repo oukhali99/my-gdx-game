@@ -5,4 +5,6 @@ import com.mygdx.game.gameobjects.GameObject;
 
 public interface Component {
     public void destroy();
+
+    public Drop getGame();
 }

@@ -12,7 +12,7 @@ public class WASDMovement extends BaseUpdaterDecorator {
     private float fillCooldown;
     private Vector2 lastPosition;
 
-    public WASDMovement(BaseUpdater baseUpdater, float speed) {
+    public WASDMovement(Updater baseUpdater, float speed) {
         super(baseUpdater);
         this.speed = speed;
         this.fillCooldown = 1 / speed;

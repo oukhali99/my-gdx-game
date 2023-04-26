@@ -6,7 +6,7 @@ import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.Renderer;
-import com.mygdx.game.components.updater.BaseUpdater;
+import com.mygdx.game.components.updater.Updater;
 
 import java.util.List;
 
@@ -98,7 +98,7 @@ public class GameObjectDecorator implements GameObject {
         return gameObject.getGame();
     }
 
-    public BaseUpdater getUpdater() {
+    public Updater getUpdater() {
         return gameObject.getUpdater();
     }
 

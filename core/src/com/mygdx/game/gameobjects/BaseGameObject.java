@@ -3,14 +3,13 @@ package com.mygdx.game.gameobjects;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
-import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.collider.NoCollisions;
 import com.mygdx.game.components.renderer.NoTexture;
 import com.mygdx.game.components.renderer.Renderer;
-import com.mygdx.game.components.updater.BaseUpdater;
+import com.mygdx.game.components.updater.Updater;
 import com.mygdx.game.components.updater.NoUpdate;
 
 import java.util.LinkedList;
@@ -22,7 +21,7 @@ public abstract class BaseGameObject implements GameObject {
     private boolean markedForDestruction;
     protected List<GameObject> children;
     protected Renderer renderer;
-    protected BaseUpdater baseUpdater;
+    protected Updater baseUpdater;
     protected BaseCollider baseCollider;
     protected BaseAbilities abilities;
 
@@ -130,7 +129,7 @@ public abstract class BaseGameObject implements GameObject {
         return game;
     }
 
-    public BaseUpdater getUpdater() {
+    public Updater getUpdater() {
         return baseUpdater;
     }
 
