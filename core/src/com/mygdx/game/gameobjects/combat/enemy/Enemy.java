@@ -8,6 +8,7 @@ import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.collider.CustomCollider;
 import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.gameplay.Snowball;
@@ -15,7 +16,7 @@ import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;
 
-public abstract class Enemy extends GameObject {
+public abstract class Enemy extends BaseGameObject {
     public Enemy(Drop game) {
         super(game);
 

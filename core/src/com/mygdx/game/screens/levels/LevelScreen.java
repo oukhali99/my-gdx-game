@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
 import com.mygdx.game.components.renderer.Tilemap;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.Player;
 import com.mygdx.game.screens.BaseScreen;
@@ -25,7 +26,7 @@ public abstract class LevelScreen extends BaseScreen {
 
 
         // Create the tilemap
-        GameObject tileMap = new GameObject(game) {
+        GameObject tileMap = new BaseGameObject(game) {
         };
 
         // Actual tilemap component

@@ -10,11 +10,12 @@ import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.WASDMovement;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameplay.Fireball;
 import com.mygdx.game.gameplay.Snowball;
 
-public class Player extends GameObject {
+public class Player extends BaseGameObject {
     public Player(Drop game) {
         super(game);
 

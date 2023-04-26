@@ -8,12 +8,13 @@ import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.collider.CustomCollider;
 import com.mygdx.game.components.renderer.RendererDecorator;
 import com.mygdx.game.components.updater.BaseUpdaterDecorator;
+import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;
 
-public class Attack extends GameObject {
+public class Attack extends BaseGameObject {
     protected final Ability ability;
     protected final GameObject attacker;
     protected final GameObject target;
