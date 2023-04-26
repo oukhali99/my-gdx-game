@@ -23,7 +23,7 @@ public abstract class BaseAbilities extends BaseComponent {
         return getAbilityList().size() > 0;
     }
 
-    public abstract void takeDamage(int damage);
+    public abstract void takeDamage(GameObject currentGameObject, int damage);
 
     public abstract void performAttack(GameObject thisGameObject, Attack attack);
 

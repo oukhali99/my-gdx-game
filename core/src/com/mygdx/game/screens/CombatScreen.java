@@ -126,7 +126,7 @@ public class CombatScreen extends BaseScreen {
         }
 
         public void applyDamage(GameObject attacker, GameObject target, int damage) {
-            target.getAbilities().takeDamage(damage);
+            target.getAbilities().takeDamage(target, damage);
 
             if (target.getAbilities().getHealth() <= 0) {
                 endFight(attacker);

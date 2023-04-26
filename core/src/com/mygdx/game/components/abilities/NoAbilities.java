@@ -33,8 +33,7 @@ public class NoAbilities extends BaseAbilities {
     }
 
     @Override
-    public void takeDamage(int damage) {
-
+    public void takeDamage(GameObject currentGameObject, int damage) {
     }
 
     @Override

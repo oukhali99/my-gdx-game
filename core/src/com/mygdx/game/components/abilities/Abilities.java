@@ -40,11 +40,12 @@ public class Abilities extends BaseAbilities {
     }
 
     @Override
-    public void takeDamage(int damage) {
+    public void takeDamage(GameObject currentGameObject, int damage) {
         health -= damage;
 
         if (health <= 0) {
             health = 0;
+            currentGameObject.markForDestruction();
         }
     }
 
