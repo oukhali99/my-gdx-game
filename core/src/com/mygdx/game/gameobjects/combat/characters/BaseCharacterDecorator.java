@@ -19,4 +19,14 @@ public class BaseCharacterDecorator extends GameObjectDecorator implements Chara
     public Abilities getAbilities() {
         return baseCharacter.getAbilities();
     }
+
+    @Override
+    public Integer getHealth() {
+        return baseCharacter.getHealth();
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        baseCharacter.takeDamage(damage);
+    }
 }

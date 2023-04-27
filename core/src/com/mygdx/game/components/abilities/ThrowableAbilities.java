@@ -11,12 +11,10 @@ import java.util.List;
 
 public class ThrowableAbilities extends BaseAbilities {
     private final List<Ability> abilityList;
-    private int health;
 
     public ThrowableAbilities(Drop game) {
         super(game);
         this.abilityList = new LinkedList<>();
-        this.health = 100;
     }
 
     @Override
@@ -40,24 +38,9 @@ public class ThrowableAbilities extends BaseAbilities {
     }
 
     @Override
-    public void takeDamage(GameObject currentGameObject, int damage) {
-        health -= damage;
-
-        if (health <= 0) {
-            health = 0;
-            currentGameObject.markForDestruction();
-        }
-    }
-
-    @Override
     public void performAttack(GameObject thisGameObject, Attack attack) {
         thisGameObject.addChild(attack);
         attack.getFight().endTurn();
-    }
-
-    @Override
-    public Integer getHealth() {
-        return health;
     }
 
     @Override

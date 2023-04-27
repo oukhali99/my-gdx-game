@@ -17,9 +17,5 @@ public interface Abilities extends Component {
 
     public boolean hasAbilities();
 
-    public void takeDamage(GameObject currentGameObject, int damage);
-
     public void performAttack(GameObject thisGameObject, Attack attack);
-
-    public Integer getHealth();
 }

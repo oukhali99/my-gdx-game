@@ -33,16 +33,7 @@ public class NoAbilities extends BaseAbilities {
     }
 
     @Override
-    public void takeDamage(GameObject currentGameObject, int damage) {
-    }
-
-    @Override
     public void performAttack(GameObject thisGameObject , Attack attack) {
 
-    }
-
-    @Override
-    public Integer getHealth() {
-        return null;
     }
 }

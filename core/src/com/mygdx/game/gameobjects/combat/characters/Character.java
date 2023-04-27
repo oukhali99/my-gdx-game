@@ -7,4 +7,8 @@ public interface Character extends GameObject {
     public String getTexturePath();
 
     public Abilities getAbilities();
+
+    public Integer getHealth();
+
+    public void takeDamage(int damage);
 }

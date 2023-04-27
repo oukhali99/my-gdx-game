@@ -15,8 +15,12 @@ import com.mygdx.game.gameplay.Fireball;
 import com.mygdx.game.gameplay.Snowball;
 
 public abstract class BaseCharacter extends BaseGameObject implements Character {
+    private int health;
+
     protected BaseCharacter(Drop game) {
         super(game);
+
+        this.health = 100;
 
         setScale(16, 16);
         renderer = new HealthDependentTexture(new MyTexture(game, getTexturePath()));
@@ -44,5 +48,20 @@ public abstract class BaseCharacter extends BaseGameObject implements Character 
         abilities.addAbility(new Fireball(game));
         abilities.addAbility(new Snowball(game));
         return abilities;
+    }
+
+    @Override
+    public Integer getHealth() {
+        return health;
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            health = 0;
+            markForDestruction();
+        }
     }
 }

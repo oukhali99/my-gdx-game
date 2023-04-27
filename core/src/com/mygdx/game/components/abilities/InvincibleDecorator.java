@@ -7,9 +7,4 @@ public class InvincibleDecorator extends AbilitiesDecorator {
     public InvincibleDecorator(Abilities baseAbilities) {
         super(baseAbilities);
     }
-
-    @Override
-    public void takeDamage(GameObject currentGameObject, int damage) {
-        Logger.log(currentGameObject + " IS INVINCIBLE!!! MUAHAHAHA");
-    }
 }

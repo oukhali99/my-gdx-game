@@ -13,7 +13,7 @@ public class HealthDependentTexture extends RendererDecorator {
     public int getHealth(GameObject gameObject) {
         if (gameObject instanceof Character) {
             Character character = (Character) gameObject;
-            return character.getAbilities().getHealth();
+            return character.getHealth();
         }
         return 0;
     }

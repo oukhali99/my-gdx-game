@@ -41,17 +41,7 @@ public class AbilitiesDecorator extends BaseComponentDecorator implements Abilit
     }
 
     @Override
-    public void takeDamage(GameObject currentGameObject, int damage) {
-        baseAbilities.takeDamage(currentGameObject, damage);
-    }
-
-    @Override
     public void performAttack(GameObject thisGameObject, Attack attack) {
         baseAbilities.performAttack(thisGameObject, attack);
-    }
-
-    @Override
-    public Integer getHealth() {
-        return baseAbilities.getHealth();
     }
 }
