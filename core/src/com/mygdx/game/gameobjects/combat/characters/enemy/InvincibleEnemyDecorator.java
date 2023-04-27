@@ -1,15 +1,16 @@
 package com.mygdx.game.gameobjects.combat.characters.enemy;
 
-import com.mygdx.game.components.abilities.Abilities;
-import com.mygdx.game.components.abilities.InvincibleDecorator;
+import com.mygdx.game.utils.Logger;
 
 public class InvincibleEnemyDecorator extends BaseEnemyDecorator {
     public InvincibleEnemyDecorator(Enemy enemy) {
         super(enemy);
     }
 
+
     @Override
-    public Abilities getAbilities() {
-        return new InvincibleDecorator(super.getAbilities());
+    public void takeDamage(int damage) {
+        Logger.log(this + " is invincible!!!");
+        //super.takeDamage(damage);
     }
 }
