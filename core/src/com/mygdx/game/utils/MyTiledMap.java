@@ -1,15 +1,43 @@
 package com.mygdx.game.utils;
 
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MyTiledMap {
     private TiledMap tiledMap;
+    private Map<String, Vector2> spawns;
 
     public MyTiledMap(String path) {
         TmxMapLoader loader = new TmxMapLoader();
         this.tiledMap = loader.load(path);
+        this.spawns = new HashMap<>();
+
+        loadSpawns();
+    }
+
+    private void loadSpawns() {
+        MapLayer spawnPointsLayer = tiledMap.getLayers().get("Spawns");
+        MapObjects objects = spawnPointsLayer.getObjects();
+        for (MapObject object : objects) {
+            if (object.getProperties().containsKey("SpawnFor")) {
+                String spawnFor = object.getProperties().get("SpawnFor", String.class);
+                float spawnX = object.getProperties().get("x", Float.class);
+                float spawnY = object.getProperties().get("y", Float.class);
+
+                spawns.put(spawnFor, new Vector2(spawnX, spawnY));
+            }
+        }
+    }
+
+    public Vector2 getPlayerSpawn() {
+        return spawns.get("Player");
     }
 
     public TiledMap getTiledMap() {

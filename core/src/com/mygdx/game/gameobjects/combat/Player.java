@@ -19,7 +19,6 @@ public class Player extends BaseGameObject {
     public Player(Drop game, MyTiledMap tiledMap) {
         super(game);
 
-        setPosition(16*20, 16*20);
         setScale(16, 16);
 
         baseUpdater = new WASDMovement(new NoUpdate(game), 128);

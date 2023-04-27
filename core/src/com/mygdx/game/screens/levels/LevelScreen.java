@@ -47,9 +47,7 @@ public abstract class LevelScreen extends BaseScreen {
         gameObjects.add(player);
 
         // Move the player to the center
-        player.setPosition(
-            myTiledMap.getSizeInPixels().scl(0.5f)
-        );
+        player.setPosition(myTiledMap.getPlayerSpawn());
     }
 
     public abstract String getTilemapPath();
