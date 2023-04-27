@@ -58,4 +58,12 @@ public interface GameObject {
     public void translate(Vector2 amount);
 
     public void setUpdater(Updater updater);
+
+    public void render(GameObject gameObject, float delta);
+
+    public void update(GameObject gameObject, float delta);
+
+    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject);
+
+    public void postPostUpdate(GameObject gameObject, float delta);
 }

@@ -11,26 +11,26 @@ import com.mygdx.game.components.updater.Updater;
 import java.util.List;
 
 public class GameObjectDecorator implements GameObject {
-    private GameObject gameObject;
+    private GameObject baseGameObject;
 
-    public GameObjectDecorator(GameObject gameObject) {
-        this.gameObject = gameObject;
+    public GameObjectDecorator(GameObject baseGameObject) {
+        this.baseGameObject = baseGameObject;
     }
 
     public Renderer getRenderer() {
-        return gameObject.getRenderer();
+        return baseGameObject.getRenderer();
     }
 
     public void setRenderer(Renderer renderer) {
-        gameObject.setRenderer(renderer);
+        baseGameObject.setRenderer(renderer);
     }
 
     public void setPosition(float x, float y) {
-        gameObject.setPosition(x, y);
+        baseGameObject.setPosition(x, y);
     }
 
     public void setPosition(Vector2 position) {
-        gameObject.setPosition(position);
+        baseGameObject.setPosition(position);
     }
 
     public Vector2 getPosition() {
@@ -38,11 +38,11 @@ public class GameObjectDecorator implements GameObject {
     }
 
     public void setScale(float x, float y) {
-        gameObject.setScale(x, y);
+        baseGameObject.setScale(x, y);
     }
 
     public void setScale(Vector2 scale) {
-        gameObject.setScale(scale);
+        baseGameObject.setScale(scale);
     }
 
     public Vector2 getScale() {
@@ -50,70 +50,90 @@ public class GameObjectDecorator implements GameObject {
     }
 
     public Collider getCollider() {
-        return gameObject.getCollider();
+        return baseGameObject.getCollider();
     }
 
     public Transform getTransform() {
-        return gameObject.getTransform();
+        return baseGameObject.getTransform();
     }
 
     public boolean isMarkedForDestruction() {
-        return gameObject.isMarkedForDestruction();
+        return baseGameObject.isMarkedForDestruction();
     }
 
     public void markForDestruction() {
-        gameObject.markForDestruction();
+        baseGameObject.markForDestruction();
     }
 
     public void destroy() {
-        gameObject.destroy();
+        baseGameObject.destroy();
     }
 
     public void preenDestroyedChildren() {
-        gameObject.preenDestroyedChildren();
+        baseGameObject.preenDestroyedChildren();
     }
 
     public List<GameObject> getChildren() {
-        return gameObject.getChildren();
+        return baseGameObject.getChildren();
     }
 
     public void addChild(GameObject child) {
-        gameObject.addChild(child);
+        baseGameObject.addChild(child);
     }
 
     public void setCollider(Collider collider) {
-        gameObject.setCollider(collider);
+        baseGameObject.setCollider(collider);
     }
 
     public BaseAbilities getAbilities() {
-        return gameObject.getAbilities();
+        return baseGameObject.getAbilities();
     }
 
     @Override
     public void setAbilities(BaseAbilities abilities) {
-        gameObject.setAbilities(abilities);
+        baseGameObject.setAbilities(abilities);
     }
 
     public Drop getGame() {
-        return gameObject.getGame();
+        return baseGameObject.getGame();
     }
 
     public Updater getUpdater() {
-        return gameObject.getUpdater();
+        return baseGameObject.getUpdater();
     }
 
     @Override
     public void onCollision(GameObject givenGameObject, GameObject otherGameObject) {
-        gameObject.onCollision(givenGameObject, otherGameObject);
+        baseGameObject.onCollision(givenGameObject, otherGameObject);
     }
 
     @Override
     public void translate(Vector2 amount) {
-        gameObject.translate(amount);
+        baseGameObject.translate(amount);
     }
 
     @Override
     public void setUpdater(Updater updater) {
-        gameObject.setUpdater(updater);
+        baseGameObject.setUpdater(updater);
+    }
+
+    @Override
+    public void render(GameObject gameObject, float delta) {
+        baseGameObject.render(gameObject, delta);
+    }
+
+    @Override
+    public void update(GameObject gameObject, float delta) {
+        baseGameObject.update(gameObject, delta);
+    }
+
+    @Override
+    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject) {
+        baseGameObject.postUpdate(delta, gameObjects, gameObject);
+    }
+
+    @Override
+    public void postPostUpdate(GameObject gameObject, float delta) {
+        baseGameObject.postPostUpdate(gameObject, delta);
     }
 }

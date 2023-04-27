@@ -146,4 +146,40 @@ public abstract class BaseGameObject implements GameObject {
     public void setUpdater(Updater updater) {
         this.baseUpdater = updater;
     }
+
+    @Override
+    public void render(GameObject gameObject, float delta) {
+        gameObject.getRenderer().render(gameObject, delta);
+
+        for (GameObject child : gameObject.getChildren()) {
+            child.getRenderer().render(child, delta);
+        }
+    }
+
+    @Override
+    public void update(GameObject gameObject, float delta) {
+        gameObject.getUpdater().update(gameObject, delta);
+
+        for (GameObject child : gameObject.getChildren()) {
+            child.getUpdater().update(child, delta);
+        }
+    }
+
+    @Override
+    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject) {
+        gameObject.getCollider().lookForCollisions(delta, gameObjects, gameObject);
+
+        for (GameObject child : gameObject.getChildren()) {
+            child.getCollider().lookForCollisions(delta, gameObjects, child);
+        }
+    }
+
+    @Override
+    public void postPostUpdate(GameObject gameObject, float delta) {
+        gameObject.getCollider().handleCollisionsThisFrame(gameObject, delta);
+
+        for (GameObject child : gameObject.getChildren()) {
+            child.getCollider().handleCollisionsThisFrame(child, delta);
+        }
+    }
 }
