@@ -19,7 +19,6 @@ public abstract class BaseGameObject implements GameObject {
     private boolean markedForDestruction;
     protected List<GameObject> children;
     protected Renderer renderer;
-    protected Updater baseUpdater;
     protected Collider baseCollider;
 
     protected BaseGameObject(final Drop game) {
@@ -29,7 +28,6 @@ public abstract class BaseGameObject implements GameObject {
         this.children = new LinkedList<>();
 
         this.renderer = new NoTexture(game);
-        this.baseUpdater = new NoUpdate(game);
         this.baseCollider = new NoCollisions(game);
     }
 
@@ -116,22 +114,12 @@ public abstract class BaseGameObject implements GameObject {
         return game;
     }
 
-    public Updater getUpdater() {
-        return baseUpdater;
-    }
-
     public void onCollision(GameObject gameObject, GameObject otherGameObject) {
-        baseUpdater.onCollision(gameObject, otherGameObject);
     }
 
     @Override
     public void translate(Vector2 amount) {
         transform.translate(amount);
-    }
-
-    @Override
-    public void setUpdater(Updater updater) {
-        this.baseUpdater = updater;
     }
 
     @Override
@@ -145,11 +133,6 @@ public abstract class BaseGameObject implements GameObject {
 
     @Override
     public void update(GameObject gameObject, float delta) {
-        gameObject.getUpdater().update(gameObject, delta);
-
-        for (GameObject child : gameObject.getChildren()) {
-            child.getUpdater().update(child, delta);
-        }
     }
 
     @Override

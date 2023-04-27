@@ -50,10 +50,10 @@ public class BaseAttack extends BaseGameObject implements Attack {
         attackDirection = target.getPosition().sub(attacker.getPosition()).nor();
         transform.setRotationFromVector(attackDirection);
 
-        baseUpdater = new BaseUpdaterDecorator(baseUpdater) {
+        renderer = new RendererDecorator(renderer) {
             @Override
-            public void update(GameObject gameObject, float delta) {
-                super.update(gameObject, delta);
+            public void render(GameObject gameObject, float delta) {
+                super.render(gameObject, delta);
 
                 Attack attack = (Attack) gameObject;
                 float speed = 700;
@@ -72,13 +72,6 @@ public class BaseAttack extends BaseGameObject implements Attack {
                     markForDestruction();
                     fight.applyDamage(attacker, target, attack.getDamage());
                 }
-            }
-        };
-
-        renderer = new RendererDecorator(renderer) {
-            @Override
-            public void render(GameObject gameObject, float delta) {
-                super.render(gameObject, delta);
 
                 ability.draw(stateTime, transform);
             }

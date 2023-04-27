@@ -5,7 +5,6 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.Renderer;
-import com.mygdx.game.components.updater.Updater;
 
 import java.util.List;
 
@@ -46,13 +45,9 @@ public interface GameObject {
 
     public Drop getGame();
 
-    public Updater getUpdater();
-
     public void onCollision(GameObject gameObject, GameObject otherGameObject);
 
     public void translate(Vector2 amount);
-
-    public void setUpdater(Updater updater);
 
     public void render(GameObject gameObject, float delta);
 

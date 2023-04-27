@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 
 public class WASDMovement extends BaseUpdaterDecorator {
     private final float speed;
-    private MoveCommand currentMoveCommand;
 
     public WASDMovement(Updater baseUpdater, float speed) {
         super(baseUpdater);
@@ -15,11 +15,11 @@ public class WASDMovement extends BaseUpdaterDecorator {
     }
 
     @Override
-    public void update(GameObject gameObject, float delta) {
-        super.update(gameObject, delta);
-        Vector2 initialPosition = gameObject.getPosition();
+    public void update(Character character, float delta) {
+        super.update(character, delta);
+        Vector2 initialPosition = character.getPosition();
 
-        if (currentMoveCommand == null || currentMoveCommand.isCommandComplete(initialPosition)) {
+        if (character.getCurrentMoveCommand() == null || character.getCurrentMoveCommand().isCommandComplete(initialPosition)) {
             Vector2 destination = new Vector2(initialPosition);
             Vector2 directionUnit = new Vector2(0, 0);
 
@@ -38,29 +38,30 @@ public class WASDMovement extends BaseUpdaterDecorator {
             directionUnit.scl(16);
             destination.add(directionUnit);
 
-            currentMoveCommand = new MoveCommand(gameObject, destination, speed);
+            character.setCurrentMoveCommand(new MoveCommand(character, destination, speed));
         }
         else {
-            currentMoveCommand.continueExecuting(gameObject, delta);
+            character.getCurrentMoveCommand().continueExecuting(character, delta);
         }
     }
 
     @Override
     public void onCollision(GameObject gameObject, GameObject otherGameObject) {
         super.onCollision(gameObject, otherGameObject);
-        //gameObject.setPosition(lastPosition);
-        if (currentMoveCommand != null) {
-            currentMoveCommand.onCollision(gameObject);
-            currentMoveCommand = null;
+
+        Character character = (Character) gameObject;
+        if (character.getCurrentMoveCommand() != null) {
+            character.getCurrentMoveCommand().onCollision(gameObject);
+            character.setCurrentMoveCommand(null);
         }
     }
 
-    private class MoveCommand {
+    public class MoveCommand {
         private Vector2 destination;
         private float speed;
         private Vector2 lastPosition;
 
-        private MoveCommand(GameObject gameObject, Vector2 destination, float speed) {
+        public MoveCommand(GameObject gameObject, Vector2 destination, float speed) {
             this.destination = destination;
             this.speed = speed;
             this.lastPosition = gameObject.getPosition();

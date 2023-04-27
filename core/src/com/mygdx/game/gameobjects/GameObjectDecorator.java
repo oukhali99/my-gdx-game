@@ -89,10 +89,6 @@ public class GameObjectDecorator implements GameObject {
         return baseGameObject.getGame();
     }
 
-    public Updater getUpdater() {
-        return baseGameObject.getUpdater();
-    }
-
     @Override
     public void onCollision(GameObject givenGameObject, GameObject otherGameObject) {
         baseGameObject.onCollision(givenGameObject, otherGameObject);
@@ -101,11 +97,6 @@ public class GameObjectDecorator implements GameObject {
     @Override
     public void translate(Vector2 amount) {
         baseGameObject.translate(amount);
-    }
-
-    @Override
-    public void setUpdater(Updater updater) {
-        baseGameObject.setUpdater(updater);
     }
 
     @Override

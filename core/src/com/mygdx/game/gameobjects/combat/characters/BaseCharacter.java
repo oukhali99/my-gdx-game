@@ -8,6 +8,9 @@ import com.mygdx.game.components.abilities.ThrowableAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.IntegerDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
+import com.mygdx.game.components.updater.NoUpdate;
+import com.mygdx.game.components.updater.Updater;
+import com.mygdx.game.components.updater.WASDMovement;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameplay.Fireball;
@@ -15,6 +18,7 @@ import com.mygdx.game.gameplay.Snowball;
 
 public abstract class BaseCharacter extends BaseGameObject implements Character {
     private int health;
+    private WASDMovement.MoveCommand currentMoveCommand;
 
     protected BaseCharacter(Drop game) {
         super(game);
@@ -48,6 +52,20 @@ public abstract class BaseCharacter extends BaseGameObject implements Character 
     }
 
     @Override
+    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
+        super.onCollision(gameObject, otherGameObject);
+        getUpdater().onCollision(gameObject, otherGameObject);
+    }
+
+    @Override
+    public void update(GameObject gameObject, float delta) {
+        super.update(gameObject, delta);
+
+        Character character = (Character) gameObject;
+        character.getUpdater().update(character, delta);
+    }
+
+    @Override
     public Abilities getAbilities() {
         Abilities abilities = new ThrowableAbilities(game);
         abilities.addAbility(new Fireball(game));
@@ -68,5 +86,20 @@ public abstract class BaseCharacter extends BaseGameObject implements Character 
             health = 0;
             markForDestruction();
         }
+    }
+
+    @Override
+    public Updater getUpdater() {
+        return new NoUpdate(game);
+    }
+
+    @Override
+    public WASDMovement.MoveCommand getCurrentMoveCommand() {
+        return currentMoveCommand;
+    }
+
+    @Override
+    public void setCurrentMoveCommand(WASDMovement.MoveCommand moveCommand) {
+        currentMoveCommand = moveCommand;
     }
 }
