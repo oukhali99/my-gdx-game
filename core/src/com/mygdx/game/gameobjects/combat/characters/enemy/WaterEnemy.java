@@ -8,7 +8,7 @@ public class WaterEnemy extends BaseEnemy {
     }
 
     @Override
-    protected String getTexturePath() {
+    public String getTexturePath() {
         return "droplet.png";
     }
 }

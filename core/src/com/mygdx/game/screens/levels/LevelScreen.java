@@ -20,7 +20,6 @@ public abstract class LevelScreen extends BaseScreen {
 
     public LevelScreen(Drop game) {
         super(game);
-        this.gameObjects = new LinkedList<>();
 
         // load the drop sound effect and the rain background "music"
         music = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
@@ -30,7 +29,7 @@ public abstract class LevelScreen extends BaseScreen {
         // Create the tilemap
         GameObject tileMapGameObject = new BaseGameObject(game) {
         };
-        gameObjects.add(tileMapGameObject);
+        addGameObject(tileMapGameObject);
 
         // Load the tiled map
         myTiledMap = new MyTiledMap(getTilemapPath());
@@ -42,7 +41,7 @@ public abstract class LevelScreen extends BaseScreen {
 
         // Create the player
         player = new Player(game, myTiledMap);
-        gameObjects.add(player);
+        addGameObject(player);
 
         // Move the player to the center
         player.setPosition(myTiledMap.getPlayerSpawn());
@@ -57,7 +56,7 @@ public abstract class LevelScreen extends BaseScreen {
 
     public void dispose() {
         super.dispose();
-        for (GameObject gameObject : gameObjects) {
+        for (GameObject gameObject : getGameObjects()) {
             gameObject.destroy();
         }
         music.dispose();

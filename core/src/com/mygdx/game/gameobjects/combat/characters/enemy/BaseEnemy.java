@@ -1,51 +1,20 @@
 package com.mygdx.game.gameobjects.combat.characters.enemy;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Transform;
-import com.mygdx.game.components.abilities.Abilities;
-import com.mygdx.game.components.collider.BaseCollider;
-import com.mygdx.game.components.renderer.HealthDependentTexture;
-import com.mygdx.game.components.renderer.MyTexture;
-import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.characters.Player;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
+import com.mygdx.game.gameobjects.combat.characters.BaseCharacter;
+import com.mygdx.game.gameobjects.combat.characters.Player;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorLeft;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorRight;
-import com.mygdx.game.gameplay.Snowball;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;
 
-public abstract class BaseEnemy extends BaseGameObject implements Enemy {
+public abstract class BaseEnemy extends BaseCharacter implements Enemy {
     public BaseEnemy(Drop game) {
         super(game);
-
-        final Drop finalGame = game;
-        final GameObject finalGameObject = this;
-
-        setPosition(16*20, 16*20);
-        setScale(16, 16);
-
-        renderer = new HealthDependentTexture(new MyTexture(game, getTexturePath()));
-
-        abilities = new Abilities(game);
-        abilities.addAbility(new Snowball(game));
-
-        baseCollider = new BaseCollider(game) {
-            @Override
-            public Rectangle getArea(GameObject gameObject) {
-                Transform transform = gameObject.getTransform();
-                Rectangle rectangle = new Rectangle();
-                rectangle.x = transform.getPosition().x;
-                rectangle.y = transform.getPosition().y;
-                rectangle.width = transform.getScale().x;
-                rectangle.height = transform.getScale().y;
-                return rectangle;
-            }
-        };
     }
 
     @Override
@@ -69,6 +38,4 @@ public abstract class BaseEnemy extends BaseGameObject implements Enemy {
             transform.translate(xPositive ? 16 : -16, yPositive ? 16 : -16);
         }
     }
-
-    protected abstract String getTexturePath();
 }

@@ -13,7 +13,7 @@ public class LevelScreen1 extends LevelScreen {
 
         for (int i = 0; i < 10; i++) {
             GameObject enemy = EnemyFactory.createRandomEnemy(game);
-            gameObjects.add(enemy);
+            addGameObject(enemy);
 
             Random random = new Random();
             int max = 40;

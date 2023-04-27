@@ -9,7 +9,7 @@ public class AlienEnemy2 extends BaseEnemy {
     }
 
     @Override
-    protected String getTexturePath() {
+    public String getTexturePath() {
         return "alien2.png";
     }
 }

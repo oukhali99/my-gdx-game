@@ -12,7 +12,6 @@ public class WASDMovement extends BaseUpdaterDecorator {
     public WASDMovement(Updater baseUpdater, float speed) {
         super(baseUpdater);
         this.speed = speed;
-        this.currentMoveCommand = null;
     }
 
     @Override

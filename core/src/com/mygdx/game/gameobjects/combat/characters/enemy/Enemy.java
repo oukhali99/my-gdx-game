@@ -1,6 +1,6 @@
 package com.mygdx.game.gameobjects.combat.characters.enemy;
 
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 
-public interface Enemy extends GameObject {
+public interface Enemy extends Character {
 }

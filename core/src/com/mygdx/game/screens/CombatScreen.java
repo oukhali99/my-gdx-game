@@ -35,8 +35,8 @@ public class CombatScreen extends BaseScreen {
 
         fight.addObserver(this);
 
-        gameObjects.add(fight.player);
-        gameObjects.add(fight.enemy);
+        addGameObject(fight.player);
+        addGameObject(fight.enemy);
 
         // Initialize the stage
         stage = new Stage();

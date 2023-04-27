@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class BaseScreen implements Screen {
     protected final Drop game;
-    protected List<GameObject> gameObjects;
+    private List<GameObject> gameObjects;
     protected OrthographicCamera camera;
 
     public BaseScreen(Drop game) {
@@ -141,11 +141,11 @@ public abstract class BaseScreen implements Screen {
         //camera.setToOrtho(false, width, height);
     }
 
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
+    protected void addGameObject(GameObject gameObject) {
+        gameObjects.add(gameObject);
     }
 
-    public OrthographicCamera getCamera() {
-        return camera;
+    protected List<GameObject> getGameObjects() {
+        return new LinkedList<>(gameObjects);
     }
 }
