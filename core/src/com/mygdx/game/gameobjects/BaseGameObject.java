@@ -121,7 +121,7 @@ public abstract class BaseGameObject implements GameObject {
     }
 
     public void onCollision(GameObject gameObject, GameObject otherGameObject) {
-        baseUpdater.onCollision(this, otherGameObject);
+        baseUpdater.onCollision(gameObject, otherGameObject);
     }
 
     @Override
