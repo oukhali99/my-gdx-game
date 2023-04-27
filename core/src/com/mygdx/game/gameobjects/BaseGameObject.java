@@ -78,7 +78,7 @@ public abstract class BaseGameObject implements GameObject {
     }
 
     public boolean isMarkedForDestruction() {
-        return markedForDestruction;
+                return markedForDestruction;
     }
 
     public void markForDestruction() {
@@ -140,5 +140,10 @@ public abstract class BaseGameObject implements GameObject {
     @Override
     public void translate(Vector2 amount) {
         transform.translate(amount);
+    }
+
+    @Override
+    public void setUpdater(Updater updater) {
+        this.baseUpdater = updater;
     }
 }

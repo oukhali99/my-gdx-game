@@ -15,21 +15,8 @@ public class CriticalAttackDecorator extends GameObjectDecorator implements Atta
         super(attack);
         this.attack = attack;
         this.flashFill = 0;
-    }
 
-    @Override
-    public CombatScreen.Fight getFight() {
-        return attack.getFight();
-    }
-
-    @Override
-    public Integer getDamage() {
-        return attack.getDamage() * 10;
-    }
-
-    @Override
-    public Renderer getRenderer() {
-        return new RendererDecorator(super.getRenderer()) {
+        setRenderer(new RendererDecorator(getRenderer()) {
             @Override
             public void render(GameObject gameObject, float delta) {
                 Color originalColor = new Color(getGame().batch.getColor());
@@ -47,6 +34,16 @@ public class CriticalAttackDecorator extends GameObjectDecorator implements Atta
                 getGame().batch.setColor(originalColor);
                 flashFill += delta;
             }
-        };
+        });
+    }
+
+    @Override
+    public CombatScreen.Fight getFight() {
+        return attack.getFight();
+    }
+
+    @Override
+    public Integer getDamage() {
+        return attack.getDamage() * 10;
     }
 }

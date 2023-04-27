@@ -111,4 +111,9 @@ public class GameObjectDecorator implements GameObject {
     public void translate(Vector2 amount) {
         gameObject.translate(amount);
     }
+
+    @Override
+    public void setUpdater(Updater updater) {
+        gameObject.setUpdater(updater);
+    }
 }

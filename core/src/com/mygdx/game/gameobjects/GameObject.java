@@ -56,4 +56,6 @@ public interface GameObject {
     public void onCollision(GameObject gameObject, GameObject otherGameObject);
 
     public void translate(Vector2 amount);
+
+    public void setUpdater(Updater updater);
 }
