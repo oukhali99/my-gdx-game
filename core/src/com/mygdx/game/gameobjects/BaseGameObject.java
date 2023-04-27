@@ -18,25 +18,18 @@ public abstract class BaseGameObject implements GameObject {
     protected Transform transform;
     private boolean markedForDestruction;
     protected List<GameObject> children;
-    protected Renderer renderer;
-    protected Collider baseCollider;
+    private final List<GameObject> collisionObjectsThisFrame;
 
     protected BaseGameObject(final Drop game) {
         this.game = game;
         this.transform = new Transform(game);
         this.markedForDestruction = false;
         this.children = new LinkedList<>();
-
-        this.renderer = new NoTexture(game);
-        this.baseCollider = new NoCollisions(game);
+        this.collisionObjectsThisFrame = new LinkedList<>();
     }
 
     public Renderer getRenderer() {
-        return renderer;
-    }
-
-    public void setRenderer(Renderer renderer) {
-        this.renderer = renderer;
+        return new NoTexture(game);
     }
 
     public void setPosition(float x, float y) {
@@ -64,7 +57,7 @@ public abstract class BaseGameObject implements GameObject {
     }
 
     public Collider getCollider() {
-        return baseCollider;
+        return new NoCollisions(game);
     }
 
     public Transform getTransform() {
@@ -104,10 +97,6 @@ public abstract class BaseGameObject implements GameObject {
 
     public void addChild(GameObject child) {
         children.add(child);
-    }
-
-    public void setCollider(Collider collider) {
-        this.baseCollider = collider;
     }
 
     public Drop getGame() {
@@ -151,5 +140,20 @@ public abstract class BaseGameObject implements GameObject {
         for (GameObject child : gameObject.getChildren()) {
             child.getCollider().handleCollisionsThisFrame(child, delta);
         }
+    }
+
+    @Override
+    public List<GameObject> getCollisionObjectsThisFrame() {
+        return new LinkedList<>(collisionObjectsThisFrame);
+    }
+
+    @Override
+    public void clearCollisionObjectsThisFrame() {
+        collisionObjectsThisFrame.clear();
+    }
+
+    @Override
+    public void addCollisionObjectThisFrame(GameObject gameObject) {
+        collisionObjectsThisFrame.add(gameObject);
     }
 }

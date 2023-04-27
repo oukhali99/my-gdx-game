@@ -28,9 +28,4 @@ public class BaseColliderDecorator extends BaseComponentDecorator implements Col
     public Rectangle getArea(GameObject gameObject) {
         return baseCollider.getArea(gameObject);
     }
-
-    @Override
-    public List<GameObject> getCollisionObjectsThisFrame() {
-        return baseCollider.getCollisionObjectsThisFrame();
-    }
 }

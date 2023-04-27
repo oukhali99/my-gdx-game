@@ -3,7 +3,9 @@ package com.mygdx.game.screens.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
+import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.renderer.TilemapRenderer;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
@@ -25,19 +27,22 @@ public abstract class LevelScreen extends BaseScreen {
         music = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
         music.setLooping(true);
 
-
-        // Create the tilemap
-        GameObject tileMapGameObject = new BaseGameObject(game) {
-        };
-        addGameObject(tileMapGameObject);
-
         // Load the tiled map
         myTiledMap = new MyTiledMap(getTilemapPath());
 
-        // Actual tilemap component
-        tileMapGameObject.setRenderer(new TilemapRenderer(game, camera, myTiledMap));
+        // Create the tilemap
+        GameObject tileMapGameObject = new BaseGameObject(game) {
+            @Override
+            public Renderer getRenderer() {
+                return new TilemapRenderer(game, camera, myTiledMap);
+            }
 
-        tileMapGameObject.setCollider(new TilemapCustomCollider(game, myTiledMap));
+            @Override
+            public Collider getCollider() {
+                return new TilemapCustomCollider(game, myTiledMap);
+            }
+        };
+        addGameObject(tileMapGameObject);
 
         // Create the player
         player = new Player(game, myTiledMap);

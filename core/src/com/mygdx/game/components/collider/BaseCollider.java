@@ -8,24 +8,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseCollider extends BaseComponent implements Collider {
-    private List<GameObject> collisionObjectsThisFrame = new LinkedList<>();
-
     public BaseCollider(Drop game) {
         super(game);
     }
 
     @Override
     public void lookForCollisions(float delta, List<GameObject> gameObjects, GameObject gameObject) {
-        collisionObjectsThisFrame.clear();
+        gameObject.clearCollisionObjectsThisFrame();
 
         for (GameObject otherGameObject : gameObjects) {
             Collider otherBaseCollider = otherGameObject.getCollider();
             if (
                     otherBaseCollider != null &&
                     overlaps(gameObject, otherGameObject, otherBaseCollider) &&
-                    !this.equals(otherBaseCollider)
+                    !gameObject.equals(otherGameObject)
             ) {
-                onCollision(otherGameObject);
+                onCollision(gameObject, otherGameObject);
             }
         }
     }
@@ -36,18 +34,13 @@ public abstract class BaseCollider extends BaseComponent implements Collider {
 
     @Override
     public void handleCollisionsThisFrame(GameObject gameObject, float delta) {
-        for (GameObject otherGameObject : collisionObjectsThisFrame) {
+        for (GameObject otherGameObject : gameObject.getCollisionObjectsThisFrame()) {
             gameObject.onCollision(gameObject, otherGameObject);
         }
     }
 
-    @Override
-    public List<GameObject> getCollisionObjectsThisFrame() {
-        return collisionObjectsThisFrame;
-    }
-
-    private void onCollision(GameObject otherObject) {
-        collisionObjectsThisFrame.add(otherObject);
+    private void onCollision(GameObject gameObject, GameObject otherObject) {
+        gameObject.addCollisionObjectThisFrame(otherObject);
     }
 
     @Override

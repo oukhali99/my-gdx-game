@@ -11,8 +11,6 @@ import java.util.List;
 public interface GameObject {
     public Renderer getRenderer();
 
-    public void setRenderer(Renderer renderer);
-
     public void setPosition(float x, float y);
 
     public void setPosition(Vector2 position);
@@ -41,8 +39,6 @@ public interface GameObject {
 
     public void addChild(GameObject child);
 
-    public void setCollider(Collider collider);
-
     public Drop getGame();
 
     public void onCollision(GameObject gameObject, GameObject otherGameObject);
@@ -56,4 +52,10 @@ public interface GameObject {
     public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject);
 
     public void postPostUpdate(GameObject gameObject, float delta);
+
+    public List<GameObject> getCollisionObjectsThisFrame();
+
+    public void clearCollisionObjectsThisFrame();
+
+    public void addCollisionObjectThisFrame(GameObject gameObject);
 }

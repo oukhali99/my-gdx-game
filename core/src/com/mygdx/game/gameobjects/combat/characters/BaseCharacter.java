@@ -6,8 +6,10 @@ import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.ThrowableAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.IntegerDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
+import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.Updater;
 import com.mygdx.game.components.updater.WASDMovement;
@@ -15,6 +17,9 @@ import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameplay.Fireball;
 import com.mygdx.game.gameplay.Snowball;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class BaseCharacter extends BaseGameObject implements Character {
     private int health;
@@ -26,18 +31,22 @@ public abstract class BaseCharacter extends BaseGameObject implements Character 
         this.health = 100;
 
         setScale(16, 16);
-        renderer = new IntegerDependentTexture(new MyTexture(game, getTexturePath())) {
+    }
+
+    @Override
+    public Renderer getRenderer() {
+        return new IntegerDependentTexture(new MyTexture(game, getTexturePath())) {
             @Override
             public int getInteger(GameObject gameObject) {
                 Character character = (Character) gameObject;
                 return character.getHealth();
             }
         };
+    }
 
-        /*
-         */
-
-        baseCollider = new BaseCollider(game) {
+    @Override
+    public Collider getCollider() {
+        return new BaseCollider(game) {
             @Override
             public Rectangle getArea(GameObject gameObject) {
                 Transform transform = gameObject.getTransform();

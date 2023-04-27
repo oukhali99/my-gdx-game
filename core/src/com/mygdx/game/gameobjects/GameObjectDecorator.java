@@ -21,10 +21,6 @@ public class GameObjectDecorator implements GameObject {
         return baseGameObject.getRenderer();
     }
 
-    public void setRenderer(Renderer renderer) {
-        baseGameObject.setRenderer(renderer);
-    }
-
     public void setPosition(float x, float y) {
         baseGameObject.setPosition(x, y);
     }
@@ -81,10 +77,6 @@ public class GameObjectDecorator implements GameObject {
         baseGameObject.addChild(child);
     }
 
-    public void setCollider(Collider collider) {
-        baseGameObject.setCollider(collider);
-    }
-
     public Drop getGame() {
         return baseGameObject.getGame();
     }
@@ -117,5 +109,20 @@ public class GameObjectDecorator implements GameObject {
     @Override
     public void postPostUpdate(GameObject gameObject, float delta) {
         baseGameObject.postPostUpdate(gameObject, delta);
+    }
+
+    @Override
+    public List<GameObject> getCollisionObjectsThisFrame() {
+        return baseGameObject.getCollisionObjectsThisFrame();
+    }
+
+    @Override
+    public void clearCollisionObjectsThisFrame() {
+        baseGameObject.clearCollisionObjectsThisFrame();
+    }
+
+    @Override
+    public void addCollisionObjectThisFrame(GameObject gameObject) {
+        baseGameObject.addCollisionObjectThisFrame(gameObject);
     }
 }

@@ -12,6 +12,4 @@ public interface Collider extends Component {
     public void handleCollisionsThisFrame(GameObject gameObject, float delta);
 
     public Rectangle getArea(GameObject gameObject);
-
-    public List<GameObject> getCollisionObjectsThisFrame();
 }

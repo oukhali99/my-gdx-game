@@ -8,7 +8,7 @@ public class DestroyOtherGameObjectCollider extends BaseColliderDecorator {
     }
     @Override
     public void handleCollisionsThisFrame(GameObject gameObject, float delta) {
-        for (GameObject otherGameObject : getCollisionObjectsThisFrame()) {
+        for (GameObject otherGameObject : gameObject.getCollisionObjectsThisFrame()) {
             otherGameObject.markForDestruction();
         }
         super.handleCollisionsThisFrame(gameObject, delta);

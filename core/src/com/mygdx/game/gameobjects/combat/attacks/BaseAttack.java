@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.Collider;
+import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.renderer.RendererDecorator;
 import com.mygdx.game.components.updater.BaseUpdaterDecorator;
 import com.mygdx.game.gameobjects.BaseGameObject;
@@ -30,27 +32,29 @@ public class BaseAttack extends BaseGameObject implements Attack {
         this.attacker = attacker;
         this.fight = fight;
 
-        final GameObject thisGameObject = this;
-        baseCollider = new BaseCollider(game) {
-            @Override
-            public Rectangle getArea(GameObject gameObject) {
-                Transform transform = gameObject.getTransform();
-                Rectangle rectangle = new Rectangle();
-                rectangle.x = transform.getPosition().x;
-                rectangle.y = transform.getPosition().y;
-                rectangle.width = transform.getScale().x;
-                rectangle.height = transform.getScale().y;
-                return rectangle;
-            }
-        };
-
         setPosition(attacker.getPosition());
         setScale(ability.getScale());
 
         attackDirection = target.getPosition().sub(attacker.getPosition()).nor();
         transform.setRotationFromVector(attackDirection);
+    }
 
-        renderer = new RendererDecorator(renderer) {
+    private boolean isOutOfBounds() {
+        return !new Rectangle(0, 0, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2).contains(transform.getCenter());
+    }
+
+    @Override
+    public CombatScreen.Fight getFight() {
+        return fight;
+    }
+
+    public Integer getDamage() {
+        return ability.getDamage();
+    }
+
+    @Override
+    public Renderer getRenderer() {
+        return new RendererDecorator(super.getRenderer()) {
             @Override
             public void render(GameObject gameObject, float delta) {
                 super.render(gameObject, delta);
@@ -78,17 +82,20 @@ public class BaseAttack extends BaseGameObject implements Attack {
         };
     }
 
-    private boolean isOutOfBounds() {
-        return !new Rectangle(0, 0, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2).contains(transform.getCenter());
-    }
-
     @Override
-    public CombatScreen.Fight getFight() {
-        return fight;
-    }
-
-    public Integer getDamage() {
-        return ability.getDamage();
+    public Collider getCollider() {
+        return new BaseCollider(game) {
+            @Override
+            public Rectangle getArea(GameObject gameObject) {
+                Transform transform = gameObject.getTransform();
+                Rectangle rectangle = new Rectangle();
+                rectangle.x = transform.getPosition().x;
+                rectangle.y = transform.getPosition().y;
+                rectangle.width = transform.getScale().x;
+                rectangle.height = transform.getScale().y;
+                return rectangle;
+            }
+        };
     }
 
     @Override
