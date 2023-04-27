@@ -1,26 +1,19 @@
 package com.mygdx.game.components.renderer;
 
 import com.badlogic.gdx.graphics.Color;
-import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 
-public class HealthDependentTexture extends RendererDecorator {
-    public HealthDependentTexture(Renderer baseRenderer) {
+public abstract class IntegerDependentTexture extends RendererDecorator {
+    public IntegerDependentTexture(Renderer baseRenderer) {
         super(baseRenderer);
     }
 
-    public int getHealth(GameObject gameObject) {
-        if (gameObject instanceof Character) {
-            Character character = (Character) gameObject;
-            return character.getHealth();
-        }
-        return 0;
-    }
+    public abstract int getInteger(GameObject gameObject);
 
     @Override
     public void render(GameObject gameObject, float delta) {
-        float healthFraction = (float) getHealth(gameObject) / 100;
+        float healthFraction = (float) getInteger(gameObject) / 100;
 
         Color color = new Color(getGame().batch.getColor());
         getGame().batch.setColor(new Color(1, healthFraction, healthFraction, 1).mul(color));

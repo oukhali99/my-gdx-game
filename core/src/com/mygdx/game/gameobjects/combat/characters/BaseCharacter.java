@@ -4,10 +4,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
-import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.abilities.ThrowableAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
-import com.mygdx.game.components.renderer.HealthDependentTexture;
+import com.mygdx.game.components.renderer.IntegerDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
@@ -23,7 +22,13 @@ public abstract class BaseCharacter extends BaseGameObject implements Character 
         this.health = 100;
 
         setScale(16, 16);
-        renderer = new HealthDependentTexture(new MyTexture(game, getTexturePath()));
+        renderer = new IntegerDependentTexture(new MyTexture(game, getTexturePath())) {
+            @Override
+            public int getInteger(GameObject gameObject) {
+                Character character = (Character) gameObject;
+                return character.getHealth();
+            }
+        };
 
         /*
          */
