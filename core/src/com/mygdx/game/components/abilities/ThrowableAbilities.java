@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.LinkedList;
@@ -38,7 +39,7 @@ public class ThrowableAbilities extends BaseAbilities {
     }
 
     @Override
-    public void performAttack(GameObject thisGameObject, Attack attack) {
+    public void performAttack(Character thisGameObject, Attack attack) {
         thisGameObject.addChild(attack);
         attack.getFight().endTurn();
     }
