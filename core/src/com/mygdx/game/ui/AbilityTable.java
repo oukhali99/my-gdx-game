@@ -6,13 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.components.abilities.Abilities;
-import com.mygdx.game.components.abilities.BaseAbilities;
 import com.mygdx.game.gameplay.Ability;
 
 public abstract class AbilityTable extends Table {
-    private BaseAbilities abilities;
+    private Abilities abilities;
 
-    public AbilityTable(BaseAbilities abilities) {
+    public AbilityTable(Abilities abilities) {
         super();
         this.abilities = abilities;
 

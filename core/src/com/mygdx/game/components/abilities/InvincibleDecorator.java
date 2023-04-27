@@ -4,7 +4,7 @@ import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.Logger;
 
 public class InvincibleDecorator extends AbilitiesDecorator {
-    public InvincibleDecorator(BaseAbilities baseAbilities) {
+    public InvincibleDecorator(Abilities baseAbilities) {
         super(baseAbilities);
     }
 

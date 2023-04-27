@@ -1,16 +1,17 @@
 package com.mygdx.game.components.abilities;
 
+import com.mygdx.game.components.BaseComponentDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.List;
 
-public class AbilitiesDecorator extends BaseAbilities {
-    private BaseAbilities baseAbilities;
+public class AbilitiesDecorator extends BaseComponentDecorator implements Abilities {
+    private Abilities baseAbilities;
 
-    public AbilitiesDecorator(BaseAbilities baseAbilities) {
-        super(baseAbilities.getGame());
+    public AbilitiesDecorator(Abilities baseAbilities) {
+        super(baseAbilities);
         this.baseAbilities = baseAbilities;
     }
 
@@ -32,6 +33,11 @@ public class AbilitiesDecorator extends BaseAbilities {
     @Override
     public Ability getRandomAbility() {
         return baseAbilities.getRandomAbility();
+    }
+
+    @Override
+    public boolean hasAbilities() {
+        return baseAbilities.hasAbilities();
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.mygdx.game.gameobjects;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
-import com.mygdx.game.components.abilities.BaseAbilities;
+import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.NoCollisions;
@@ -23,7 +23,7 @@ public abstract class BaseGameObject implements GameObject {
     protected Renderer renderer;
     protected Updater baseUpdater;
     protected Collider baseCollider;
-    protected BaseAbilities abilities;
+    protected Abilities abilities;
 
     protected BaseGameObject(final Drop game) {
         this.game = game;
@@ -116,12 +116,12 @@ public abstract class BaseGameObject implements GameObject {
         this.baseCollider = collider;
     }
 
-    public BaseAbilities getAbilities() {
+    public Abilities getAbilities() {
         return abilities;
     }
 
     @Override
-    public void setAbilities(BaseAbilities abilities) {
+    public void setAbilities(Abilities abilities) {
         this.abilities = abilities;
     }
 
