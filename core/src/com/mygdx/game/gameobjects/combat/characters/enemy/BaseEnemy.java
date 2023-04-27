@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat.enemy;
+package com.mygdx.game.gameobjects.combat.characters.enemy;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Rectangle;
@@ -10,7 +10,7 @@ import com.mygdx.game.components.renderer.HealthDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.Player;
+import com.mygdx.game.gameobjects.combat.characters.Player;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorLeft;
 import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorRight;

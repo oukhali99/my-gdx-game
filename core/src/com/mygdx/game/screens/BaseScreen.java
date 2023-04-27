@@ -23,7 +23,7 @@ public abstract class BaseScreen implements Screen {
 
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1280, 720);
+        camera.setToOrtho(false, 640, 360);
     }
 
     protected BitmapFont getFont() {

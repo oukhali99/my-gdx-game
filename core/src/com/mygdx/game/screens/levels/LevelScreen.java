@@ -2,14 +2,12 @@ package com.mygdx.game.screens.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
 import com.mygdx.game.components.renderer.TilemapRenderer;
 import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.Player;
+import com.mygdx.game.gameobjects.combat.characters.Player;
 import com.mygdx.game.screens.BaseScreen;
 import com.mygdx.game.utils.MyTiledMap;
 

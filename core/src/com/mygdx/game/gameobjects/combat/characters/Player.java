@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat;
+package com.mygdx.game.gameobjects.combat.characters;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;

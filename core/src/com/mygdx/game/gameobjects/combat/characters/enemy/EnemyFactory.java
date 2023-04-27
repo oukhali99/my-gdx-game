@@ -1,7 +1,6 @@
-package com.mygdx.game.gameobjects.combat.enemy;
+package com.mygdx.game.gameobjects.combat.characters.enemy;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.abilities.InvincibleDecorator;
 
 import java.util.Random;
 
