@@ -1,11 +1,12 @@
-package com.mygdx.game.gameobjects.combat.combatmode;
+package com.mygdx.game.gameobjects.combat.characters.combatmode;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 
 public class CombatModeDecoratorRight extends CombatModeDecorator {
-    public CombatModeDecoratorRight(GameObject gameObject) {
-        super(gameObject);
+    public CombatModeDecoratorRight(Character character) {
+        super(character);
     }
 
     @Override

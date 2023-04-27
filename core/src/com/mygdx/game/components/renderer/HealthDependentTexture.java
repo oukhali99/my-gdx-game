@@ -3,6 +3,7 @@ package com.mygdx.game.components.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 
 public class HealthDependentTexture extends RendererDecorator {
     public HealthDependentTexture(Renderer baseRenderer) {
@@ -10,7 +11,11 @@ public class HealthDependentTexture extends RendererDecorator {
     }
 
     public int getHealth(GameObject gameObject) {
-        return gameObject.getAbilities().getHealth();
+        if (gameObject instanceof Character) {
+            Character character = (Character) gameObject;
+            return character.getAbilities().getHealth();
+        }
+        return 0;
     }
 
     @Override

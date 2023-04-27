@@ -9,6 +9,7 @@ import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.RendererDecorator;
 import com.mygdx.game.components.updater.BaseUpdaterDecorator;
 import com.mygdx.game.gameobjects.BaseGameObject;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.screens.CombatScreen;
@@ -16,13 +17,13 @@ import com.mygdx.game.utils.Logger;
 
 public class BaseAttack extends BaseGameObject implements Attack {
     protected final Ability ability;
-    protected final GameObject attacker;
-    protected final GameObject target;
+    protected final Character attacker;
+    protected final Character target;
     protected final CombatScreen.Fight fight;
     private final Vector2 attackDirection;
     private float stateTime = 0;
 
-    public BaseAttack(final Drop game, final Ability ability, final GameObject attacker, final GameObject target, final CombatScreen.Fight fight) {
+    public BaseAttack(final Drop game, final Ability ability, final Character attacker, final Character target, final CombatScreen.Fight fight) {
         super(game);
         this.ability = ability;
         this.target = target;

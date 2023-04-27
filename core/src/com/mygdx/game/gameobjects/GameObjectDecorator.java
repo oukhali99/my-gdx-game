@@ -85,15 +85,6 @@ public class GameObjectDecorator implements GameObject {
         baseGameObject.setCollider(collider);
     }
 
-    public Abilities getAbilities() {
-        return baseGameObject.getAbilities();
-    }
-
-    @Override
-    public void setAbilities(Abilities abilities) {
-        baseGameObject.setAbilities(abilities);
-    }
-
     public Drop getGame() {
         return baseGameObject.getGame();
     }

@@ -5,9 +5,10 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.characters.BaseCharacter;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.gameobjects.combat.characters.Player;
-import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorLeft;
-import com.mygdx.game.gameobjects.combat.combatmode.CombatModeDecoratorRight;
+import com.mygdx.game.gameobjects.combat.characters.combatmode.CombatModeDecoratorLeft;
+import com.mygdx.game.gameobjects.combat.characters.combatmode.CombatModeDecoratorRight;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;
@@ -20,13 +21,17 @@ public abstract class BaseEnemy extends BaseCharacter implements Enemy {
     @Override
     public void onCollision(GameObject gameObject, GameObject otherGameObject) {
         super.onCollision(gameObject, otherGameObject);
+
+        Character enemy = (Enemy) gameObject;
+
         if (otherGameObject instanceof Player) {
+            Character player = (Player) otherGameObject;
             Screen combatScreen = new CombatScreen(
                     game,
                     game.getScreen(),
                     new CombatScreen.Fight(
-                            new CombatModeDecoratorLeft(otherGameObject),
-                            new CombatModeDecoratorRight(gameObject)
+                            new CombatModeDecoratorLeft(player),
+                            new CombatModeDecoratorRight(enemy)
                     )
             );
             game.setScreen(combatScreen);

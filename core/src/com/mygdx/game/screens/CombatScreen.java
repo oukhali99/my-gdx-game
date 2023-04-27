@@ -12,6 +12,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.attacks.AttackFactory;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.ui.AbilityTable;
 
@@ -99,12 +100,12 @@ public class CombatScreen extends BaseScreen {
     }
 
     public static class Fight {
-        private GameObject player;
-        private GameObject enemy;
+        private Character player;
+        private Character enemy;
         private List<CombatScreen> observers;
-        private GameObject whoseTurnItIs;
+        private Character whoseTurnItIs;
 
-        public Fight(GameObject player, GameObject enemy) {
+        public Fight(Character player, Character enemy) {
             this.player = player;
             this.enemy = enemy;
             this.observers = new LinkedList<>();
@@ -115,7 +116,7 @@ public class CombatScreen extends BaseScreen {
             observers.add(observer);
         }
 
-        public void endFight(GameObject winner) {
+        public void endFight(Character winner) {
             for (CombatScreen combatScreen : observers) {
                 combatScreen.onFightEnded(winner);
             }
@@ -125,7 +126,7 @@ public class CombatScreen extends BaseScreen {
             whoseTurnItIs = null;
         }
 
-        public void applyDamage(GameObject attacker, GameObject target, int damage) {
+        public void applyDamage(Character attacker, Character target, int damage) {
             target.getAbilities().takeDamage(target, damage);
 
             if (target.getAbilities().getHealth() <= 0) {
@@ -135,7 +136,7 @@ public class CombatScreen extends BaseScreen {
             whoseTurnItIs = target;
         }
 
-        public boolean isPlayersTurn(GameObject player) {
+        public boolean isPlayersTurn(Character player) {
             return whoseTurnItIs == player;
         }
     }

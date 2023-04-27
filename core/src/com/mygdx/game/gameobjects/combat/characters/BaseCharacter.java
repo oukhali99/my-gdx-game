@@ -3,6 +3,8 @@ package com.mygdx.game.gameobjects.combat.characters;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.abilities.Abilities;
+import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.abilities.ThrowableAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.HealthDependentTexture;
@@ -19,9 +21,8 @@ public abstract class BaseCharacter extends BaseGameObject implements Character 
         setScale(16, 16);
         renderer = new HealthDependentTexture(new MyTexture(game, getTexturePath()));
 
-        abilities = new ThrowableAbilities(game);
-        abilities.addAbility(new Fireball(game));
-        abilities.addAbility(new Snowball(game));
+        /*
+         */
 
         baseCollider = new BaseCollider(game) {
             @Override
@@ -35,5 +36,13 @@ public abstract class BaseCharacter extends BaseGameObject implements Character 
                 return rectangle;
             }
         };
+    }
+
+    @Override
+    public Abilities getAbilities() {
+        Abilities abilities = new ThrowableAbilities(game);
+        abilities.addAbility(new Fireball(game));
+        abilities.addAbility(new Snowball(game));
+        return abilities;
     }
 }
