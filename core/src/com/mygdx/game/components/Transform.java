@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class Transform extends BaseComponent implements Component {
+public class Transform extends Component {
     private Vector2 position;
     private Vector2 scale;
     private float rotation;

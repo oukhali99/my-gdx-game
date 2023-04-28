@@ -1,10 +1,10 @@
 package com.mygdx.game.components.updater;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.BaseComponent;
+import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 
-public abstract class Updater extends BaseComponent {
+public abstract class Updater extends Component {
     public Updater(Drop game, GameObject gameObject) {
         super(game, gameObject);
     }

@@ -1,14 +1,14 @@
 package com.mygdx.game.components.abilities;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.BaseComponent;
+import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameplay.Ability;
 
 import java.util.List;
 
-public abstract class Abilities extends BaseComponent {
+public abstract class Abilities extends Component {
     public Abilities(Drop game, GameObject gameObject) {
         super(game, gameObject);
     }

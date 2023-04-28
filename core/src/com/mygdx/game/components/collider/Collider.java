@@ -2,13 +2,13 @@ package com.mygdx.game.components.collider;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.BaseComponent;
+import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Collider extends BaseComponent {
+public abstract class Collider extends Component {
     private LinkedList<GameObject> collisionObjectsThisFrame;
 
     public Collider(Drop game, GameObject gameObject) {
@@ -37,11 +37,6 @@ public abstract class Collider extends BaseComponent {
 
     private void onCollision(GameObject otherObject) {
         collisionObjectsThisFrame.add(otherObject);
-    }
-
-    @Override
-    public void destroy() {
-
     }
 
     public abstract void handleCollision(GameObject otherGameObject);
