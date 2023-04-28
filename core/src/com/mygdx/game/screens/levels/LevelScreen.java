@@ -7,7 +7,6 @@ import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
 import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.renderer.TilemapRenderer;
-import com.mygdx.game.gameobjects.BaseGameObject;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.Player;
 import com.mygdx.game.screens.BaseScreen;
@@ -31,7 +30,7 @@ public abstract class LevelScreen extends BaseScreen {
         myTiledMap = new MyTiledMap(getTilemapPath());
 
         // Create the tilemap
-        GameObject tileMapGameObject = new BaseGameObject(game) {
+        GameObject tileMapGameObject = new GameObject(game) {
             @Override
             public Renderer getRenderer() {
                 return new TilemapRenderer(game, camera, myTiledMap);

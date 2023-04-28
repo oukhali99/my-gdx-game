@@ -23,7 +23,7 @@ public class AttackFactory {
     public Attack createAttack(Drop game, Ability ability, Character attacker, Character target, CombatScreen.Fight fight) {
         int randomInt = RANDOM.nextInt(NUM_TYPES);
 
-        Attack baseAttack = new BaseAttack(game, ability, attacker, target, fight);
+        Attack baseAttack = new Attack(game, ability, attacker, target, fight);
         return baseAttack;
     }
 }

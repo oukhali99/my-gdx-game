@@ -1,22 +1,106 @@
 package com.mygdx.game.gameobjects.combat.characters;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Drop;
+import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
+import com.mygdx.game.components.abilities.ThrowableAbilities;
+import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.Collider;
+import com.mygdx.game.components.renderer.IntegerDependentTexture;
+import com.mygdx.game.components.renderer.MyTexture;
+import com.mygdx.game.components.renderer.Renderer;
+import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.Updater;
 import com.mygdx.game.components.updater.WASDMovement;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameplay.Fireball;
+import com.mygdx.game.gameplay.Snowball;
 
-public interface Character extends GameObject {
-    public String getTexturePath();
+public abstract class Character extends GameObject {
+    private int health;
+    private WASDMovement.MoveCommand currentMoveCommand;
 
-    public Abilities getAbilities();
+    protected Character(Drop game) {
+        super(game);
 
-    public Integer getHealth();
+        this.health = 100;
 
-    public void takeDamage(int damage);
+        setScale(16, 16);
+    }
 
-    public Updater getUpdater();
+    protected abstract String getTexturePath();
 
-    public WASDMovement.MoveCommand getCurrentMoveCommand();
+    @Override
+    public Renderer getRenderer() {
+        return new IntegerDependentTexture(new MyTexture(game, getTexturePath())) {
+            @Override
+            public int getInteger(GameObject gameObject) {
+                Character character = (Character) gameObject;
+                return character.getHealth();
+            }
+        };
+    }
 
-    public void setCurrentMoveCommand(WASDMovement.MoveCommand moveCommand);
+    @Override
+    public Collider getCollider() {
+        return new BaseCollider(game) {
+            @Override
+            public Rectangle getArea(GameObject gameObject) {
+                Transform transform = gameObject.getTransform();
+                Rectangle rectangle = new Rectangle();
+                rectangle.x = transform.getPosition().x;
+                rectangle.y = transform.getPosition().y;
+                rectangle.width = transform.getScale().x;
+                rectangle.height = transform.getScale().y;
+                return rectangle;
+            }
+        };
+    }
+
+    @Override
+    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
+        super.onCollision(gameObject, otherGameObject);
+        getUpdater().onCollision(gameObject, otherGameObject);
+    }
+
+    @Override
+    public void update(GameObject gameObject, float delta) {
+        super.update(gameObject, delta);
+
+        Character character = (Character) gameObject;
+        character.getUpdater().update(character, delta);
+    }
+
+    public Abilities getAbilities() {
+        Abilities abilities = new ThrowableAbilities(game);
+        abilities.addAbility(new Fireball(game));
+        abilities.addAbility(new Snowball(game));
+        return abilities;
+    }
+
+    public Integer getHealth() {
+        return health;
+    }
+
+    public void takeDamage(int damage) {
+        health -= damage;
+
+        if (health <= 0) {
+            health = 0;
+            markForDestruction();
+        }
+    }
+
+    public Updater getUpdater() {
+        return new NoUpdate(game);
+    }
+
+    public WASDMovement.MoveCommand getCurrentMoveCommand() {
+        return currentMoveCommand;
+    }
+
+    public void setCurrentMoveCommand(WASDMovement.MoveCommand moveCommand) {
+        currentMoveCommand = moveCommand;
+    }
 }
