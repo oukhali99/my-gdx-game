@@ -18,8 +18,7 @@ public abstract class Enemy extends Character {
         final Enemy thisEnemy = this;
         setCollider(new BaseColliderDecorator(getCollider()) {
             @Override
-            public void handleCollision(GameObject otherGameObject) {
-                super.handleCollision(otherGameObject);
+            public void handleCollisionDecorator(GameObject otherGameObject) {
                 if (otherGameObject instanceof Player) {
                     Character player = (Player) otherGameObject;
                     Screen combatScreen = new CombatScreen(

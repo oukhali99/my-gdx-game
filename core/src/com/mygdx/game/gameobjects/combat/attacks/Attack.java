@@ -5,9 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
-import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.collider.Collider;
-import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.renderer.RendererDecorator;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.gameplay.Ability;
@@ -61,7 +59,7 @@ public class Attack extends GameObject {
                 ability.draw(stateTime, transform);
             }
         });
-        setCollider(new BaseCollider(game, this) {
+        setCollider(new Collider(game, this) {
             @Override
             public void handleCollision(GameObject otherGameObject) {
                 if (otherGameObject == target) {

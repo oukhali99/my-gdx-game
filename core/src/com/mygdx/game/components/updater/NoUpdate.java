@@ -4,7 +4,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 
-public class NoUpdate extends BaseUpdater {
+public class NoUpdate extends Updater {
     public NoUpdate(Drop game, GameObject gameObject) {
         super(game, gameObject);
     }

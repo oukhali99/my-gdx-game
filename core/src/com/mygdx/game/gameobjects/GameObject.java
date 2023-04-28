@@ -1,6 +1,7 @@
 package com.mygdx.game.gameobjects;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
@@ -29,7 +30,22 @@ public abstract class GameObject {
         this.collisionObjectsThisFrame = new LinkedList<>();
 
         this.renderer = new NoTexture(game, this);
-        this.collider = new NoCollisions(game, this);
+        setCollider(new Collider(game, this) {
+            @Override
+            public void handleCollision(GameObject otherGameObject) {
+            }
+
+            @Override
+            public Rectangle getArea() {
+                Transform transform = getTransform();
+                Rectangle rectangle = new Rectangle();
+                rectangle.x = transform.getPosition().x;
+                rectangle.y = transform.getPosition().y;
+                rectangle.width = transform.getScale().x;
+                rectangle.height = transform.getScale().y;
+                return rectangle;
+            }
+        });
     }
 
     public Renderer getRenderer() {

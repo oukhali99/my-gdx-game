@@ -1,12 +1,15 @@
 package com.mygdx.game.components.updater;
 
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Component;
+import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.characters.Character;
 
-public interface Updater extends Component  {
-    public void update(float delta);
+public abstract class Updater extends BaseComponent {
+    public Updater(Drop game, GameObject gameObject) {
+        super(game, gameObject);
+    }
 
-    public void onCollision(GameObject otherGameObject);
+    public abstract void update(float delta);
+
+    public abstract void onCollision(GameObject otherGameObject);
 }

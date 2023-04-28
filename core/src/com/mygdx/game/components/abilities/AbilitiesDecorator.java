@@ -8,11 +8,11 @@ import com.mygdx.game.gameplay.Ability;
 
 import java.util.List;
 
-public class AbilitiesDecorator extends BaseComponentDecorator implements Abilities {
+public class AbilitiesDecorator extends Abilities {
     private Abilities baseAbilities;
 
     public AbilitiesDecorator(Abilities baseAbilities) {
-        super(baseAbilities);
+        super(baseAbilities.getGame(), baseAbilities.getGameObject());
         this.baseAbilities = baseAbilities;
     }
 

@@ -1,17 +1,20 @@
 package com.mygdx.game.components.renderer;
 
-import com.mygdx.game.components.BaseComponentDecorator;
-
-public class RendererDecorator extends BaseComponentDecorator implements Renderer {
+public class RendererDecorator extends Renderer {
     protected Renderer baseRenderer;
 
     public RendererDecorator(Renderer baseRenderer) {
-        super(baseRenderer);
+        super(baseRenderer.getGame(), baseRenderer.getGameObject());
         this.baseRenderer = baseRenderer;
     }
 
     @Override
     public void render(float delta) {
         baseRenderer.render(delta);
+    }
+
+    @Override
+    public void destroy() {
+        baseRenderer.destroy();
     }
 }

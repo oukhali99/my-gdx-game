@@ -6,7 +6,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class MyTexture extends BaseRenderer {
+public class MyTexture extends Renderer {
     private com.badlogic.gdx.graphics.Texture texture;
     private String texturePath;
 

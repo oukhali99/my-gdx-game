@@ -59,11 +59,13 @@ public class WASDMovement extends BaseUpdaterDecorator {
         private Vector2 destination;
         private float speed;
         private Vector2 initialPosition;
+        private GameObject gameObject;
 
         public MoveCommand(GameObject gameObject, Vector2 destination, float speed) {
             this.destination = destination;
             this.speed = speed;
             this.initialPosition = gameObject.getPosition();
+            this.gameObject = gameObject;
         }
 
         private boolean isCommandComplete(Vector2 position) {
@@ -82,7 +84,7 @@ public class WASDMovement extends BaseUpdaterDecorator {
             }
         }
 
-        public void onCollision(GameObject gameObject) {
+        public void onCollision(GameObject otherGameObject) {
             gameObject.setPosition(initialPosition);
         }
     }

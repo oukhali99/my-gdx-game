@@ -5,7 +5,8 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.ThrowableAbilities;
-import com.mygdx.game.components.collider.BaseCollider;
+import com.mygdx.game.components.collider.BaseColliderDecorator;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.IntegerDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
@@ -24,21 +25,10 @@ public abstract class Character extends GameObject {
         this.health = 100;
 
         setUpdater(new NoUpdate(game, this));
-        setCollider(new BaseCollider(game, this) {
+        setCollider(new BaseColliderDecorator(getCollider()) {
             @Override
-            public void handleCollision(GameObject otherGameObject) {
-                getUpdater().onCollision(otherGameObject);
-            }
-
-            @Override
-            public Rectangle getArea() {
-                Transform transform = getTransform();
-                Rectangle rectangle = new Rectangle();
-                rectangle.x = transform.getPosition().x;
-                rectangle.y = transform.getPosition().y;
-                rectangle.width = transform.getScale().x;
-                rectangle.height = transform.getScale().y;
-                return rectangle;
+            protected void handleCollisionDecorator(GameObject gameObject) {
+                getUpdater().onCollision(gameObject);
             }
         });
         setRenderer(new IntegerDependentTexture(new MyTexture(game, this, getTexturePath())) {

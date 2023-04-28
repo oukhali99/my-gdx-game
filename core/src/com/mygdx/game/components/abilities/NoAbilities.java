@@ -8,7 +8,7 @@ import com.mygdx.game.gameplay.Ability;
 
 import java.util.List;
 
-public class NoAbilities extends BaseAbilities {
+public class NoAbilities extends Abilities {
     public NoAbilities(Drop game, GameObject gameObject) {
         super(game, gameObject);
     }

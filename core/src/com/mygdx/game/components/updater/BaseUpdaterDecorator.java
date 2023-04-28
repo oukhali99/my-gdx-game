@@ -1,13 +1,12 @@
 package com.mygdx.game.components.updater;
 
-import com.mygdx.game.components.BaseComponentDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class BaseUpdaterDecorator extends BaseComponentDecorator implements Updater {
+public class BaseUpdaterDecorator extends Updater {
     private Updater baseUpdater;
 
     public BaseUpdaterDecorator(Updater baseUpdater) {
-        super(baseUpdater);
+        super(baseUpdater.getGame(), baseUpdater.getGameObject());
         this.baseUpdater = baseUpdater;
     }
 

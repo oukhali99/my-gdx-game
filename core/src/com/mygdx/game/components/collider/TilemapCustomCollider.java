@@ -12,7 +12,7 @@ import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.CombinedRectangles;
 import com.mygdx.game.utils.MyTiledMap;
 
-public class TilemapCustomCollider extends BaseCollider {
+public class TilemapCustomCollider extends Collider {
     private MyTiledMap tiledMap;
     private MapLayers mapLayers;
     protected MapLayer collisionLayer;
