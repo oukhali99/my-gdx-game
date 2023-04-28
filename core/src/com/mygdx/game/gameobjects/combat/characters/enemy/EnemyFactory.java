@@ -27,10 +27,6 @@ public class EnemyFactory {
                 break;
         }
 
-        if (RANDOM.nextFloat() < 0.1f) {
-            enemy = new InvincibleEnemyDecorator(enemy);
-        }
-
         return enemy;
     }
 }

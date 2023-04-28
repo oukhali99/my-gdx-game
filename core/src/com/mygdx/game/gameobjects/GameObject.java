@@ -11,6 +11,10 @@ import java.util.List;
 public interface GameObject {
     public Renderer getRenderer();
 
+    public void setRenderer(Renderer renderer);
+
+    public void setCollider(Collider collider);
+
     public void setPosition(float x, float y);
 
     public void setPosition(Vector2 position);

@@ -24,11 +24,6 @@ public class AttackFactory {
         int randomInt = RANDOM.nextInt(NUM_TYPES);
 
         Attack baseAttack = new BaseAttack(game, ability, attacker, target, fight);
-
-        if (RANDOM.nextFloat() < 0.2f) {
-            baseAttack = new CriticalAttackDecorator(baseAttack);
-        }
-
         return baseAttack;
     }
 }

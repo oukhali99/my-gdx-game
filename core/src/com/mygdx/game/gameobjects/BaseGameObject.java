@@ -19,6 +19,8 @@ public abstract class BaseGameObject implements GameObject {
     private boolean markedForDestruction;
     protected List<GameObject> children;
     private final List<GameObject> collisionObjectsThisFrame;
+    private Renderer renderer;
+    private Collider collider;
 
     protected BaseGameObject(final Drop game) {
         this.game = game;
@@ -26,10 +28,23 @@ public abstract class BaseGameObject implements GameObject {
         this.markedForDestruction = false;
         this.children = new LinkedList<>();
         this.collisionObjectsThisFrame = new LinkedList<>();
+
+        this.renderer = new NoTexture(game);
+        this.collider = new NoCollisions(game);
     }
 
     public Renderer getRenderer() {
-        return new NoTexture(game);
+        return renderer;
+    }
+
+    @Override
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
+    }
+
+    @Override
+    public void setCollider(Collider collider) {
+        this.collider = collider;
     }
 
     public void setPosition(float x, float y) {
@@ -57,7 +72,7 @@ public abstract class BaseGameObject implements GameObject {
     }
 
     public Collider getCollider() {
-        return new NoCollisions(game);
+        return collider;
     }
 
     public Transform getTransform() {

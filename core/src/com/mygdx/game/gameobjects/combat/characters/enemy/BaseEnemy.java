@@ -7,8 +7,6 @@ import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.characters.BaseCharacter;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.gameobjects.combat.characters.Player;
-import com.mygdx.game.gameobjects.combat.characters.combatmode.CombatModeDecoratorLeft;
-import com.mygdx.game.gameobjects.combat.characters.combatmode.CombatModeDecoratorRight;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;
@@ -30,8 +28,8 @@ public abstract class BaseEnemy extends BaseCharacter implements Enemy {
                     game,
                     game.getScreen(),
                     new CombatScreen.Fight(
-                            new CombatModeDecoratorLeft(player),
-                            new CombatModeDecoratorRight(enemy)
+                            player,
+                            enemy
                     )
             );
             game.setScreen(combatScreen);
