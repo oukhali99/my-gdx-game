@@ -5,7 +5,7 @@ import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class BaseUpdater extends BaseComponent implements Updater {
-    public BaseUpdater(Drop game) {
-        super(game);
+    public BaseUpdater(Drop game, GameObject gameObject) {
+        super(game, gameObject);
     }
 }

@@ -13,8 +13,8 @@ public class TilemapRenderer extends BaseRenderer {
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private  OrthographicCamera camera;
 
-    public TilemapRenderer(Drop game, OrthographicCamera camera, MyTiledMap map) {
-        super(game);
+    public TilemapRenderer(Drop game, GameObject gameObject, OrthographicCamera camera, MyTiledMap map) {
+        super(game, gameObject);
         this.camera = camera;
         this.map = map;
 
@@ -22,7 +22,7 @@ public class TilemapRenderer extends BaseRenderer {
     }
 
     @Override
-    public void render(GameObject gameObject, float delta) {
+    public void render(float delta) {
         orthogonalTiledMapRenderer.setView(camera);
         orthogonalTiledMapRenderer.render();
     }

@@ -4,12 +4,17 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public interface Collider extends Component {
-    public void lookForCollisions(float delta, List<GameObject> gameObjects, GameObject gameObject);
+    public void lookForCollisions(float delta, List<GameObject> gameObjects);
 
-    public void handleCollisionsThisFrame(GameObject gameObject, float delta);
+    public void handleCollisionsThisFrame(float delta);
 
-    public Rectangle getArea(GameObject gameObject);
+    public Rectangle getArea();
+
+    public LinkedList<GameObject> getCollisionObjectsThisFrame();
+
+    public void handleCollision(GameObject otherGameObject);
 }

@@ -30,21 +30,13 @@ public abstract class LevelScreen extends BaseScreen {
         myTiledMap = new MyTiledMap(getTilemapPath());
 
         // Create the tilemap
-        GameObject tileMapGameObject = new GameObject(game) {
-            @Override
-            public Renderer getRenderer() {
-                return new TilemapRenderer(game, camera, myTiledMap);
-            }
-
-            @Override
-            public Collider getCollider() {
-                return new TilemapCustomCollider(game, myTiledMap);
-            }
-        };
+        GameObject tileMapGameObject = new GameObject(game) {};
+        tileMapGameObject.setRenderer(new TilemapRenderer(game, tileMapGameObject, camera, myTiledMap));
+        tileMapGameObject.setCollider(new TilemapCustomCollider(game, tileMapGameObject, myTiledMap));
         addGameObject(tileMapGameObject);
 
         // Create the player
-        player = new Player(game, myTiledMap);
+        player = new Player(game);
         addGameObject(player);
 
         // Move the player to the center

@@ -1,7 +1,6 @@
 package com.mygdx.game.components.updater;
 
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.characters.Character;
 
 public class MuteUpdater extends BaseUpdaterDecorator {
     public MuteUpdater(Updater baseUpdater) {
@@ -9,7 +8,7 @@ public class MuteUpdater extends BaseUpdaterDecorator {
     }
 
     @Override
-    public void update(Character character, float delta) {
+    public void update(float delta) {
         //super.update(gameObject, delta);
     }
 }

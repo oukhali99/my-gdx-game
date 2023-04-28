@@ -18,8 +18,8 @@ public class TilemapCustomCollider extends BaseCollider {
     protected MapLayer collisionLayer;
     private CombinedRectangles combinedRectangles;
 
-    public TilemapCustomCollider(Drop game, MyTiledMap tiledMap) {
-        super(game);
+    public TilemapCustomCollider(Drop game, GameObject gameObject, MyTiledMap tiledMap) {
+        super(game, gameObject);
         this.combinedRectangles = new CombinedRectangles();
         this.tiledMap = tiledMap;
 
@@ -36,7 +36,11 @@ public class TilemapCustomCollider extends BaseCollider {
     }
 
     @Override
-    public Rectangle getArea(GameObject gameObject) {
+    public Rectangle getArea() {
         return combinedRectangles;
+    }
+
+    @Override
+    public void handleCollision(GameObject otherGameObject) {
     }
 }

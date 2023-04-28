@@ -42,7 +42,7 @@ public class AbilitiesDecorator extends BaseComponentDecorator implements Abilit
     }
 
     @Override
-    public void performAttack(Character thisGameObject, Attack attack) {
-        baseAbilities.performAttack(thisGameObject, attack);
+    public void performAttack(Attack attack) {
+        baseAbilities.performAttack(attack);
     }
 }

@@ -5,8 +5,8 @@ import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 
 public class NoUpdate extends BaseUpdater {
-    public NoUpdate(Drop game) {
-        super(game);
+    public NoUpdate(Drop game, GameObject gameObject) {
+        super(game, gameObject);
     }
 
     @Override
@@ -15,12 +15,12 @@ public class NoUpdate extends BaseUpdater {
     }
 
     @Override
-    public void update(Character character, float delta) {
+    public void update(float delta) {
 
     }
 
     @Override
-    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
+    public void onCollision(GameObject otherGameObject) {
 
     }
 }

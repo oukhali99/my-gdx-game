@@ -6,48 +6,33 @@ import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.ThrowableAbilities;
 import com.mygdx.game.components.collider.BaseCollider;
-import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.IntegerDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
-import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.Updater;
-import com.mygdx.game.components.updater.WASDMovement;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameplay.Fireball;
 import com.mygdx.game.gameplay.Snowball;
 
 public abstract class Character extends GameObject {
     private int health;
-    private WASDMovement.MoveCommand currentMoveCommand;
+    private Updater updater;
 
     protected Character(Drop game) {
         super(game);
 
         this.health = 100;
 
-        setScale(16, 16);
-    }
-
-    protected abstract String getTexturePath();
-
-    @Override
-    public Renderer getRenderer() {
-        return new IntegerDependentTexture(new MyTexture(game, getTexturePath())) {
+        setUpdater(new NoUpdate(game, this));
+        setCollider(new BaseCollider(game, this) {
             @Override
-            public int getInteger(GameObject gameObject) {
-                Character character = (Character) gameObject;
-                return character.getHealth();
+            public void handleCollision(GameObject otherGameObject) {
+                getUpdater().onCollision(otherGameObject);
             }
-        };
-    }
 
-    @Override
-    public Collider getCollider() {
-        return new BaseCollider(game) {
             @Override
-            public Rectangle getArea(GameObject gameObject) {
-                Transform transform = gameObject.getTransform();
+            public Rectangle getArea() {
+                Transform transform = getTransform();
                 Rectangle rectangle = new Rectangle();
                 rectangle.x = transform.getPosition().x;
                 rectangle.y = transform.getPosition().y;
@@ -55,25 +40,27 @@ public abstract class Character extends GameObject {
                 rectangle.height = transform.getScale().y;
                 return rectangle;
             }
-        };
+        });
+        setRenderer(new IntegerDependentTexture(new MyTexture(game, this, getTexturePath())) {
+            @Override
+            public int getInteger() {
+                return getHealth();
+            }
+        });
+
+        setScale(16, 16);
     }
 
-    @Override
-    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
-        super.onCollision(gameObject, otherGameObject);
-        getUpdater().onCollision(gameObject, otherGameObject);
-    }
+    protected abstract String getTexturePath();
 
     @Override
-    public void update(GameObject gameObject, float delta) {
-        super.update(gameObject, delta);
-
-        Character character = (Character) gameObject;
-        character.getUpdater().update(character, delta);
+    public void update(float delta) {
+        super.update(delta);
+        getUpdater().update(delta);
     }
 
     public Abilities getAbilities() {
-        Abilities abilities = new ThrowableAbilities(game);
+        Abilities abilities = new ThrowableAbilities(game, this);
         abilities.addAbility(new Fireball(game));
         abilities.addAbility(new Snowball(game));
         return abilities;
@@ -93,14 +80,10 @@ public abstract class Character extends GameObject {
     }
 
     public Updater getUpdater() {
-        return new NoUpdate(game);
+        return updater;
     }
 
-    public WASDMovement.MoveCommand getCurrentMoveCommand() {
-        return currentMoveCommand;
-    }
-
-    public void setCurrentMoveCommand(WASDMovement.MoveCommand moveCommand) {
-        currentMoveCommand = moveCommand;
+    public void setUpdater(Updater updater) {
+        this.updater = updater;
     }
 }

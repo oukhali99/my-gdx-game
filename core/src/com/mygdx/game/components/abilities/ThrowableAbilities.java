@@ -13,8 +13,8 @@ import java.util.List;
 public class ThrowableAbilities extends BaseAbilities {
     private final List<Ability> abilityList;
 
-    public ThrowableAbilities(Drop game) {
-        super(game);
+    public ThrowableAbilities(Drop game, GameObject gameObject) {
+        super(game, gameObject);
         this.abilityList = new LinkedList<>();
     }
 
@@ -39,8 +39,7 @@ public class ThrowableAbilities extends BaseAbilities {
     }
 
     @Override
-    public void performAttack(Character thisGameObject, Attack attack) {
-        thisGameObject.addChild(attack);
+    public void performAttack(Attack attack) {
         attack.getFight().endTurn();
     }
 

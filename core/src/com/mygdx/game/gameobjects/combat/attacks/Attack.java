@@ -35,28 +35,12 @@ public class Attack extends GameObject {
 
         attackDirection = target.getPosition().sub(attacker.getPosition()).nor();
         transform.setRotationFromVector(attackDirection);
-    }
 
-    private boolean isOutOfBounds() {
-        return !new Rectangle(0, 0, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2).contains(transform.getCenter());
-    }
-
-    public CombatScreen.Fight getFight() {
-        return fight;
-    }
-
-    public Integer getDamage() {
-        return ability.getDamage();
-    }
-
-    @Override
-    public Renderer getRenderer() {
-        return new RendererDecorator(super.getRenderer()) {
+        setRenderer(new RendererDecorator(getRenderer()) {
             @Override
-            public void render(GameObject gameObject, float delta) {
-                super.render(gameObject, delta);
+            public void render(float delta) {
+                super.render(delta);
 
-                Attack attack = (Attack) gameObject;
                 float speed = 700;
 
                 // Update the position of the fireball based on the elapsed time and speed
@@ -71,19 +55,24 @@ public class Attack extends GameObject {
                 // Check for out of bounds
                 if (isOutOfBounds()) {
                     markForDestruction();
-                    fight.applyDamage(attacker, target, attack.getDamage());
+                    fight.applyDamage(attacker, target, getDamage());
                 }
 
                 ability.draw(stateTime, transform);
             }
-        };
-    }
-
-    @Override
-    public Collider getCollider() {
-        return new BaseCollider(game) {
+        });
+        setCollider(new BaseCollider(game, this) {
             @Override
-            public Rectangle getArea(GameObject gameObject) {
+            public void handleCollision(GameObject otherGameObject) {
+                if (otherGameObject == target) {
+                    Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + getDamage() + " damage");
+                    markForDestruction();
+                    fight.applyDamage(attacker, target, getDamage());
+                }
+            }
+
+            @Override
+            public Rectangle getArea() {
                 Transform transform = gameObject.getTransform();
                 Rectangle rectangle = new Rectangle();
                 rectangle.x = transform.getPosition().x;
@@ -92,19 +81,18 @@ public class Attack extends GameObject {
                 rectangle.height = transform.getScale().y;
                 return rectangle;
             }
-        };
+        });
     }
 
-    @Override
-    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
-        super.onCollision(gameObject, otherGameObject);
+    private boolean isOutOfBounds() {
+        return !new Rectangle(0, 0, Gdx.graphics.getWidth() * 2, Gdx.graphics.getHeight() * 2).contains(transform.getCenter());
+    }
 
-        Attack attack = (Attack) gameObject;
+    public CombatScreen.Fight getFight() {
+        return fight;
+    }
 
-        if (otherGameObject == target) {
-            Logger.log("Attacked " + otherGameObject + " with " + ability.getName() + " for " + attack.getDamage() + " damage");
-            markForDestruction();
-            fight.applyDamage(attacker, target, attack.getDamage());
-        }
+    public Integer getDamage() {
+        return ability.getDamage();
     }
 }

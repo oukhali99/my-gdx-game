@@ -6,7 +6,7 @@ import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 
 public interface Updater extends Component  {
-    public void update(Character character, float delta);
+    public void update(float delta);
 
-    public void onCollision(GameObject gameObject, GameObject otherGameObject);
+    public void onCollision(GameObject otherGameObject);
 }

@@ -7,12 +7,12 @@ import com.mygdx.game.gameobjects.GameObject;
 import java.util.List;
 
 public class NoCollisions extends BaseCollider {
-    public NoCollisions(Drop game) {
-        super(game);
+    public NoCollisions(Drop game, GameObject gameObject) {
+        super(game, gameObject);
     }
 
     @Override
-    public void lookForCollisions(float delta, List<GameObject> gameObjects, GameObject gameObject) {
+    public void lookForCollisions(float delta, List<GameObject> gameObjects) {
 
     }
 
@@ -22,12 +22,15 @@ public class NoCollisions extends BaseCollider {
     }
 
     @Override
-    public void handleCollisionsThisFrame(GameObject gameObject, float delta) {
-
+    public void handleCollisionsThisFrame(float delta) {
     }
 
     @Override
-    public Rectangle getArea(GameObject gameObject) {
+    public void handleCollision(GameObject otherGameObject) {
+    }
+
+    @Override
+    public Rectangle getArea() {
         return new Rectangle(0, 0, 0, 0);
     }
 }

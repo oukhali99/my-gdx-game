@@ -58,20 +58,20 @@ public abstract class BaseScreen implements Screen {
         // all drops
         game.batch.begin();
         for (GameObject gameObject : gameObjects) {
-            gameObject.render(gameObject, delta);
+            gameObject.render(delta);
         }
         game.batch.end();
 
         for (GameObject gameObject : gameObjects) {
-            gameObject.update(gameObject, delta);
+            gameObject.update(delta);
         }
 
         for (GameObject gameObject : gameObjects) {
-            gameObject.postUpdate(delta, gameObjects, gameObject);
+            gameObject.postUpdate(delta, gameObjects);
         }
 
         for (GameObject gameObject : gameObjects) {
-            gameObject.postPostUpdate(gameObject, delta);
+            gameObject.postPostUpdate(delta);
         }
 
         preenDestroyedGameObjects();

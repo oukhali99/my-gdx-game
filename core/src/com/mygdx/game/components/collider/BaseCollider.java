@@ -8,43 +8,51 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseCollider extends BaseComponent implements Collider {
-    public BaseCollider(Drop game) {
-        super(game);
+    private LinkedList<GameObject> collisionObjectsThisFrame;
+
+    public BaseCollider(Drop game, GameObject gameObject) {
+        super(game, gameObject);
+        collisionObjectsThisFrame = new LinkedList<>();
     }
 
     @Override
-    public void lookForCollisions(float delta, List<GameObject> gameObjects, GameObject gameObject) {
-        gameObject.clearCollisionObjectsThisFrame();
+    public void lookForCollisions(float delta, List<GameObject> gameObjects) {
+        collisionObjectsThisFrame.clear();
 
         for (GameObject otherGameObject : gameObjects) {
             Collider otherBaseCollider = otherGameObject.getCollider();
             if (
                     otherBaseCollider != null &&
-                    overlaps(gameObject, otherGameObject, otherBaseCollider) &&
-                    !gameObject.equals(otherGameObject)
+                    overlaps(otherBaseCollider) &&
+                    gameObject != otherGameObject
             ) {
-                onCollision(gameObject, otherGameObject);
+                onCollision(otherGameObject);
             }
         }
     }
 
-    private boolean overlaps(GameObject gameObject, GameObject otherGameObject, Collider otherCollider) {
-        return getArea(gameObject).overlaps(otherCollider.getArea(otherGameObject)) || otherCollider.getArea(otherGameObject).overlaps(getArea(gameObject));
+    private boolean overlaps(Collider otherCollider) {
+        return getArea().overlaps(otherCollider.getArea()) || otherCollider.getArea().overlaps(getArea());
     }
 
     @Override
-    public void handleCollisionsThisFrame(GameObject gameObject, float delta) {
-        for (GameObject otherGameObject : gameObject.getCollisionObjectsThisFrame()) {
-            gameObject.onCollision(gameObject, otherGameObject);
+    public void handleCollisionsThisFrame(float delta) {
+        for (GameObject otherGameObject : collisionObjectsThisFrame) {
+            handleCollision(otherGameObject);
         }
     }
 
-    private void onCollision(GameObject gameObject, GameObject otherObject) {
-        gameObject.addCollisionObjectThisFrame(otherObject);
+    private void onCollision(GameObject otherObject) {
+        collisionObjectsThisFrame.add(otherObject);
     }
 
     @Override
     public void destroy() {
 
+    }
+
+    @Override
+    public LinkedList<GameObject> getCollisionObjectsThisFrame() {
+        return collisionObjectsThisFrame;
     }
 }

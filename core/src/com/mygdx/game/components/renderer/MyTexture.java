@@ -10,24 +10,24 @@ public class MyTexture extends BaseRenderer {
     private com.badlogic.gdx.graphics.Texture texture;
     private String texturePath;
 
-    public MyTexture(Drop game, String texturePath) {
-        super(game);
+    public MyTexture(Drop game, GameObject gameObject, String texturePath) {
+        super(game, gameObject);
         this.texturePath = texturePath;
         this.texture = new com.badlogic.gdx.graphics.Texture(Gdx.files.internal(texturePath));
     }
 
     public MyTexture(MyTexture baseMyTexture) {
-        super(baseMyTexture.game);
+        super(baseMyTexture.game, baseMyTexture.gameObject);
         this.texture = baseMyTexture.texture;
         this.texturePath = baseMyTexture.texturePath;
     }
 
     @Override
-    public void render(GameObject gameObject, float delta) {
-        draw(gameObject, delta);
+    public void render(float delta) {
+        draw(delta);
     }
 
-    public void draw(GameObject gameObject, float delta) {
+    public void draw(float delta) {
         Transform transform = gameObject.getTransform();
 
         game.batch.draw(

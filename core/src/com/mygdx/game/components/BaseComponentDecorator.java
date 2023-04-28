@@ -1,6 +1,7 @@
 package com.mygdx.game.components;
 
 import com.mygdx.game.Drop;
+import com.mygdx.game.gameobjects.GameObject;
 
 public class BaseComponentDecorator implements Component {
     private Component baseComponent;
@@ -16,6 +17,11 @@ public class BaseComponentDecorator implements Component {
 
     public Drop getGame() {
         return baseComponent.getGame();
+    }
+
+    @Override
+    public GameObject getGameObject() {
+        return baseComponent.getGameObject();
     }
 
     @Override

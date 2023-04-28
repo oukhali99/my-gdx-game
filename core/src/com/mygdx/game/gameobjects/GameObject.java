@@ -7,8 +7,6 @@ import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.NoCollisions;
 import com.mygdx.game.components.renderer.NoTexture;
 import com.mygdx.game.components.renderer.Renderer;
-import com.mygdx.game.components.updater.Updater;
-import com.mygdx.game.components.updater.NoUpdate;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,13 +22,13 @@ public abstract class GameObject {
 
     protected GameObject(final Drop game) {
         this.game = game;
-        this.transform = new Transform(game);
+        this.transform = new Transform(game, this);
         this.markedForDestruction = false;
         this.children = new LinkedList<>();
         this.collisionObjectsThisFrame = new LinkedList<>();
 
-        this.renderer = new NoTexture(game);
-        this.collider = new NoCollisions(game);
+        this.renderer = new NoTexture(game, this);
+        this.collider = new NoCollisions(game, this);
     }
 
     public Renderer getRenderer() {
@@ -116,37 +114,34 @@ public abstract class GameObject {
         return game;
     }
 
-    public void onCollision(GameObject gameObject, GameObject otherGameObject) {
-    }
-
     public void translate(Vector2 amount) {
         transform.translate(amount);
     }
 
-    public void render(GameObject gameObject, float delta) {
-        gameObject.getRenderer().render(gameObject, delta);
+    public void render(float delta) {
+        getRenderer().render(delta);
 
-        for (GameObject child : gameObject.getChildren()) {
-            child.getRenderer().render(child, delta);
+        for (GameObject child : getChildren()) {
+            child.getRenderer().render(delta);
         }
     }
 
-    public void update(GameObject gameObject, float delta) {
+    public void update(float delta) {
     }
 
-    public void postUpdate(float delta, List<GameObject> gameObjects, GameObject gameObject) {
-        gameObject.getCollider().lookForCollisions(delta, gameObjects, gameObject);
+    public void postUpdate(float delta, List<GameObject> gameObjects) {
+        getCollider().lookForCollisions(delta, gameObjects);
 
-        for (GameObject child : gameObject.getChildren()) {
-            child.getCollider().lookForCollisions(delta, gameObjects, child);
+        for (GameObject child : getChildren()) {
+            child.getCollider().lookForCollisions(delta, gameObjects);
         }
     }
 
-    public void postPostUpdate(GameObject gameObject, float delta) {
-        gameObject.getCollider().handleCollisionsThisFrame(gameObject, delta);
+    public void postPostUpdate(float delta) {
+        getCollider().handleCollisionsThisFrame(delta);
 
-        for (GameObject child : gameObject.getChildren()) {
-            child.getCollider().handleCollisionsThisFrame(child, delta);
+        for (GameObject child : getChildren()) {
+            child.getCollider().handleCollisionsThisFrame(delta);
         }
     }
 

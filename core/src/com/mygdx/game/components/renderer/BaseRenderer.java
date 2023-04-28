@@ -5,7 +5,7 @@ import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class BaseRenderer extends BaseComponent implements Renderer {
-    public BaseRenderer(Drop game) {
-        super(game);
+    public BaseRenderer(Drop game, GameObject gameObject) {
+        super(game, gameObject);
     }
 }

@@ -9,5 +9,7 @@ public interface Component {
 
     public Drop getGame();
 
+    public GameObject getGameObject();
+
     public boolean equals(Object obj);
 }

@@ -63,7 +63,8 @@ public class CombatScreen extends BaseScreen {
             @Override
             protected void onClickedAbility(Ability ability) {
                 Attack attack = AttackFactory.getInstance().createAttack(game, ability, fight.player, fight.enemy, fight);
-                fight.player.getAbilities().performAttack(fight.player, attack);
+                fight.player.addChild(attack);
+                fight.player.getAbilities().performAttack(attack);
             }
         };
         stage.addActor(table);
@@ -86,7 +87,8 @@ public class CombatScreen extends BaseScreen {
         if (fight.isPlayersTurn(fight.enemy)) {
             Ability ability = fight.enemy.getAbilities().getRandomAbility();
             Attack attack = AttackFactory.getInstance().createAttack(game, ability, fight.enemy, fight.player, fight);
-            fight.enemy.getAbilities().performAttack(fight.enemy, attack);
+            fight.enemy.addChild(attack);
+            fight.enemy.getAbilities().performAttack(attack);
         }
     }
 

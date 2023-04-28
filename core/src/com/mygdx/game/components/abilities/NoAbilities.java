@@ -9,8 +9,8 @@ import com.mygdx.game.gameplay.Ability;
 import java.util.List;
 
 public class NoAbilities extends BaseAbilities {
-    public NoAbilities(Drop game) {
-        super(game);
+    public NoAbilities(Drop game, GameObject gameObject) {
+        super(game, gameObject);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class NoAbilities extends BaseAbilities {
     }
 
     @Override
-    public void performAttack(Character thisGameObject , Attack attack) {
+    public void performAttack(Attack attack) {
 
     }
 }
