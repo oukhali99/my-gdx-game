@@ -10,8 +10,6 @@ import java.util.List;
 public interface Collider extends Component {
     public void lookForCollisions(float delta, List<GameObject> gameObjects);
 
-    public void handleCollisionsThisFrame(float delta);
-
     public Rectangle getArea();
 
     public LinkedList<GameObject> getCollisionObjectsThisFrame();

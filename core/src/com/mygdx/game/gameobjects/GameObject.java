@@ -1,5 +1,6 @@
 package com.mygdx.game.gameobjects;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.Transform;
@@ -138,10 +139,14 @@ public abstract class GameObject {
     }
 
     public void postPostUpdate(float delta) {
-        getCollider().handleCollisionsThisFrame(delta);
+        for (GameObject otherGameObject : getCollider().getCollisionObjectsThisFrame()) {
+            getCollider().handleCollision(otherGameObject);
+        }
 
         for (GameObject child : getChildren()) {
-            child.getCollider().handleCollisionsThisFrame(delta);
+            for (GameObject otherGameObject : child.getCollider().getCollisionObjectsThisFrame()) {
+                child.getCollider().handleCollision(otherGameObject);
+            }
         }
     }
 

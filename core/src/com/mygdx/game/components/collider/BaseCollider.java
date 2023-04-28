@@ -35,13 +35,6 @@ public abstract class BaseCollider extends BaseComponent implements Collider {
         return getArea().overlaps(otherCollider.getArea()) || otherCollider.getArea().overlaps(getArea());
     }
 
-    @Override
-    public void handleCollisionsThisFrame(float delta) {
-        for (GameObject otherGameObject : collisionObjectsThisFrame) {
-            handleCollision(otherGameObject);
-        }
-    }
-
     private void onCollision(GameObject otherObject) {
         collisionObjectsThisFrame.add(otherObject);
     }

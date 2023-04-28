@@ -22,10 +22,6 @@ public class NoCollisions extends BaseCollider {
     }
 
     @Override
-    public void handleCollisionsThisFrame(float delta) {
-    }
-
-    @Override
     public void handleCollision(GameObject otherGameObject) {
     }
 

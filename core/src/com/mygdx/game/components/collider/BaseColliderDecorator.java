@@ -21,11 +21,6 @@ public class BaseColliderDecorator extends BaseComponentDecorator implements Col
     }
 
     @Override
-    public void handleCollisionsThisFrame(float delta) {
-        baseCollider.handleCollisionsThisFrame(delta);
-    }
-
-    @Override
     public Rectangle getArea() {
         return baseCollider.getArea();
     }
