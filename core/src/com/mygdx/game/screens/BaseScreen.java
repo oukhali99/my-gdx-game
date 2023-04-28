@@ -57,22 +57,12 @@ public abstract class BaseScreen implements Screen {
         // begin a new batch and draw the bucket and
         // all drops
         game.batch.begin();
-        for (GameObject gameObject : gameObjects) {
-            gameObject.render(delta);
-        }
+        realRender(delta);
         game.batch.end();
 
-        for (GameObject gameObject : gameObjects) {
-            gameObject.update(delta);
-        }
-
-        for (GameObject gameObject : gameObjects) {
-            gameObject.postUpdate(delta, gameObjects);
-        }
-
-        for (GameObject gameObject : gameObjects) {
-            gameObject.postPostUpdate(delta);
-        }
+        update(delta);
+        postUpdate(delta);
+        postPostUpdate(delta);
 
         preenDestroyedGameObjects();
 
@@ -81,6 +71,31 @@ public abstract class BaseScreen implements Screen {
         game.batch.begin();
         //getFont().draw(game.batch, "GameObject count " + getGameObjectCountIncludingChildren(), 1000, 700);
         game.batch.end();
+    }
+
+    protected void realRender(float delta) {
+        for (GameObject gameObject : gameObjects) {
+            gameObject.render(delta);
+        }
+    }
+
+    protected void update(float delta) {
+
+        for (GameObject gameObject : gameObjects) {
+            gameObject.update(delta);
+        }
+    }
+
+    protected void postUpdate(float delta) {
+        for (GameObject gameObject : gameObjects) {
+            gameObject.postUpdate(delta, gameObjects);
+        }
+    }
+
+    protected void postPostUpdate(float delta) {
+        for (GameObject gameObject : gameObjects) {
+            gameObject.postPostUpdate(delta);
+        }
     }
 
     private void preenDestroyedGameObjects() {
