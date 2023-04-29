@@ -28,4 +28,9 @@ public abstract class BaseAbilities extends BaseComponent implements Abilities {
             gameObject.markForDestruction();
         }
     }
+
+    @Override
+    public void heal(int amount) {
+        health += amount;
+    }
 }

@@ -45,6 +45,11 @@ public class AbilitiesDecorator extends ComponentBaseDecorator implements Abilit
     }
 
     @Override
+    public void heal(int amount) {
+        baseAbilities.heal(amount);
+    }
+
+    @Override
     public void performAttack(Attack attack) {
         baseAbilities.performAttack(attack);
     }

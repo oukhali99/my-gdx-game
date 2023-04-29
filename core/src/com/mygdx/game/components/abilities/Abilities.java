@@ -20,4 +20,6 @@ public interface Abilities extends Component {
     boolean hasAbilities();
 
     void takeDamage(int amount);
+
+    void heal(int amount);
 }
