@@ -25,10 +25,10 @@ public abstract class BaseComponent implements Component {
         return gameObject;
     }
 
-    public void destroy() {
-    }
-
     public void setGameObject(GameObject gameObject) {
         this.gameObject = gameObject;
+    }
+
+    public void destroy() {
     }
 }

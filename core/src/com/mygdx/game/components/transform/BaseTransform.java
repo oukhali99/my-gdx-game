@@ -3,7 +3,6 @@ package com.mygdx.game.components.transform;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.BaseComponent;
-import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class BaseTransform extends BaseComponent implements Transform {

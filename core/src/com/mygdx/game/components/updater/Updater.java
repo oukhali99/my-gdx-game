@@ -4,7 +4,7 @@ import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 
 public interface Updater extends Component {
-    public void update(float delta);
+    void update(float delta);
 
-    public void onCollision(GameObject otherGameObject);
+    void onCollision(GameObject otherGameObject);
 }

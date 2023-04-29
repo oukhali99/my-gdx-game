@@ -1,7 +1,6 @@
 package com.mygdx.game.components.collider;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.components.BaseComponent;
 import com.mygdx.game.components.ComponentBaseDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 
@@ -9,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ColliderBaseDecorator extends ComponentBaseDecorator implements Collider {
-    private Collider baseCollider;
+    private final Collider baseCollider;
 
     public ColliderBaseDecorator(Collider baseCollider) {
         super(baseCollider);

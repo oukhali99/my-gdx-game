@@ -2,12 +2,10 @@ package com.mygdx.game.components.abilities.ability;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.Drop;
 import com.mygdx.game.components.transform.Transform;
-import com.mygdx.game.utils.SpriteSheet;
 
 public class AbilityDecorator implements Ability {
-    private Ability baseAbility;
+    private final Ability baseAbility;
 
     public AbilityDecorator(Ability baseAbility) {
         this.baseAbility = baseAbility;

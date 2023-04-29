@@ -39,8 +39,7 @@ public class WASDMovement extends UpdaterBaseDecorator {
             destination.add(directionUnit);
 
             currentMoveCommand = new MoveCommand(getGameObject(), destination, speed);
-        }
-        else {
+        } else {
             currentMoveCommand.continueExecuting(getGameObject(), delta);
         }
     }
@@ -56,10 +55,10 @@ public class WASDMovement extends UpdaterBaseDecorator {
     }
 
     public class MoveCommand {
-        private Vector2 destination;
-        private float speed;
-        private Vector2 initialPosition;
-        private GameObject gameObject;
+        private final Vector2 destination;
+        private final float speed;
+        private final Vector2 initialPosition;
+        private final GameObject gameObject;
 
         public MoveCommand(GameObject gameObject, Vector2 destination, float speed) {
             this.destination = destination;

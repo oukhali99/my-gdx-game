@@ -4,22 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.components.collider.BaseCollider;
-import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.RendererBaseDecorator;
 import com.mygdx.game.components.transform.Transform;
-import com.mygdx.game.gameobjects.combat.characters.Character;
-import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;
 
 public class Attack extends GameObject {
-    protected Ability ability;
     protected final Character attacker;
     protected final Character target;
     protected final CombatScreen.Fight fight;
     private final Vector2 attackDirection;
+    protected Ability ability;
     private float stateTime = 0;
 
     public Attack(final Drop game, final Ability ability, final Character attacker, final Character target, final CombatScreen.Fight fight) {
@@ -95,11 +94,11 @@ public class Attack extends GameObject {
         return ability.getDamage();
     }
 
-    public void setAbility(Ability ability) {
-        this.ability = ability;
-    }
-
     public Ability getAbility() {
         return ability;
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
     }
 }

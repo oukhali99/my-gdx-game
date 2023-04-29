@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CombinedRectangles extends Rectangle {
-    private List<Rectangle> rectanglesList;
+    private final List<Rectangle> rectanglesList;
 
     public CombinedRectangles() {
         this.rectanglesList = new LinkedList<>();

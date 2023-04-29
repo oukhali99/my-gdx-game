@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseCollider extends BaseComponent implements Collider {
-    private LinkedList<GameObject> collisionObjectsThisFrame;
+    private final LinkedList<GameObject> collisionObjectsThisFrame;
 
     public BaseCollider(Drop game, GameObject gameObject) {
         super(game, gameObject);
@@ -22,8 +22,8 @@ public abstract class BaseCollider extends BaseComponent implements Collider {
             Collider otherBaseCollider = otherGameObject.getCollider();
             if (
                     otherBaseCollider != null &&
-                    overlaps(otherBaseCollider) &&
-                    gameObject != otherGameObject
+                            overlaps(otherBaseCollider) &&
+                            gameObject != otherGameObject
             ) {
                 onCollision(otherGameObject);
             }

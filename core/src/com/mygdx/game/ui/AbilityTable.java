@@ -9,7 +9,7 @@ import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.ability.Ability;
 
 public abstract class AbilityTable extends Table {
-    private Abilities abilities;
+    private final Abilities abilities;
 
     public AbilityTable(Abilities abilities) {
         super();

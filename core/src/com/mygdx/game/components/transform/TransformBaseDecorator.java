@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.components.ComponentBaseDecorator;
 
 public class TransformBaseDecorator extends ComponentBaseDecorator implements Transform {
-    private Transform baseTransform;
+    private final Transform baseTransform;
 
     public TransformBaseDecorator(Transform baseTransform) {
         super(baseTransform);

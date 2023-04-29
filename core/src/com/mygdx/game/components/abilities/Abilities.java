@@ -7,17 +7,17 @@ import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import java.util.List;
 
 public interface Abilities extends Component {
-    public void addAbility(Ability ability);
+    void addAbility(Ability ability);
 
-    public List<Ability> getAbilityList();
+    List<Ability> getAbilityList();
 
-    public Ability getRandomAbility();
+    Ability getRandomAbility();
 
-    public void performAttack(Attack attack);
+    void performAttack(Attack attack);
 
-    public int getHealth();
+    int getHealth();
 
-    public boolean hasAbilities();
+    boolean hasAbilities();
 
-    public void takeDamage(int amount);
+    void takeDamage(int amount);
 }

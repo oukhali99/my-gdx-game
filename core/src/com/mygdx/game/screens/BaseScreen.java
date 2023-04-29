@@ -11,7 +11,6 @@ import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public abstract class BaseScreen implements Screen {
     protected final Drop game;
@@ -107,8 +106,7 @@ public abstract class BaseScreen implements Screen {
             gameObject.preenDestroyedChildren();
             if (gameObject.isMarkedForDestruction()) {
                 gameObject.destroy();
-            }
-            else {
+            } else {
                 enabledGameObjects.add(gameObject);
             }
         }

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.transform.Transform;
-import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.Logger;
 import com.mygdx.game.utils.SpriteSheet;
 

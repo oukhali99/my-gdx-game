@@ -2,12 +2,7 @@ package com.mygdx.game.components.abilities;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.BaseComponent;
-import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.attacks.Attack;
-import com.mygdx.game.components.abilities.ability.Ability;
-
-import java.util.List;
 
 public abstract class BaseAbilities extends BaseComponent implements Abilities {
     private int health;

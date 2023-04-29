@@ -8,8 +8,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public interface Collider extends Component {
-    public Rectangle getArea();
-    public LinkedList<GameObject> getCollisionObjectsThisFrame();
-    public void handleCollision(GameObject otherGameObject);
-    public void lookForCollisions(float delta, List<GameObject> gameObjects);
+    Rectangle getArea();
+
+    LinkedList<GameObject> getCollisionObjectsThisFrame();
+
+    void handleCollision(GameObject otherGameObject);
+
+    void lookForCollisions(float delta, List<GameObject> gameObjects);
 }

@@ -4,7 +4,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 
 public class ComponentBaseDecorator implements Component {
-    private Component baseComponent;
+    private final Component baseComponent;
 
     public ComponentBaseDecorator(Component baseComponent) {
         this.baseComponent = baseComponent;
@@ -21,12 +21,12 @@ public class ComponentBaseDecorator implements Component {
     }
 
     @Override
-    public void destroy() {
-        baseComponent.destroy();
+    public void setGameObject(GameObject gameObject) {
+        baseComponent.setGameObject(gameObject);
     }
 
     @Override
-    public void setGameObject(GameObject gameObject) {
-        baseComponent.setGameObject(gameObject);
+    public void destroy() {
+        baseComponent.destroy();
     }
 }

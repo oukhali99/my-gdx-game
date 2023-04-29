@@ -1,8 +1,8 @@
 package com.mygdx.game.components.transform.combatmode;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.components.transform.TransformBaseDecorator;
 import com.mygdx.game.components.transform.Transform;
+import com.mygdx.game.components.transform.TransformBaseDecorator;
 
 public abstract class CombatModeTransform extends TransformBaseDecorator {
     public CombatModeTransform(Transform transform) {

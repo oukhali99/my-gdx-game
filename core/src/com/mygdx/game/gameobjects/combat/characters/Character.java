@@ -3,6 +3,8 @@ package com.mygdx.game.gameobjects.combat.characters;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.ThrowableAbilities;
+import com.mygdx.game.components.abilities.ability.Fireball;
+import com.mygdx.game.components.abilities.ability.Snowball;
 import com.mygdx.game.components.collider.ColliderBaseDecorator;
 import com.mygdx.game.components.collider.RectangleCollider;
 import com.mygdx.game.components.renderer.IntegerDependentTexture;
@@ -10,8 +12,6 @@ import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.Updater;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.components.abilities.ability.Fireball;
-import com.mygdx.game.components.abilities.ability.Snowball;
 
 public abstract class Character extends GameObject {
     private Updater updater;

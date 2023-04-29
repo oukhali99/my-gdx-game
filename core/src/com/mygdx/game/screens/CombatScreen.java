@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.components.transform.combatmode.CombatModeTransformLeft;
 import com.mygdx.game.components.transform.combatmode.CombatModeTransformRight;
 import com.mygdx.game.components.updater.MuteUpdater;
@@ -16,17 +17,16 @@ import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.attacks.AttackFactory;
 import com.mygdx.game.gameobjects.combat.characters.Character;
-import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.ui.AbilityTable;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class CombatScreen extends BaseScreen {
-    private Screen previousScreen;
-    private Fight fight;
-    private Stage stage;
-    private Table table;
+    private final Screen previousScreen;
+    private final Fight fight;
+    private final Stage stage;
+    private final Table table;
 
     public CombatScreen(
             final Drop game,
@@ -112,9 +112,9 @@ public class CombatScreen extends BaseScreen {
     }
 
     public static class Fight {
-        private Character player;
-        private Character enemy;
-        private List<CombatScreen> observers;
+        private final Character player;
+        private final Character enemy;
+        private final List<CombatScreen> observers;
         private Character whoseTurnItIs;
 
         public Fight(Character player, Character enemy) {

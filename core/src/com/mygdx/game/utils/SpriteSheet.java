@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 public class SpriteSheet {
-    private String path;
-    private int xCount;
-    private int yCount;
+    private final String path;
+    private final int xCount;
+    private final int yCount;
 
-    private Vector2 scale;
-    private boolean flipTextureHorizontally;
+    private final Vector2 scale;
+    private final boolean flipTextureHorizontally;
 
     public SpriteSheet(String path, int xCount, int yCount, Vector2 scale, boolean flipTextureHorizontally) {
         this.path = path;

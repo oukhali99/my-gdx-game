@@ -2,11 +2,11 @@ package com.mygdx.game.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.collider.NoCollisions;
-import com.mygdx.game.components.transform.BasicTransform;
 import com.mygdx.game.components.collider.Collider;
+import com.mygdx.game.components.collider.NoCollisions;
 import com.mygdx.game.components.renderer.NoTexture;
 import com.mygdx.game.components.renderer.Renderer;
+import com.mygdx.game.components.transform.BasicTransform;
 import com.mygdx.game.components.transform.Transform;
 
 import java.util.LinkedList;
@@ -14,10 +14,10 @@ import java.util.List;
 
 public abstract class GameObject {
     protected final Drop game;
-    protected Transform transform;
-    private boolean markedForDestruction;
-    protected List<GameObject> children;
     private final List<GameObject> collisionObjectsThisFrame;
+    protected Transform transform;
+    protected List<GameObject> children;
+    private boolean markedForDestruction;
     private Renderer renderer;
     private Collider collider;
 
@@ -51,36 +51,36 @@ public abstract class GameObject {
         this.renderer = renderer;
     }
 
-    public void setCollider(Collider collider) {
-        this.collider = collider;
-    }
-
     public void setPosition(float x, float y) {
         transform.setPosition(new Vector2(x, y));
-    }
-
-    public void setPosition(Vector2 position) {
-        transform.setPosition(new Vector2(position));
     }
 
     public Vector2 getPosition() {
         return transform.getPosition();
     }
 
-    public void setScale(float x, float y) {
-        transform.setScale(new Vector2(x, y));
+    public void setPosition(Vector2 position) {
+        transform.setPosition(new Vector2(position));
     }
 
-    public void setScale(Vector2 scale) {
-        transform.setScale(new Vector2(scale));
+    public void setScale(float x, float y) {
+        transform.setScale(new Vector2(x, y));
     }
 
     public Vector2 getScale() {
         return transform.getScale();
     }
 
+    public void setScale(Vector2 scale) {
+        transform.setScale(new Vector2(scale));
+    }
+
     public Collider getCollider() {
         return collider;
+    }
+
+    public void setCollider(Collider collider) {
+        this.collider = collider;
     }
 
     public Transform getTransform() {
@@ -92,7 +92,7 @@ public abstract class GameObject {
     }
 
     public boolean isMarkedForDestruction() {
-                return markedForDestruction;
+        return markedForDestruction;
     }
 
     public void markForDestruction() {
@@ -110,8 +110,7 @@ public abstract class GameObject {
         for (GameObject gameObject : children) {
             if (gameObject.isMarkedForDestruction()) {
                 gameObject.destroy();
-            }
-            else {
+            } else {
                 enabledGameObjects.add(gameObject);
             }
         }
@@ -185,6 +184,7 @@ public abstract class GameObject {
 
     @Override
     public GameObject clone() {
-        return new GameObject(this) {};
+        return new GameObject(this) {
+        };
     }
 }

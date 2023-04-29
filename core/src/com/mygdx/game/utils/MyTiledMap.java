@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyTiledMap {
-    private TiledMap tiledMap;
-    private Map<String, Vector2> spawns;
+    private final TiledMap tiledMap;
+    private final Map<String, Vector2> spawns;
 
     public MyTiledMap(String path) {
         TmxMapLoader loader = new TmxMapLoader();

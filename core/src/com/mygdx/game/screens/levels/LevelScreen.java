@@ -3,21 +3,17 @@ package com.mygdx.game.screens.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.TilemapCustomCollider;
-import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.renderer.TilemapRenderer;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.Player;
 import com.mygdx.game.screens.BaseScreen;
 import com.mygdx.game.utils.MyTiledMap;
 
-import java.util.LinkedList;
-
 public abstract class LevelScreen extends BaseScreen {
     protected GameObject player;
-    private Music music;
-    private MyTiledMap myTiledMap;
+    private final Music music;
+    private final MyTiledMap myTiledMap;
 
     public LevelScreen(Drop game) {
         super(game);
@@ -30,7 +26,8 @@ public abstract class LevelScreen extends BaseScreen {
         myTiledMap = new MyTiledMap(getTilemapPath());
 
         // Create the tilemap
-        GameObject tileMapGameObject = new GameObject(game) {};
+        GameObject tileMapGameObject = new GameObject(game) {
+        };
         tileMapGameObject.setRenderer(new TilemapRenderer(game, tileMapGameObject, camera, myTiledMap));
         tileMapGameObject.setCollider(new TilemapCustomCollider(game, tileMapGameObject, myTiledMap));
         addGameObject(tileMapGameObject);
