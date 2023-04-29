@@ -12,7 +12,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.components.transform.combatmode.CombatModeTransformLeft;
 import com.mygdx.game.components.transform.combatmode.CombatModeTransformRight;
-import com.mygdx.game.components.updater.MuteUpdater;
+import com.mygdx.game.components.movement.MovementMuteDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.attacks.AttackFactory;
@@ -41,10 +41,10 @@ public class CombatScreen extends BaseScreen {
 
         // Change the behavior of the objects
         fight.player.setTransform(new CombatModeTransformLeft(fight.player.getTransform()));
-        fight.player.setUpdater(new MuteUpdater(fight.player.getUpdater()));
+        fight.player.setMovement(new MovementMuteDecorator(fight.player.getMovement()));
 
         fight.enemy.setTransform(new CombatModeTransformRight(fight.enemy.getTransform()));
-        fight.enemy.setUpdater(new MuteUpdater(fight.enemy.getUpdater()));
+        fight.enemy.setMovement(new MovementMuteDecorator(fight.enemy.getMovement()));
 
         addGameObject(fight.player);
         addGameObject(fight.enemy);

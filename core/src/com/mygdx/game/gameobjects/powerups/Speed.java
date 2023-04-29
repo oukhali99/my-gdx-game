@@ -7,20 +7,20 @@ import com.mygdx.game.components.collider.RectangleCollider;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 
-public class Health extends Powerup {
-    protected Health(Drop game) {
+public class Speed extends Powerup {
+    protected Speed(Drop game) {
         super(game);
 
-        setCollider(new ColliderHealthPickup(new RectangleCollider(game, this)));
+        setCollider(new ColliderSpeedPowerup(new RectangleCollider(game, this)));
     }
 
     @Override
     protected String getTexturePath() {
-        return "droplet.png";
+        return "snowball.png";
     }
 
-    private static class ColliderHealthPickup extends ColliderBaseDecorator {
-        public ColliderHealthPickup(Collider baseCollider) {
+    private static class ColliderSpeedPowerup extends ColliderBaseDecorator {
+        public ColliderSpeedPowerup(Collider baseCollider) {
             super(baseCollider);
         }
 
@@ -30,7 +30,8 @@ public class Health extends Powerup {
 
             if (otherGameObject instanceof Character) {
                 Character character = (Character) otherGameObject;
-                character.getAbilities().heal(10);
+
+                character.getMovement().applySpeedBoost(2, 2f);
 
                 getGameObject().markForDestruction();
             }

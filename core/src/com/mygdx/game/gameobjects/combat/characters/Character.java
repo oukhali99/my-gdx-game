@@ -9,24 +9,24 @@ import com.mygdx.game.components.collider.ColliderBaseDecorator;
 import com.mygdx.game.components.collider.RectangleCollider;
 import com.mygdx.game.components.renderer.IntegerDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
-import com.mygdx.game.components.updater.NoUpdate;
-import com.mygdx.game.components.updater.Updater;
+import com.mygdx.game.components.movement.MovementNone;
+import com.mygdx.game.components.movement.Movement;
 import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class Character extends GameObject {
-    private Updater updater;
+    private Movement movement;
     private Abilities abilities;
 
     protected Character(Drop game) {
         super(game);
 
-        setUpdater(new NoUpdate(game, this));
+        setMovement(new MovementNone(game, this, 128));
 
         setCollider(new ColliderBaseDecorator(new RectangleCollider(game, this)) {
             @Override
             public void handleCollision(GameObject otherGameObject) {
                 super.handleCollision(otherGameObject);
-                getUpdater().onCollision(otherGameObject);
+                getMovement().onCollision(otherGameObject);
             }
         });
 
@@ -47,7 +47,7 @@ public abstract class Character extends GameObject {
 
     public Character(Character character) {
         super(character);
-        this.updater = character.updater;
+        this.movement = character.movement;
         this.abilities = character.abilities;
     }
 
@@ -57,8 +57,8 @@ public abstract class Character extends GameObject {
     public void update(float delta) {
         super.update(delta);
 
-        getUpdater().setGameObject(this);
-        getUpdater().update(delta);
+        getMovement().setGameObject(this);
+        getMovement().update(delta);
     }
 
     public Abilities getAbilities() {
@@ -77,12 +77,12 @@ public abstract class Character extends GameObject {
         getAbilities().takeDamage(damage);
     }
 
-    public Updater getUpdater() {
-        return updater;
+    public Movement getMovement() {
+        return movement;
     }
 
-    public void setUpdater(Updater updater) {
-        this.updater = updater;
+    public void setMovement(Movement updater) {
+        this.movement = updater;
     }
 
     @Override

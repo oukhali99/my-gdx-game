@@ -1,17 +1,15 @@
-package com.mygdx.game.components.updater;
+package com.mygdx.game.components.movement;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class WASDMovement extends UpdaterBaseDecorator {
-    private final float speed;
+public class MovementWASDDecorator extends MovementBaseDecorator {
     private MoveCommand currentMoveCommand;
 
-    public WASDMovement(Updater baseUpdater, float speed) {
+    public MovementWASDDecorator(Movement baseUpdater) {
         super(baseUpdater);
-        this.speed = speed;
     }
 
     @Override
@@ -38,7 +36,7 @@ public class WASDMovement extends UpdaterBaseDecorator {
             directionUnit.scl(16);
             destination.add(directionUnit);
 
-            currentMoveCommand = new MoveCommand(getGameObject(), destination, speed);
+            currentMoveCommand = new MoveCommand(getGameObject(), destination, getSpeed());
         } else {
             currentMoveCommand.continueExecuting(getGameObject(), delta);
         }
