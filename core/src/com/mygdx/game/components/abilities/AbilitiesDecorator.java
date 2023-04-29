@@ -34,6 +34,11 @@ public class AbilitiesDecorator extends Abilities {
     }
 
     @Override
+    public int getHealth() {
+        return baseAbilities.getHealth();
+    }
+
+    @Override
     public boolean hasAbilities() {
         return baseAbilities.hasAbilities();
     }

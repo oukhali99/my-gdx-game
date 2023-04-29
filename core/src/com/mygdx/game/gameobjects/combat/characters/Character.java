@@ -14,14 +14,11 @@ import com.mygdx.game.gameplay.Fireball;
 import com.mygdx.game.gameplay.Snowball;
 
 public abstract class Character extends GameObject {
-    private int health;
-
     private Updater updater;
+    private Abilities abilities;
 
     protected Character(Drop game) {
         super(game);
-
-        this.health = 100;
 
         setUpdater(new NoUpdate(game, this));
 
@@ -40,13 +37,18 @@ public abstract class Character extends GameObject {
             }
         });
 
+        Abilities abilities = new ThrowableAbilities(game, this);
+        abilities.addAbility(new Fireball(game));
+        abilities.addAbility(new Snowball(game));
+        setAbilities(abilities);
+
         setScale(16, 16);
     }
 
     public Character(Character character) {
         super(character);
-        this.health = character.health;
         this.updater = character.updater;
+        this.abilities = character.abilities;
     }
 
     public abstract String getTexturePath();
@@ -60,23 +62,19 @@ public abstract class Character extends GameObject {
     }
 
     public Abilities getAbilities() {
-        Abilities abilities = new ThrowableAbilities(game, this);
-        abilities.addAbility(new Fireball(game));
-        abilities.addAbility(new Snowball(game));
         return abilities;
     }
 
+    public void setAbilities(Abilities abilities) {
+        this.abilities = abilities;
+    }
+
     public Integer getHealth() {
-        return health;
+        return getAbilities().getHealth();
     }
 
     public void takeDamage(int damage) {
-        health -= damage;
-
-        if (health <= 0) {
-            health = 0;
-            markForDestruction();
-        }
+        getAbilities().takeDamage(damage);
     }
 
     public Updater getUpdater() {

@@ -9,8 +9,15 @@ import com.mygdx.game.gameplay.Ability;
 import java.util.List;
 
 public abstract class Abilities extends Component {
+    private int health;
+
     public Abilities(Drop game, GameObject gameObject) {
         super(game, gameObject);
+        this.health = 100;
+    }
+
+    public int getHealth() {
+        return health;
     }
 
     public boolean hasAbilities() {
@@ -24,4 +31,13 @@ public abstract class Abilities extends Component {
     public abstract Ability getRandomAbility();
 
     public abstract void performAttack(Attack attack);
+
+    public void takeDamage(int amount) {
+        health -= amount;
+
+        if (health <= 0) {
+            health = 0;
+            gameObject.markForDestruction();
+        }
+    }
 }
