@@ -1,11 +1,11 @@
-package com.mygdx.game.gameobjects.combat.attacks;
+package com.mygdx.game.gameobjects.attacks;
 
 import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.components.abilities.ability.AbilityDecorator;
 import com.mygdx.game.components.renderer.RendererColorFlashDecorator;
-import com.mygdx.game.gameobjects.combat.characters.Character;
+import com.mygdx.game.gameobjects.characters.Character;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;

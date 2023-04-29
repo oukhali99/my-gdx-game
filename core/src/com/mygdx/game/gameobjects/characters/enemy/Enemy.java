@@ -1,12 +1,12 @@
-package com.mygdx.game.gameobjects.combat.characters.enemy;
+package com.mygdx.game.gameobjects.characters.enemy;
 
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.ColliderBaseDecorator;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.attacks.Attack;
-import com.mygdx.game.gameobjects.combat.characters.Character;
-import com.mygdx.game.gameobjects.combat.characters.Player;
+import com.mygdx.game.gameobjects.attacks.Attack;
+import com.mygdx.game.gameobjects.characters.Character;
+import com.mygdx.game.gameobjects.characters.Player;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;

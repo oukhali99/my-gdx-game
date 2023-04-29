@@ -14,9 +14,9 @@ import com.mygdx.game.components.transform.combatmode.CombatModeTransformLeft;
 import com.mygdx.game.components.transform.combatmode.CombatModeTransformRight;
 import com.mygdx.game.components.movement.MovementMuteDecorator;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.attacks.Attack;
-import com.mygdx.game.gameobjects.combat.attacks.AttackFactory;
-import com.mygdx.game.gameobjects.combat.characters.Character;
+import com.mygdx.game.gameobjects.attacks.Attack;
+import com.mygdx.game.gameobjects.attacks.AttackFactory;
+import com.mygdx.game.gameobjects.characters.Character;
 import com.mygdx.game.ui.AbilityTable;
 
 import java.util.LinkedList;

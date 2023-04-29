@@ -2,7 +2,7 @@ package com.mygdx.game.components.abilities;
 
 import com.mygdx.game.components.ComponentBaseDecorator;
 import com.mygdx.game.components.abilities.ability.Ability;
-import com.mygdx.game.gameobjects.combat.attacks.Attack;
+import com.mygdx.game.gameobjects.attacks.Attack;
 
 import java.util.List;
 

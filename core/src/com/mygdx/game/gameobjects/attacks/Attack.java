@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat.attacks;
+package com.mygdx.game.gameobjects.attacks;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
@@ -9,7 +9,7 @@ import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.renderer.RendererBaseDecorator;
 import com.mygdx.game.components.transform.Transform;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.characters.Character;
+import com.mygdx.game.gameobjects.characters.Character;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;
 
@@ -39,7 +39,7 @@ public class Attack extends GameObject {
             public void render(float delta) {
                 super.render(delta);
 
-                float speed = 200;
+                float speed = 300;
 
                 // Update the position of the fireball based on the elapsed time and speed
                 float deltaX = speed * delta;

@@ -2,7 +2,7 @@ package com.mygdx.game.screens.levels;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.characters.enemy.EnemyFactory;
+import com.mygdx.game.gameobjects.characters.enemy.EnemyFactory;
 import com.mygdx.game.gameobjects.powerups.Powerup;
 import com.mygdx.game.gameobjects.powerups.PowerupFactory;
 
@@ -25,7 +25,7 @@ public class LevelScreen1 extends LevelScreen {
             enemy.setPosition(16 * x, 16 * y);
         }
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             Powerup powerup = PowerupFactory.createPowerup(game);
             addGameObject(powerup);
 

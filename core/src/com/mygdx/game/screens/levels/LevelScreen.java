@@ -9,7 +9,7 @@ import com.mygdx.game.components.collider.TilemapCustomCollider;
 import com.mygdx.game.components.renderer.TilemapRenderer;
 import com.mygdx.game.components.transform.BasicTransform;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.characters.Player;
+import com.mygdx.game.gameobjects.characters.Player;
 import com.mygdx.game.screens.BaseScreen;
 import com.mygdx.game.utils.MyTiledMap;
 

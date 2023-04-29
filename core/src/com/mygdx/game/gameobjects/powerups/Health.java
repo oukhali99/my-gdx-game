@@ -5,7 +5,7 @@ import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.ColliderBaseDecorator;
 import com.mygdx.game.components.collider.RectangleCollider;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.characters.Character;
+import com.mygdx.game.gameobjects.characters.Character;
 
 public class Health extends Powerup {
     protected Health(Drop game) {
@@ -16,7 +16,7 @@ public class Health extends Powerup {
 
     @Override
     protected String getTexturePath() {
-        return "droplet.png";
+        return "health-cross.png";
     }
 
     private static class ColliderHealthPickup extends ColliderBaseDecorator {

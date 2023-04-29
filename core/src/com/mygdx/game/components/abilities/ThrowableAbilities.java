@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.attacks.Attack;
+import com.mygdx.game.gameobjects.attacks.Attack;
 
 import java.util.LinkedList;
 import java.util.List;

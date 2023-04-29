@@ -1,4 +1,4 @@
-package com.mygdx.game.gameobjects.combat.characters;
+package com.mygdx.game.gameobjects.characters;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.movement.MovementWASDDecorator;
