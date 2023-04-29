@@ -20,7 +20,7 @@ public class MainMenuScreen extends BaseScreen {
         game.batch.end();
 
         if (Gdx.input.isTouched()) {
-            game.setScreen(new LevelScreen1(game));
+            game.setScreen(new LevelScreen1(game, "PlayerSpawn"));
             dispose();
         }
     }

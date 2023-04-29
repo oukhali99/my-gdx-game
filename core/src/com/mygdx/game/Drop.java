@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.screens.BaseScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 
 public class Drop extends Game {
@@ -20,11 +19,6 @@ public class Drop extends Game {
     @Override
     public void render() {
         super.render(); // important!
-    }
-
-    @Override
-    public BaseScreen getScreen() {
-        return (BaseScreen) super.getScreen();
     }
 
     @Override

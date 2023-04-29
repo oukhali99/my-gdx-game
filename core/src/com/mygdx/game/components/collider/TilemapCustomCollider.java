@@ -13,18 +13,25 @@ import com.mygdx.game.utils.MyTiledMap;
 public class TilemapCustomCollider extends BaseCollider {
     protected MapLayer collisionLayer;
     private final MyTiledMap tiledMap;
-    private final MapLayers mapLayers;
+    private MapLayers mapLayers;
     private final CombinedRectangles combinedRectangles;
+    private final String layerName;
 
-    public TilemapCustomCollider(Drop game, GameObject gameObject, MyTiledMap tiledMap) {
+    public TilemapCustomCollider(Drop game, GameObject gameObject, MyTiledMap tiledMap, String layerName) {
         super(game, gameObject);
         this.combinedRectangles = new CombinedRectangles();
         this.tiledMap = tiledMap;
+        this.layerName = layerName;
 
+        generateCollider();
+    }
+
+    private void generateCollider() {
         // Get the collision layer
         mapLayers = tiledMap.getTiledMap().getLayers();
-        collisionLayer = mapLayers.get("Collision");
+        collisionLayer = mapLayers.get(layerName);
 
+        // Generate the combined rectangles
         for (MapObject mapObject : collisionLayer.getObjects()) {
             if (mapObject instanceof RectangleMapObject) {
                 RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;

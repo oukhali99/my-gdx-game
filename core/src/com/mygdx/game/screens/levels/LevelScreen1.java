@@ -1,6 +1,5 @@
 package com.mygdx.game.screens.levels;
 
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.characters.enemy.EnemyFactory;
@@ -8,8 +7,8 @@ import com.mygdx.game.gameobjects.combat.characters.enemy.EnemyFactory;
 import java.util.Random;
 
 public class LevelScreen1 extends LevelScreen {
-    public LevelScreen1(Drop game) {
-        super(game);
+    public LevelScreen1(Drop game, String warpEntryPoint) {
+        super(game, warpEntryPoint);
 
         for (int i = 0; i < 50; i++) {
             GameObject enemy = EnemyFactory.createRandomEnemy(game);
@@ -31,14 +30,7 @@ public class LevelScreen1 extends LevelScreen {
     }
 
     @Override
-    public void render(float delta) {
-        super.render(delta);
-
-        camera.position.set(new Vector3(player.getTransform().getPosition(), 0));
-    }
-
-    @Override
-    public void show() {
-        super.show();
+    public LevelScreen getLevelScreenDestinationForWarp(String destination, String warpExitName) {
+        return new LevelScreen2(game, warpExitName);
     }
 }
