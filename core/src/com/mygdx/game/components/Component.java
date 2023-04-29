@@ -5,7 +5,7 @@ import com.mygdx.game.gameobjects.GameObject;
 
 public abstract class Component {
     protected final Drop game;
-    public final GameObject gameObject;
+    protected GameObject gameObject;
 
     public Component(Drop game, GameObject gameObject) {
         this.game = game;
@@ -28,17 +28,7 @@ public abstract class Component {
     public void destroy() {
     }
 
-    /*
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof BaseComponentDecorator) {
-            BaseComponentDecorator baseComponentDecorator = (BaseComponentDecorator) obj;
-            if (baseComponentDecorator.equals(this)) {
-                return true;
-            }
-        }
-
-        return super.equals(obj);
+    public void setGameObject(GameObject gameObject) {
+        this.gameObject = gameObject;
     }
-     */
 }

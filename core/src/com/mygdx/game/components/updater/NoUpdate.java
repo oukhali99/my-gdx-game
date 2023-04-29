@@ -10,17 +10,10 @@ public class NoUpdate extends Updater {
     }
 
     @Override
-    public void destroy() {
-
-    }
-
-    @Override
     public void update(float delta) {
-
     }
 
     @Override
     public void onCollision(GameObject otherGameObject) {
-
     }
 }

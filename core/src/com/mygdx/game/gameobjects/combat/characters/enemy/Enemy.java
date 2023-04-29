@@ -2,7 +2,7 @@ package com.mygdx.game.gameobjects.combat.characters.enemy;
 
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.collider.BaseColliderDecorator;
+import com.mygdx.game.components.collider.ColliderBaseDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.gameobjects.combat.characters.Character;
@@ -16,17 +16,19 @@ public abstract class Enemy extends Character {
         super(game);
 
         final Enemy thisEnemy = this;
-        setCollider(new BaseColliderDecorator(getCollider()) {
+        setCollider(new ColliderBaseDecorator(getCollider()) {
             @Override
-            public void handleCollisionDecorator(GameObject otherGameObject) {
+            public void handleCollision(GameObject otherGameObject) {
+                super.handleCollision(otherGameObject);
+
                 if (otherGameObject instanceof Player) {
-                    Character player = (Player) otherGameObject;
+                    final Character player = (Player) otherGameObject;
                     Screen combatScreen = new CombatScreen(
                             game,
                             game.getScreen(),
                             new CombatScreen.Fight(
-                                    player,
-                                    thisEnemy
+                                    player.clone(),
+                                    thisEnemy.clone()
                             )
                     );
                     game.setScreen(combatScreen);

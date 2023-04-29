@@ -10,4 +10,13 @@ public abstract class Renderer extends Component {
     }
 
     public abstract void render(float delta);
+
+
+    /**
+     * Allows you to get the component that is wrapped by this component (if applicable)
+     * @return the base component
+     */
+    public Renderer getBaseComponent() {
+        return this;
+    }
 }

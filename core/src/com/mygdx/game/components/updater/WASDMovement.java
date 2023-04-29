@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class WASDMovement extends BaseUpdaterDecorator {
+public class WASDMovement extends UpdaterBaseDecorator {
     private final float speed;
     private MoveCommand currentMoveCommand;
 

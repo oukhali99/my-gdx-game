@@ -1,8 +1,6 @@
 package com.mygdx.game.components.updater;
 
-import com.mygdx.game.gameobjects.GameObject;
-
-public class MuteUpdater extends BaseUpdaterDecorator {
+public class MuteUpdater extends UpdaterBaseDecorator {
     public MuteUpdater(Updater baseUpdater) {
         super(baseUpdater);
     }

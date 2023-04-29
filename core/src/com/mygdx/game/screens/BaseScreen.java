@@ -11,10 +11,11 @@ import com.mygdx.game.gameobjects.GameObject;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class BaseScreen implements Screen {
     protected final Drop game;
-    private List<GameObject> gameObjects;
+    protected List<GameObject> gameObjects;
     protected OrthographicCamera camera;
 
     public BaseScreen(Drop game) {

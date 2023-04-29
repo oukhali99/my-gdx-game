@@ -1,12 +1,10 @@
 package com.mygdx.game.gameobjects.combat.characters;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.ThrowableAbilities;
-import com.mygdx.game.components.collider.BaseColliderDecorator;
-import com.mygdx.game.components.collider.Collider;
+import com.mygdx.game.components.collider.ColliderBaseDecorator;
+import com.mygdx.game.components.collider.RectangleCollider;
 import com.mygdx.game.components.renderer.IntegerDependentTexture;
 import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
@@ -17,6 +15,7 @@ import com.mygdx.game.gameplay.Snowball;
 
 public abstract class Character extends GameObject {
     private int health;
+
     private Updater updater;
 
     protected Character(Drop game) {
@@ -25,12 +24,15 @@ public abstract class Character extends GameObject {
         this.health = 100;
 
         setUpdater(new NoUpdate(game, this));
-        setCollider(new BaseColliderDecorator(getCollider()) {
+
+        setCollider(new ColliderBaseDecorator(new RectangleCollider(game, this)) {
             @Override
-            protected void handleCollisionDecorator(GameObject gameObject) {
-                getUpdater().onCollision(gameObject);
+            public void handleCollision(GameObject otherGameObject) {
+                super.handleCollision(otherGameObject);
+                getUpdater().onCollision(otherGameObject);
             }
         });
+
         setRenderer(new IntegerDependentTexture(new MyTexture(game, this, getTexturePath())) {
             @Override
             public int getInteger() {
@@ -41,11 +43,19 @@ public abstract class Character extends GameObject {
         setScale(16, 16);
     }
 
-    protected abstract String getTexturePath();
+    public Character(Character character) {
+        super(character);
+        this.health = character.health;
+        this.updater = character.updater;
+    }
+
+    public abstract String getTexturePath();
 
     @Override
     public void update(float delta) {
         super.update(delta);
+
+        getUpdater().setGameObject(this);
         getUpdater().update(delta);
     }
 
@@ -75,5 +85,16 @@ public abstract class Character extends GameObject {
 
     public void setUpdater(Updater updater) {
         this.updater = updater;
+    }
+
+    @Override
+    public Character clone() {
+        final Character finalCharacter = this;
+        return new Character(finalCharacter) {
+            @Override
+            public String getTexturePath() {
+                return finalCharacter.getTexturePath();
+            }
+        };
     }
 }

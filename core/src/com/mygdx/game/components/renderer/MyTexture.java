@@ -1,9 +1,8 @@
 package com.mygdx.game.components.renderer;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Transform;
+import com.mygdx.game.components.transform.Transform;
 import com.mygdx.game.gameobjects.GameObject;
 
 public class MyTexture extends Renderer {

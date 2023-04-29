@@ -1,9 +1,8 @@
 package com.mygdx.game.components.renderer;
 
 import com.badlogic.gdx.graphics.Color;
-import com.mygdx.game.gameobjects.GameObject;
 
-public abstract class IntegerDependentTexture extends RendererDecorator {
+public abstract class IntegerDependentTexture extends RendererBaseDecorator {
     public IntegerDependentTexture(Renderer baseRenderer) {
         super(baseRenderer);
     }

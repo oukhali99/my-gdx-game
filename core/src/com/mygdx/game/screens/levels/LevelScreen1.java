@@ -11,7 +11,7 @@ public class LevelScreen1 extends LevelScreen {
     public LevelScreen1(Drop game) {
         super(game);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5; i++) {
             GameObject enemy = EnemyFactory.createRandomEnemy(game);
             addGameObject(enemy);
 

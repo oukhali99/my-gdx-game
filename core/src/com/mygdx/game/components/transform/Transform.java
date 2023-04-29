@@ -1,10 +1,11 @@
-package com.mygdx.game.components;
+package com.mygdx.game.components.transform;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.Component;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class Transform extends Component {
+public abstract class Transform extends Component {
     private Vector2 position;
     private Vector2 scale;
     private float rotation;
@@ -21,13 +22,6 @@ public class Transform extends Component {
         this.position = position;
         this.scale = scale;
         this.rotation = rotation;
-    }
-
-    public Transform(Transform transform) {
-        super(transform);
-        this.position = new Vector2(transform.position);
-        this.scale = new Vector2(transform.scale);
-        this.rotation = transform.rotation;
     }
 
     public Vector2 getPosition() {
@@ -90,9 +84,11 @@ public class Transform extends Component {
         // Return a new vector representing the center point
         return new Vector2(centerX, centerY);
     }
-
     @Override
     public void destroy() {
+    }
 
+    public Transform getBaseComponent() {
+        return this;
     }
 }

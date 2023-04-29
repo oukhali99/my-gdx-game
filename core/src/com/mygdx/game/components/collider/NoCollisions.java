@@ -12,16 +12,6 @@ public class NoCollisions extends Collider {
     }
 
     @Override
-    public void lookForCollisions(float delta, List<GameObject> gameObjects) {
-
-    }
-
-    @Override
-    public void destroy() {
-
-    }
-
-    @Override
     public void handleCollision(GameObject otherGameObject) {
     }
 

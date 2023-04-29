@@ -1,14 +1,13 @@
 package com.mygdx.game.gameobjects;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Transform;
-import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.NoCollisions;
+import com.mygdx.game.components.transform.BasicTransform;
+import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.NoTexture;
 import com.mygdx.game.components.renderer.Renderer;
+import com.mygdx.game.components.transform.Transform;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,28 +23,24 @@ public abstract class GameObject {
 
     protected GameObject(final Drop game) {
         this.game = game;
-        this.transform = new Transform(game, this);
+        this.transform = new BasicTransform(game, this);
         this.markedForDestruction = false;
         this.children = new LinkedList<>();
         this.collisionObjectsThisFrame = new LinkedList<>();
 
         this.renderer = new NoTexture(game, this);
-        setCollider(new Collider(game, this) {
-            @Override
-            public void handleCollision(GameObject otherGameObject) {
-            }
+        setCollider(new NoCollisions(game, this));
+    }
 
-            @Override
-            public Rectangle getArea() {
-                Transform transform = getTransform();
-                Rectangle rectangle = new Rectangle();
-                rectangle.x = transform.getPosition().x;
-                rectangle.y = transform.getPosition().y;
-                rectangle.width = transform.getScale().x;
-                rectangle.height = transform.getScale().y;
-                return rectangle;
-            }
-        });
+    public GameObject(GameObject gameObject) {
+        this.game = gameObject.game;
+        this.collisionObjectsThisFrame = gameObject.collisionObjectsThisFrame;
+        this.markedForDestruction = gameObject.markedForDestruction;
+        this.children = gameObject.children;
+
+        this.renderer = gameObject.renderer;
+        this.collider = gameObject.collider;
+        this.transform = gameObject.transform;
     }
 
     public Renderer getRenderer() {
@@ -89,7 +84,11 @@ public abstract class GameObject {
     }
 
     public Transform getTransform() {
-        return new Transform(transform);
+        return transform;
+    }
+
+    public void setTransform(Transform transform) {
+        this.transform = transform;
     }
 
     public boolean isMarkedForDestruction() {
@@ -136,9 +135,11 @@ public abstract class GameObject {
     }
 
     public void render(float delta) {
+        getRenderer().setGameObject(this);
         getRenderer().render(delta);
 
         for (GameObject child : getChildren()) {
+            child.getRenderer().setGameObject(child);
             child.getRenderer().render(delta);
         }
     }
@@ -147,19 +148,23 @@ public abstract class GameObject {
     }
 
     public void postUpdate(float delta, List<GameObject> gameObjects) {
+        getCollider().setGameObject(this);
         getCollider().lookForCollisions(delta, gameObjects);
 
         for (GameObject child : getChildren()) {
+            child.getCollider().setGameObject(child);
             child.getCollider().lookForCollisions(delta, gameObjects);
         }
     }
 
     public void postPostUpdate(float delta) {
+        getCollider().setGameObject(this);
         for (GameObject otherGameObject : getCollider().getCollisionObjectsThisFrame()) {
             getCollider().handleCollision(otherGameObject);
         }
 
         for (GameObject child : getChildren()) {
+            child.getCollider().setGameObject(child);
             for (GameObject otherGameObject : child.getCollider().getCollisionObjectsThisFrame()) {
                 child.getCollider().handleCollision(otherGameObject);
             }
@@ -176,5 +181,10 @@ public abstract class GameObject {
 
     public void addCollisionObjectThisFrame(GameObject gameObject) {
         collisionObjectsThisFrame.add(gameObject);
+    }
+
+    @Override
+    public GameObject clone() {
+        return new GameObject(this) {};
     }
 }

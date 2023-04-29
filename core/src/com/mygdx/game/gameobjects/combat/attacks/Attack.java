@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
-import com.mygdx.game.components.Transform;
 import com.mygdx.game.components.collider.Collider;
-import com.mygdx.game.components.renderer.RendererDecorator;
+import com.mygdx.game.components.renderer.RendererBaseDecorator;
+import com.mygdx.game.components.transform.Transform;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.gameplay.Ability;
 import com.mygdx.game.gameobjects.GameObject;
@@ -34,7 +34,7 @@ public class Attack extends GameObject {
         attackDirection = target.getPosition().sub(attacker.getPosition()).nor();
         transform.setRotationFromVector(attackDirection);
 
-        setRenderer(new RendererDecorator(getRenderer()) {
+        setRenderer(new RendererBaseDecorator(getRenderer()) {
             @Override
             public void render(float delta) {
                 super.render(delta);

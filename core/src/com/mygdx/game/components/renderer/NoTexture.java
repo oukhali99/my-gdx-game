@@ -10,11 +10,5 @@ public class NoTexture extends Renderer {
 
     @Override
     public void render(float delta) {
-
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }
