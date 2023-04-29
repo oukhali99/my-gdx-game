@@ -1,4 +1,4 @@
-package com.mygdx.game.gameplay;
+package com.mygdx.game.components.abilities.ability;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

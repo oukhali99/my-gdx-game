@@ -8,7 +8,7 @@ import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.RendererBaseDecorator;
 import com.mygdx.game.components.transform.Transform;
 import com.mygdx.game.gameobjects.combat.characters.Character;
-import com.mygdx.game.gameplay.Ability;
+import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;

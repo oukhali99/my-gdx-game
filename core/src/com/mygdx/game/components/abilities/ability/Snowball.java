@@ -1,4 +1,4 @@
-package com.mygdx.game.gameplay;
+package com.mygdx.game.components.abilities.ability;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;

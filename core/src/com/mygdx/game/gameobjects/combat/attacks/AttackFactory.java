@@ -2,7 +2,7 @@ package com.mygdx.game.gameobjects.combat.attacks;
 
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.combat.characters.Character;
-import com.mygdx.game.gameplay.Ability;
+import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.screens.CombatScreen;
 
 import java.util.Random;

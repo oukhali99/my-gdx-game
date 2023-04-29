@@ -10,8 +10,8 @@ import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.updater.NoUpdate;
 import com.mygdx.game.components.updater.Updater;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameplay.Fireball;
-import com.mygdx.game.gameplay.Snowball;
+import com.mygdx.game.components.abilities.ability.Fireball;
+import com.mygdx.game.components.abilities.ability.Snowball;
 
 public abstract class Character extends GameObject {
     private Updater updater;
