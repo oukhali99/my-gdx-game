@@ -1,8 +1,10 @@
 package com.mygdx.game.gameobjects.combat.attacks;
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.ability.Ability;
 import com.mygdx.game.components.abilities.ability.AbilityDecorator;
+import com.mygdx.game.components.renderer.RendererColorFlashDecorator;
 import com.mygdx.game.gameobjects.combat.characters.Character;
 import com.mygdx.game.screens.CombatScreen;
 
@@ -26,13 +28,17 @@ public class AttackFactory {
 
         Attack baseAttack = new Attack(game, ability, attacker, target, fight);
 
-        baseAttack.setAbility(new AbilityDecorator(baseAttack.getAbility()) {
+        if (RANDOM.nextFloat() < 0.5f) {
+            baseAttack.setAbility(new AbilityDecorator(baseAttack.getAbility()) {
 
-            @Override
-            public int getDamage() {
-                return super.getDamage() * 10;
-            }
-        });
+                @Override
+                public int getDamage() {
+                    return super.getDamage() * 2;
+                }
+            });
+
+            baseAttack.setRenderer(new RendererColorFlashDecorator(baseAttack.getRenderer(), Color.RED, 0.1f));
+        }
 
         return baseAttack;
     }

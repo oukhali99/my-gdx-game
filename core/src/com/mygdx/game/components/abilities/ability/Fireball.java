@@ -11,6 +11,6 @@ public class Fireball extends BaseAbility {
 
     @Override
     protected SpriteSheet getSpriteSheet() {
-        return new SpriteSheet("fireball.png", 2, 2, new Vector2(116, 32), true);
+        return new SpriteSheet("fireball.png", 2, 2, new Vector2(29, 8), true);
     }
 }

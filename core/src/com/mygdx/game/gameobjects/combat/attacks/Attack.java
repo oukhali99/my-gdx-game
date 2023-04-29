@@ -39,7 +39,7 @@ public class Attack extends GameObject {
             public void render(float delta) {
                 super.render(delta);
 
-                float speed = 700;
+                float speed = 200;
 
                 // Update the position of the fireball based on the elapsed time and speed
                 float deltaX = speed * delta;

@@ -12,13 +12,13 @@ public abstract class BaseAbility implements Ability {
     private final Drop game;
     private final String name;
     private final int damage;
-    private Animation animation;
+    private final Animation animation;
 
     public BaseAbility(Drop game, String name, int damage) {
         this.game = game;
         this.name = name;
         this.damage = damage;
-        //this.animation = new Animation(0.1f, getSpriteSheet().getFrames());
+        this.animation = new Animation(0.1f, getSpriteSheet().getFrames());
     }
 
     public Drop getGame() {
@@ -44,7 +44,7 @@ public abstract class BaseAbility implements Ability {
     }
 
     public Animation getAnimation() {
-        return new Animation(0.1f, getSpriteSheet().getFrames());
+        return animation;
     }
 
     public void draw(float stateTime, Transform transform) {
