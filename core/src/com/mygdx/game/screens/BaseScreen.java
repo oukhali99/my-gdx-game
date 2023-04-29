@@ -61,10 +61,12 @@ public abstract class BaseScreen implements Screen {
         realRender(delta);
         game.batch.end();
 
+        preenDestroyedGameObjects();
         update(delta);
+        preenDestroyedGameObjects();
         postUpdate(delta);
+        preenDestroyedGameObjects();
         postPostUpdate(delta);
-
         preenDestroyedGameObjects();
 
 

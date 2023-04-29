@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.collider.BaseCollider;
 import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.renderer.RendererBaseDecorator;
 import com.mygdx.game.components.transform.Transform;
@@ -14,7 +15,7 @@ import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.Logger;
 
 public class Attack extends GameObject {
-    protected final Ability ability;
+    protected Ability ability;
     protected final Character attacker;
     protected final Character target;
     protected final CombatScreen.Fight fight;
@@ -59,7 +60,7 @@ public class Attack extends GameObject {
                 ability.draw(stateTime, transform);
             }
         });
-        setCollider(new Collider(game, this) {
+        setCollider(new BaseCollider(game, this) {
             @Override
             public void handleCollision(GameObject otherGameObject) {
                 if (otherGameObject == target) {
@@ -92,5 +93,13 @@ public class Attack extends GameObject {
 
     public Integer getDamage() {
         return ability.getDamage();
+    }
+
+    public void setAbility(Ability ability) {
+        this.ability = ability;
+    }
+
+    public Ability getAbility() {
+        return ability;
     }
 }

@@ -9,7 +9,7 @@ import com.mygdx.game.components.abilities.ability.Ability;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ThrowableAbilities extends Abilities {
+public class ThrowableAbilities extends BaseAbilities {
     private final List<Ability> abilityList;
 
     public ThrowableAbilities(Drop game, GameObject gameObject) {

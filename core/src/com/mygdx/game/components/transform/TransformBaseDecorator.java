@@ -1,13 +1,13 @@
 package com.mygdx.game.components.transform;
 
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.components.ComponentBaseDecorator;
 
-public class TransformBaseDecorator extends Transform {
+public class TransformBaseDecorator extends ComponentBaseDecorator implements Transform {
     private Transform baseTransform;
 
     public TransformBaseDecorator(Transform baseTransform) {
-        super(baseTransform.getGame(), baseTransform.getGameObject());
+        super(baseTransform);
         this.baseTransform = baseTransform;
     }
 
@@ -74,21 +74,5 @@ public class TransformBaseDecorator extends Transform {
     @Override
     public Vector2 getCenter() {
         return baseTransform.getCenter();
-    }
-
-    @Override
-    public void destroy() {
-        baseTransform.destroy();
-    }
-
-    @Override
-    public void setGameObject(GameObject gameObject) {
-        super.setGameObject(gameObject);
-        baseTransform.setGameObject(gameObject);
-    }
-
-    @Override
-    public Transform getBaseComponent() {
-        return baseTransform;
     }
 }

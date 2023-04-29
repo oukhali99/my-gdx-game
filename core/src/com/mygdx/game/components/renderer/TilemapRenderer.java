@@ -8,7 +8,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.MyTiledMap;
 
-public class TilemapRenderer extends Renderer {
+public class TilemapRenderer extends BaseRenderer {
     private MyTiledMap map;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private  OrthographicCamera camera;
@@ -29,6 +29,7 @@ public class TilemapRenderer extends Renderer {
 
     @Override
     public void destroy() {
+        super.destroy();
         orthogonalTiledMapRenderer.dispose();
     }
 }

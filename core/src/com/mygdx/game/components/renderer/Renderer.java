@@ -1,22 +1,7 @@
 package com.mygdx.game.components.renderer;
 
-import com.mygdx.game.Drop;
 import com.mygdx.game.components.Component;
-import com.mygdx.game.gameobjects.GameObject;
 
-public abstract class Renderer extends Component {
-    public Renderer(Drop game, GameObject gameObject) {
-        super(game, gameObject);
-    }
-
+public interface Renderer extends Component {
     public abstract void render(float delta);
-
-
-    /**
-     * Allows you to get the component that is wrapped by this component (if applicable)
-     * @return the base component
-     */
-    public Renderer getBaseComponent() {
-        return this;
-    }
 }

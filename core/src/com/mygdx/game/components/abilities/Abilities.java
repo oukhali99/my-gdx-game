@@ -1,43 +1,23 @@
 package com.mygdx.game.components.abilities;
 
-import com.mygdx.game.Drop;
 import com.mygdx.game.components.Component;
-import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.gameobjects.combat.attacks.Attack;
 import com.mygdx.game.components.abilities.ability.Ability;
+import com.mygdx.game.gameobjects.combat.attacks.Attack;
 
 import java.util.List;
 
-public abstract class Abilities extends Component {
-    private int health;
+public interface Abilities extends Component {
+    public void addAbility(Ability ability);
 
-    public Abilities(Drop game, GameObject gameObject) {
-        super(game, gameObject);
-        this.health = 100;
-    }
+    public List<Ability> getAbilityList();
 
-    public int getHealth() {
-        return health;
-    }
+    public Ability getRandomAbility();
 
-    public boolean hasAbilities() {
-        return getAbilityList().size() > 0;
-    }
+    public void performAttack(Attack attack);
 
-    public abstract void addAbility(Ability ability);
+    public int getHealth();
 
-    public abstract List<Ability> getAbilityList();
+    public boolean hasAbilities();
 
-    public abstract Ability getRandomAbility();
-
-    public abstract void performAttack(Attack attack);
-
-    public void takeDamage(int amount) {
-        health -= amount;
-
-        if (health <= 0) {
-            health = 0;
-            gameObject.markForDestruction();
-        }
-    }
+    public void takeDamage(int amount);
 }

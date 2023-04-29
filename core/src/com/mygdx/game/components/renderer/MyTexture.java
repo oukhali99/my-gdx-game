@@ -5,7 +5,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.transform.Transform;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class MyTexture extends Renderer {
+public class MyTexture extends BaseRenderer {
     private com.badlogic.gdx.graphics.Texture texture;
     private String texturePath;
 
@@ -40,10 +40,7 @@ public class MyTexture extends Renderer {
 
     @Override
     public void destroy() {
+        super.destroy();
         texture.dispose();
-    }
-
-    public String getTexturePath() {
-        return texturePath;
     }
 }

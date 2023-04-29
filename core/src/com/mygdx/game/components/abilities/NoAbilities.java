@@ -7,14 +7,9 @@ import com.mygdx.game.components.abilities.ability.Ability;
 
 import java.util.List;
 
-public class NoAbilities extends Abilities {
+public class NoAbilities extends BaseAbilities {
     public NoAbilities(Drop game, GameObject gameObject) {
         super(game, gameObject);
-    }
-
-    @Override
-    public void destroy() {
-
     }
 
     @Override

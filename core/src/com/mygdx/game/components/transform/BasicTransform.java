@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class BasicTransform extends Transform {
+public class BasicTransform extends BaseTransform {
     public BasicTransform(Drop game, GameObject gameObject) {
         super(game, gameObject);
     }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.transform.Transform;
+import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.Logger;
 import com.mygdx.game.utils.SpriteSheet;
 
@@ -12,13 +13,17 @@ public abstract class Ability {
     private final Drop game;
     private final String name;
     private final int damage;
-    private final Animation animation;
+    private Animation animation;
 
     public Ability(Drop game, String name, int damage) {
         this.game = game;
         this.name = name;
         this.damage = damage;
-        this.animation = new Animation(0.1f, getSpriteSheet().getFrames());
+        //this.animation = new Animation(0.1f, getSpriteSheet().getFrames());
+    }
+
+    public Drop getGame() {
+        return game;
     }
 
     protected abstract SpriteSheet getSpriteSheet();
@@ -40,7 +45,7 @@ public abstract class Ability {
     }
 
     public Animation getAnimation() {
-        return animation;
+        return new Animation(0.1f, getSpriteSheet().getFrames());
     }
 
     public void draw(float stateTime, Transform transform) {

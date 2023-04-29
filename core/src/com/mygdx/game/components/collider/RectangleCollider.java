@@ -5,7 +5,7 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.transform.Transform;
 import com.mygdx.game.gameobjects.GameObject;
 
-public class RectangleCollider extends Collider {
+public class RectangleCollider extends BaseCollider {
     public RectangleCollider(Drop game, GameObject gameObject) {
         super(game, gameObject);
     }
@@ -15,7 +15,7 @@ public class RectangleCollider extends Collider {
     }
 
     @Override
-    protected Rectangle getArea() {
+    public Rectangle getArea() {
         Transform transform = getGameObject().getTransform();
         Rectangle rectangle = new Rectangle();
         rectangle.x = transform.getPosition().x;
