@@ -6,46 +6,40 @@ import com.mygdx.game.Drop;
 import com.mygdx.game.components.transform.Transform;
 import com.mygdx.game.utils.SpriteSheet;
 
-public class AbilityDecorator extends Ability {
-    private Ability ability;
+public class AbilityDecorator implements Ability {
+    private Ability baseAbility;
 
-    public AbilityDecorator(Ability ability) {
-        super(ability.getGame(), ability.getName(), ability.getDamage());
-        this.ability = ability;
-    }
-
-    @Override
-    protected SpriteSheet getSpriteSheet() {
-        return ability.getSpriteSheet();
+    public AbilityDecorator(Ability baseAbility) {
+        this.baseAbility = baseAbility;
     }
 
     @Override
     public Vector2 getScale() {
-        return ability.getScale();
+        return baseAbility.getScale();
     }
 
     @Override
     public String getName() {
-        return ability.getName();
+        return baseAbility.getName();
     }
 
     @Override
     public void display() {
-        ability.display();
+        baseAbility.display();
     }
 
     @Override
     public int getDamage() {
-        return ability.getDamage();
+        return baseAbility.getDamage();
     }
 
     @Override
     public Animation getAnimation() {
-        return ability.getAnimation();
+        return baseAbility.getAnimation();
     }
 
     @Override
     public void draw(float stateTime, Transform transform) {
-        ability.draw(stateTime, transform);
+        baseAbility.draw(stateTime, transform);
     }
 }

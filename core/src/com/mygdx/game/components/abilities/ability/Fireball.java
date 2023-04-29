@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
 import com.mygdx.game.utils.SpriteSheet;
 
-public class Fireball extends Ability {
+public class Fireball extends BaseAbility {
     public Fireball(Drop game) {
         super(game, "Fireball", 10);
     }

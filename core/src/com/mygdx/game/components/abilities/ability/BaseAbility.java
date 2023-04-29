@@ -1,0 +1,69 @@
+package com.mygdx.game.components.abilities.ability;
+
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.Drop;
+import com.mygdx.game.components.transform.Transform;
+import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.utils.Logger;
+import com.mygdx.game.utils.SpriteSheet;
+
+public abstract class BaseAbility implements Ability {
+    private final Drop game;
+    private final String name;
+    private final int damage;
+    private Animation animation;
+
+    public BaseAbility(Drop game, String name, int damage) {
+        this.game = game;
+        this.name = name;
+        this.damage = damage;
+        //this.animation = new Animation(0.1f, getSpriteSheet().getFrames());
+    }
+
+    public Drop getGame() {
+        return game;
+    }
+
+    protected abstract SpriteSheet getSpriteSheet();
+
+    public Vector2 getScale() {
+        return getSpriteSheet().getScale();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void display() {
+        Logger.log("Ability " + name + " for " + damage + " damage");
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public Animation getAnimation() {
+        return new Animation(0.1f, getSpriteSheet().getFrames());
+    }
+
+    public void draw(float stateTime, Transform transform) {
+        // Get the current frame of the animation based on the elapsed time
+        TextureRegion currentFrame = (TextureRegion) getAnimation().getKeyFrame(stateTime, true);
+
+        // Draw the current frame at the current position of the fireball
+        game.batch.draw(
+                currentFrame,
+                transform.getPosition().x,
+                transform.getPosition().y,
+                transform.getScale().x / 2f,
+                transform.getScale().y / 2f,
+                getSpriteSheet().getScale().x,
+                getSpriteSheet().getScale().y,
+                1,
+                1,
+                transform.getRotation()
+        );
+    }
+}
