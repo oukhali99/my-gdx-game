@@ -11,10 +11,6 @@ public class RectangleCollider extends BaseCollider {
     }
 
     @Override
-    public void handleCollision(GameObject otherGameObject) {
-    }
-
-    @Override
     public Rectangle getArea() {
         Transform transform = getGameObject().getTransform();
         Rectangle rectangle = new Rectangle();

@@ -44,8 +44,4 @@ public class TilemapCustomCollider extends BaseCollider {
     public Rectangle getArea() {
         return combinedRectangles;
     }
-
-    @Override
-    public void handleCollision(GameObject otherGameObject) {
-    }
 }

@@ -41,4 +41,9 @@ public abstract class BaseCollider extends BaseComponent implements Collider {
     public LinkedList<GameObject> getCollisionObjectsThisFrame() {
         return collisionObjectsThisFrame;
     }
+
+    @Override
+    public void handleCollision(GameObject otherGameObject) {
+        getGameObject().getMovement().onCollision(otherGameObject);
+    }
 }

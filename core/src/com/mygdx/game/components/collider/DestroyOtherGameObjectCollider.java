@@ -9,6 +9,7 @@ public class DestroyOtherGameObjectCollider extends ColliderBaseDecorator {
 
     @Override
     public void handleCollision(GameObject otherGameObject) {
+        super.handleCollision(otherGameObject);
         otherGameObject.markForDestruction();
         super.handleCollision(otherGameObject);
     }

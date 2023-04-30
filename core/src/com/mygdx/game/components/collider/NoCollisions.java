@@ -10,10 +10,6 @@ public class NoCollisions extends BaseCollider {
     }
 
     @Override
-    public void handleCollision(GameObject otherGameObject) {
-    }
-
-    @Override
     public Rectangle getArea() {
         return new Rectangle(0, 0, 0, 0);
     }

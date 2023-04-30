@@ -2,8 +2,12 @@ package com.mygdx.game.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Drop;
+import com.mygdx.game.components.abilities.Abilities;
+import com.mygdx.game.components.abilities.NoAbilities;
 import com.mygdx.game.components.collider.Collider;
 import com.mygdx.game.components.collider.NoCollisions;
+import com.mygdx.game.components.movement.Movement;
+import com.mygdx.game.components.movement.MovementNone;
 import com.mygdx.game.components.renderer.NoTexture;
 import com.mygdx.game.components.renderer.Renderer;
 import com.mygdx.game.components.transform.BasicTransform;
@@ -19,17 +23,21 @@ public abstract class GameObject {
     protected List<GameObject> children;
     private boolean markedForDestruction;
     private Renderer renderer;
+    private Movement movement;
+    private Abilities abilities;
     private Collider collider;
 
     protected GameObject(final Drop game) {
         this.game = game;
-        this.transform = new BasicTransform(game, this);
         this.markedForDestruction = false;
         this.children = new LinkedList<>();
         this.collisionObjectsThisFrame = new LinkedList<>();
 
-        this.renderer = new NoTexture(game, this);
+        setRenderer(new NoTexture(game, this));
         setCollider(new NoCollisions(game, this));
+        setTransform(new BasicTransform(game, this));
+        setAbilities(new NoAbilities(game, this));
+        setMovement(new MovementNone(game, this, 128));
     }
 
     public GameObject(GameObject gameObject) {
@@ -41,6 +49,24 @@ public abstract class GameObject {
         this.renderer = gameObject.renderer;
         this.collider = gameObject.collider;
         this.transform = gameObject.transform;
+        this.abilities = gameObject.abilities;
+        this.movement = gameObject.movement;
+    }
+
+    public Abilities getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(Abilities abilities) {
+        this.abilities = abilities;
+    }
+
+    public Movement getMovement() {
+        return movement;
+    }
+
+    public void setMovement(Movement movement) {
+        this.movement = movement;
     }
 
     public Renderer getRenderer() {

@@ -25,7 +25,7 @@ public class LevelScreen1 extends LevelScreen {
             enemy.setPosition(16 * x, 16 * y);
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             Powerup powerup = PowerupFactory.createPowerup(game);
             addGameObject(powerup);
 
