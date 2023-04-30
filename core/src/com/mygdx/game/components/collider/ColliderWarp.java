@@ -3,6 +3,8 @@ package com.mygdx.game.components.collider;
 import com.badlogic.gdx.Screen;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
+import com.mygdx.game.gameobjects.characters.Player;
+import com.mygdx.game.screens.LevelTransitionScreen;
 import com.mygdx.game.screens.levels.LevelScreen;
 import com.mygdx.game.utils.MyTiledMap;
 
@@ -20,7 +22,9 @@ public class ColliderWarp extends RectangleCollider {
     public void handleCollision(GameObject otherGameObject) {
         super.handleCollision(otherGameObject);
 
-        Screen level = levelScreen.getLevelScreenDestinationForWarp(warp.getMapDestination(), warp.getWarpDestination());
-        game.setScreen(level);
+        if (otherGameObject instanceof Player) {
+            Screen level = levelScreen.getLevelScreenDestinationForWarp(warp.getMapDestination(), warp.getWarpDestination());
+            game.setScreen(new LevelTransitionScreen(game, level));
+        }
     }
 }
