@@ -148,4 +148,13 @@ public abstract class BaseScreen implements Screen {
     protected List<GameObject> getGameObjects() {
         return new LinkedList<>(gameObjects);
     }
+
+    public void onFight(CombatScreen.Fight fight) {
+        Screen combatScreen = new CombatScreen(
+                game,
+                this,
+                fight
+        );
+        game.setScreen(combatScreen);
+    }
 }

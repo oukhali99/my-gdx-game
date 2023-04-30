@@ -11,6 +11,7 @@ import com.mygdx.game.components.transform.BasicTransform;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.characters.Player;
 import com.mygdx.game.screens.BaseScreen;
+import com.mygdx.game.utils.Logger;
 import com.mygdx.game.utils.MyTiledMap;
 
 public abstract class LevelScreen extends BaseScreen {
@@ -86,4 +87,8 @@ public abstract class LevelScreen extends BaseScreen {
     }
 
     public abstract LevelScreen getLevelScreenDestinationForWarp(String destination, String warpEntryPoint);
+
+    public void onCollisionBetweenPlayerAndEnemy() {
+        Logger.log("Fight");
+    }
 }
