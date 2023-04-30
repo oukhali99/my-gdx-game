@@ -1,6 +1,7 @@
 package com.mygdx.game.screens.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Drop;
@@ -11,8 +12,9 @@ import com.mygdx.game.components.transform.BasicTransform;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.characters.Player;
 import com.mygdx.game.screens.BaseScreen;
-import com.mygdx.game.utils.Logger;
-import com.mygdx.game.utils.MyTiledMap;
+import com.mygdx.game.screens.CombatScreen;
+import com.mygdx.game.utils.mytiledmap.MyTiledMap;
+import com.mygdx.game.utils.mytiledmap.WarpTile;
 
 public abstract class LevelScreen extends BaseScreen {
     protected GameObject player;
@@ -40,7 +42,7 @@ public abstract class LevelScreen extends BaseScreen {
         addGameObject(tileMapGameObject);
 
         // Create the warp map
-        for (MyTiledMap.Warp warp : myTiledMap.getWarps()) {
+        for (WarpTile warp : myTiledMap.getWarps()) {
             GameObject warpObject = new GameObject(game) {};
 
             warpObject.setTransform(new BasicTransform(game, warpObject, warp.getRectangle()));
@@ -88,7 +90,12 @@ public abstract class LevelScreen extends BaseScreen {
 
     public abstract LevelScreen getLevelScreenDestinationForWarp(String destination, String warpEntryPoint);
 
-    public void onCollisionBetweenPlayerAndEnemy() {
-        Logger.log("Fight");
+    public void onFight(CombatScreen.Fight fight) {
+        Screen combatScreen = new CombatScreen(
+                game,
+                this,
+                fight
+        );
+        game.setScreen(combatScreen);
     }
 }

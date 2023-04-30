@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
-import com.mygdx.game.utils.MyTiledMap;
+import com.mygdx.game.utils.mytiledmap.MyTiledMap;
 
 public class TilemapRenderer extends BaseRenderer {
     private final MyTiledMap map;

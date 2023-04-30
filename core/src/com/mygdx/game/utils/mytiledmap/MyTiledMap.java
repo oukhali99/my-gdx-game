@@ -1,11 +1,10 @@
-package com.mygdx.game.utils;
+package com.mygdx.game.utils.mytiledmap;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashMap;
@@ -71,94 +70,46 @@ public class MyTiledMap {
         );
     }
 
-    public List<Warp> getWarps() {
-        List<Warp> warps = new LinkedList<>();
+    public List<WarpTile> getWarps() {
+        List<WarpTile> warps = new LinkedList<>();
 
         MapLayer warpsLayer = tiledMap.getLayers().get("Warps");
         MapObjects objects = warpsLayer.getObjects();
         for (MapObject object : objects) {
-            warps.add(new Warp(object));
+            warps.add(new WarpTile(object));
         }
 
         return warps;
     }
 
-    public Map<String, WarpExit> getWarpExits() {
-        Map<String, WarpExit> warps = new HashMap<>();
+    public Map<String, WarpExitTile> getWarpExits() {
+        Map<String, WarpExitTile> warps = new HashMap<>();
 
         MapLayer warpsLayer = tiledMap.getLayers().get("WarpExit");
         MapObjects objects = warpsLayer.getObjects();
         for (MapObject object : objects) {
-            WarpExit warpExit = new WarpExit(object);
-            warps.put(warpExit.getName(), new WarpExit(object));
+            WarpExitTile warpExit = new WarpExitTile(object);
+            warps.put(warpExit.getName(), new WarpExitTile(object));
         }
 
         return warps;
     }
 
-    public WarpExit getWarpExit(String name) {
-        for (String warpExitName : getWarpExits().keySet()) {
-            if (name.equals(warpExitName)) {
-                return getWarpExits().get(warpExitName);
+    public WarpExitTile getWarpExit(String name) {
+        return getWarpExits().get(name);
+    }
+
+    public Tile getTileAt(Vector2 position) {
+        MapLayer tileLayer = getTiledMap().getLayers().get("Tile Layer 1");
+        MapObjects mapObjects = tileLayer.getObjects();
+
+        for (MapObject mapObject : mapObjects) {
+            Tile tile = new Tile(mapObject);
+            if (tile.getPosition().epsilonEquals(position, 4)) {
+                return tile;
             }
         }
+
         return null;
-    }
-
-    private static Rectangle getMapObjectRectangle(MapObject mapObject) {
-        float x = mapObject.getProperties().get("x", Float.class);
-        float y = mapObject.getProperties().get("y", Float.class);
-        float width = mapObject.getProperties().get("width", Float.class);
-        float height = mapObject.getProperties().get("height", Float.class);
-        return new Rectangle(x, y, width, height);
-    }
-
-    public static class Warp {
-        private Rectangle rectangle;
-
-        private String mapDestination;
-
-        private String warpDestination;
-
-        public Warp(MapObject mapObject) {
-            this.rectangle = getMapObjectRectangle(mapObject);
-            this.mapDestination = mapObject.getProperties().get("MapDestination", String.class);
-            this.warpDestination = mapObject.getProperties().get("WarpDestination", String.class);
-        }
-
-        public Rectangle getRectangle() {
-            return rectangle;
-        }
-
-        public String getMapDestination() {
-            return mapDestination;
-        }
-
-        public String getWarpDestination() {
-            return warpDestination;
-        }
-    }
-
-    public static class WarpExit {
-        private Rectangle rectangle;
-
-        private String name;
-
-        public WarpExit(MapObject mapObject) {
-            this.rectangle = getMapObjectRectangle(mapObject);
-            this.name = mapObject.getProperties().get("Name", String.class);
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Rectangle getRectangle() {
-            return rectangle;
-        }
-
-        public Vector2 getPosition() {
-            return new Vector2(rectangle.x, rectangle.y);
-        }
     }
 }

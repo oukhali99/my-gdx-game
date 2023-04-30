@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.utils.CombinedRectangles;
-import com.mygdx.game.utils.MyTiledMap;
+import com.mygdx.game.utils.mytiledmap.MyTiledMap;
 
 public class TilemapCustomCollider extends BaseCollider {
     protected MapLayer collisionLayer;

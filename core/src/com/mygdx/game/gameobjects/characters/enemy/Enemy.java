@@ -6,11 +6,11 @@ import com.mygdx.game.components.movement.MovementAvoidCollisionDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.characters.Character;
 import com.mygdx.game.gameobjects.characters.Player;
-import com.mygdx.game.screens.BaseScreen;
 import com.mygdx.game.screens.CombatScreen;
+import com.mygdx.game.screens.levels.LevelScreen;
 
 public abstract class Enemy extends Character {
-    private BaseScreen screen;
+    private LevelScreen screen;
 
     public Enemy(final Drop game) {
         super(game);
@@ -35,7 +35,7 @@ public abstract class Enemy extends Character {
         setMovement(new MovementAvoidCollisionDecorator(getMovement()));
     }
 
-    public void setScreen(BaseScreen screen) {
+    public void setScreen(LevelScreen screen) {
         this.screen = screen;
     }
 }
