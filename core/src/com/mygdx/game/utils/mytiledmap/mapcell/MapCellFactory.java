@@ -11,6 +11,9 @@ public class MapCellFactory {
             case "Grass":
                 probationaryCell = new MapCellGrass(cell, gridPosition, layer);
                 break;
+            case "Brick":
+                probationaryCell = new MapCellBrick(cell, gridPosition, layer);
+                break;
             default:
                 break;
         }

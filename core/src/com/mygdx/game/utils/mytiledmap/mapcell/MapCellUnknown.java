@@ -9,7 +9,12 @@ public class MapCellUnknown extends MapCell {
     }
 
     @Override
-    public String getCombatTexturePath() {
-        return "academybasement.gif";
+    public String getCombatTexturePathExtension() {
+        return "grass-plains.png";
+    }
+
+    @Override
+    public Vector2 getCombatBasePosition() {
+        return new Vector2();
     }
 }

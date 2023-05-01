@@ -36,5 +36,11 @@ public abstract class MapCell extends BaseMapEntity {
         return cell.getTile().getProperties();
     }
 
-    public abstract String getCombatTexturePath();
+    public String getCombatTexturePath() {
+        return "combat-backgrounds/" + getCombatTexturePathExtension();
+    }
+
+    public abstract String getCombatTexturePathExtension();
+
+    public abstract Vector2 getCombatBasePosition();
 }

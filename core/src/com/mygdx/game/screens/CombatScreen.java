@@ -58,10 +58,10 @@ public class CombatScreen extends BaseScreen {
         addGameObject(background);
 
         // Change the behavior of the objects
-        fight.player.setTransform(new CombatModeTransformLeft(fight.player.getTransform()));
+        fight.player.setTransform(new CombatModeTransformLeft(fight.player.getTransform(), enemyTile));
         fight.player.setMovement(new MovementMuteDecorator(fight.player.getMovement()));
 
-        fight.enemy.setTransform(new CombatModeTransformRight(fight.enemy.getTransform()));
+        fight.enemy.setTransform(new CombatModeTransformRight(fight.enemy.getTransform(), enemyTile));
         fight.enemy.setMovement(new MovementMuteDecorator(fight.enemy.getMovement()));
 
         addGameObject(fight.player);
