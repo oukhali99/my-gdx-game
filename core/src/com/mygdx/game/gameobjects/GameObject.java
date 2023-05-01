@@ -1,6 +1,8 @@
 package com.mygdx.game.gameobjects;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.Abilities;
 import com.mygdx.game.components.abilities.NoAbilities;
@@ -196,21 +198,30 @@ public abstract class GameObject {
         }
     }
 
-    public List<GameObject> getCollisionObjectsThisFrame() {
-        return new LinkedList<>(collisionObjectsThisFrame);
-    }
-
-    public void clearCollisionObjectsThisFrame() {
-        collisionObjectsThisFrame.clear();
-    }
-
-    public void addCollisionObjectThisFrame(GameObject gameObject) {
-        collisionObjectsThisFrame.add(gameObject);
-    }
-
     @Override
     public GameObject clone() {
         return new GameObject(this) {
         };
+    }
+
+    public void postRender(float delta) {
+        getRenderer().setGameObject(this);
+        getRenderer().postRender(delta);
+
+        for (GameObject child : getChildren()) {
+            child.getRenderer().setGameObject(child);
+            child.getRenderer().postRender(delta);
+        }
+    }
+
+    public Vector2 getScreenSpacePosition(Vector2 offset) {
+        Vector3 gamePosition = new Vector3(getPosition().cpy(), 0);
+        Camera camera = game.getScreen().getCamera();
+
+        gamePosition.add(new Vector3(offset, 0));
+
+        camera.project(gamePosition);
+
+        return new Vector2(gamePosition.x, gamePosition.y);
     }
 }

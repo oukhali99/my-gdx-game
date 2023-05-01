@@ -14,4 +14,9 @@ public class RendererBaseDecorator extends ComponentBaseDecorator implements Ren
     public void render(float delta) {
         baseRenderer.render(delta);
     }
+
+    @Override
+    public void postRender(float delta) {
+        baseRenderer.postRender(delta);
+    }
 }

@@ -8,4 +8,12 @@ public abstract class BaseRenderer extends BaseComponent implements Renderer {
     public BaseRenderer(Drop game, GameObject gameObject) {
         super(game, gameObject);
     }
+
+    @Override
+    public void render(float delta) {
+    }
+
+    @Override
+    public void postRender(float delta) {
+    }
 }

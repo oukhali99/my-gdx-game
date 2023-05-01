@@ -3,6 +3,7 @@ package com.mygdx.game.gameobjects.characters.enemy;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.collider.ColliderBaseDecorator;
 import com.mygdx.game.components.movement.MovementAvoidCollisionDecorator;
+import com.mygdx.game.components.renderer.RendererHealthBarDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.characters.Character;
 import com.mygdx.game.gameobjects.characters.Player;
@@ -33,6 +34,8 @@ public abstract class Enemy extends Character {
         });
 
         setMovement(new MovementAvoidCollisionDecorator(getMovement()));
+
+        setRenderer(new RendererHealthBarDecorator(getRenderer()));
     }
 
     public void setScreen(LevelScreen screen) {

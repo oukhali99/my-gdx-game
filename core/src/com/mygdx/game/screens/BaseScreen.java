@@ -15,6 +15,7 @@ import java.util.List;
 public abstract class BaseScreen implements Screen {
     protected final Drop game;
     protected List<GameObject> gameObjects;
+
     protected OrthographicCamera camera;
 
     public BaseScreen(Drop game) {
@@ -60,6 +61,8 @@ public abstract class BaseScreen implements Screen {
         realRender(delta);
         game.batch.end();
 
+        postRender(delta);
+
         preenDestroyedGameObjects();
         update(delta);
         preenDestroyedGameObjects();
@@ -78,6 +81,12 @@ public abstract class BaseScreen implements Screen {
     protected void realRender(float delta) {
         for (GameObject gameObject : gameObjects) {
             gameObject.render(delta);
+        }
+    }
+
+    protected void postRender(float delta) {
+        for (GameObject gameObject : gameObjects) {
+            gameObject.postRender(delta);
         }
     }
 
@@ -147,5 +156,9 @@ public abstract class BaseScreen implements Screen {
 
     protected List<GameObject> getGameObjects() {
         return new LinkedList<>(gameObjects);
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
     }
 }
