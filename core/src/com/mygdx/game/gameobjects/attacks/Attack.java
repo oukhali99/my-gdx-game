@@ -28,7 +28,7 @@ public class Attack extends GameObject {
         this.attacker = attacker;
         this.fight = fight;
 
-        setPosition(attacker.getPosition());
+        setPosition(attacker.getPosition().add(new Vector2(0, ability.getScale().y / 2)));
         setScale(ability.getScale());
 
         attackDirection = target.getPosition().sub(attacker.getPosition()).nor();
