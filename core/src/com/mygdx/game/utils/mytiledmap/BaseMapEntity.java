@@ -1,19 +1,13 @@
 package com.mygdx.game.utils.mytiledmap;
 
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Tile {
-    protected MapObject mapObject;
-
-    public Tile(MapObject mapObject) {
-        this.mapObject = mapObject;
-    }
+public abstract class BaseMapEntity {
 
     protected <T> T getProperty(String key, Class<T> clazz) {
-        MapProperties mapProperties = mapObject.getProperties();
+        MapProperties mapProperties = getProperties();
 
         if (mapProperties.containsKey(key)) {
             return mapProperties.get(key, clazz);
@@ -38,4 +32,10 @@ public class Tile {
     public String getName() {
         return getProperty("Name", String.class);
     }
+
+    public String getCombatTexturePath() {
+        return "academybasement.gif";
+    }
+
+    protected abstract MapProperties getProperties();
 }

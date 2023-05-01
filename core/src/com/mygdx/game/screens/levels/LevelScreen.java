@@ -14,7 +14,7 @@ import com.mygdx.game.gameobjects.characters.Player;
 import com.mygdx.game.screens.BaseScreen;
 import com.mygdx.game.screens.CombatScreen;
 import com.mygdx.game.utils.mytiledmap.MyTiledMap;
-import com.mygdx.game.utils.mytiledmap.WarpTile;
+import com.mygdx.game.utils.mytiledmap.WarpObject;
 
 public abstract class LevelScreen extends BaseScreen {
     protected GameObject player;
@@ -23,6 +23,7 @@ public abstract class LevelScreen extends BaseScreen {
 
     public LevelScreen(Drop game, String warpExitName) {
         super(game);
+        camera.setToOrtho(false, 640, 360);
         initialize(warpExitName);
     }
 
@@ -42,7 +43,7 @@ public abstract class LevelScreen extends BaseScreen {
         addGameObject(tileMapGameObject);
 
         // Create the warp map
-        for (WarpTile warp : myTiledMap.getWarps()) {
+        for (WarpObject warp : myTiledMap.getWarps()) {
             GameObject warpObject = new GameObject(game) {};
 
             warpObject.setTransform(new BasicTransform(game, warpObject, warp.getRectangle()));
@@ -94,7 +95,8 @@ public abstract class LevelScreen extends BaseScreen {
         Screen combatScreen = new CombatScreen(
                 game,
                 this,
-                fight
+                fight,
+                myTiledMap
         );
         game.setScreen(combatScreen);
     }

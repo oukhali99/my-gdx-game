@@ -4,6 +4,7 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
@@ -70,43 +71,46 @@ public class MyTiledMap {
         );
     }
 
-    public List<WarpTile> getWarps() {
-        List<WarpTile> warps = new LinkedList<>();
+    public List<WarpObject> getWarps() {
+        List<WarpObject> warps = new LinkedList<>();
 
         MapLayer warpsLayer = tiledMap.getLayers().get("Warps");
         MapObjects objects = warpsLayer.getObjects();
         for (MapObject object : objects) {
-            warps.add(new WarpTile(object));
+            warps.add(new WarpObject(object));
         }
 
         return warps;
     }
 
-    public Map<String, WarpExitTile> getWarpExits() {
-        Map<String, WarpExitTile> warps = new HashMap<>();
+    public Map<String, WarpExitObject> getWarpExits() {
+        Map<String, WarpExitObject> warps = new HashMap<>();
 
         MapLayer warpsLayer = tiledMap.getLayers().get("WarpExit");
         MapObjects objects = warpsLayer.getObjects();
         for (MapObject object : objects) {
-            WarpExitTile warpExit = new WarpExitTile(object);
-            warps.put(warpExit.getName(), new WarpExitTile(object));
+            WarpExitObject warpExit = new WarpExitObject(object);
+            warps.put(warpExit.getName(), new WarpExitObject(object));
         }
 
         return warps;
     }
 
-    public WarpExitTile getWarpExit(String name) {
+    public WarpExitObject getWarpExit(String name) {
         return getWarpExits().get(name);
     }
 
-    public Tile getTileAt(Vector2 position) {
-        MapLayer tileLayer = getTiledMap().getLayers().get("Tile Layer 1");
-        MapObjects mapObjects = tileLayer.getObjects();
+    public MapCell getTileAt(Vector2 position) {
+        TiledMapTileLayer tileLayer = (TiledMapTileLayer) getTiledMap().getLayers().get("Tile Layer 1");
 
-        for (MapObject mapObject : mapObjects) {
-            Tile tile = new Tile(mapObject);
-            if (tile.getPosition().epsilonEquals(position, 4)) {
-                return tile;
+        for (int i = 0; i < tileLayer.getWidth(); i++) {
+            for (int j = 0; j < tileLayer.getHeight(); j++) {
+                TiledMapTileLayer.Cell cell = tileLayer.getCell(i, j);
+                MapCell mapEntity = new MapCell(cell, new Vector2(i, j), tileLayer);
+
+                if (mapEntity.getPosition().epsilonEquals(position, 4)) {
+                    return mapEntity;
+                }
             }
         }
 

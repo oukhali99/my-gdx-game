@@ -15,7 +15,6 @@ import java.util.List;
 public abstract class BaseScreen implements Screen {
     protected final Drop game;
     protected List<GameObject> gameObjects;
-
     protected OrthographicCamera camera;
 
     public BaseScreen(Drop game) {
@@ -24,7 +23,7 @@ public abstract class BaseScreen implements Screen {
 
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 640, 360);
+        camera.setToOrtho(false, 1920, 1080);
     }
 
     protected BitmapFont getFont() {

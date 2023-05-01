@@ -10,14 +10,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
 import com.mygdx.game.components.abilities.ability.Ability;
+import com.mygdx.game.components.movement.MovementMuteDecorator;
+import com.mygdx.game.components.renderer.MyTexture;
 import com.mygdx.game.components.transform.combatmode.CombatModeTransformLeft;
 import com.mygdx.game.components.transform.combatmode.CombatModeTransformRight;
-import com.mygdx.game.components.movement.MovementMuteDecorator;
 import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.attacks.Attack;
 import com.mygdx.game.gameobjects.attacks.AttackFactory;
 import com.mygdx.game.gameobjects.characters.Character;
 import com.mygdx.game.ui.AbilityTable;
+import com.mygdx.game.utils.mytiledmap.MapCell;
+import com.mygdx.game.utils.mytiledmap.MyTiledMap;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,17 +30,32 @@ public class CombatScreen extends BaseScreen {
     private final Fight fight;
     private final Stage stage;
     private final Table table;
+    private final MyTiledMap myTiledMap;
 
     public CombatScreen(
             final Drop game,
             Screen previousScreen,
-            final Fight fight
+            final Fight fight,
+            MyTiledMap myTiledMap
     ) {
         super(game);
         this.previousScreen = previousScreen;
         this.fight = fight;
+        this.myTiledMap = myTiledMap;
 
         fight.addObserver(this);
+        camera.setToOrtho(false, 640, 360);
+
+        // Get the tile the enemy is standing on for the background
+        MapCell enemyTile = myTiledMap.getTileAt(fight.enemy.getPosition());
+        String backgroundImagePath = enemyTile.getCombatTexturePath();
+
+        // Add background
+        GameObject background = new GameObject(game) {};
+        background.setRenderer(new MyTexture(game, background, backgroundImagePath));
+        background.setScale(camera.viewportWidth, camera.viewportHeight);
+        background.setPosition(0, 0);
+        addGameObject(background);
 
         // Change the behavior of the objects
         fight.player.setTransform(new CombatModeTransformLeft(fight.player.getTransform()));

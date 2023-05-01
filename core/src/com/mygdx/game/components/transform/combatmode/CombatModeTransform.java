@@ -15,5 +15,10 @@ public abstract class CombatModeTransform extends TransformBaseDecorator {
         return getCombatPosition();
     }
 
+    @Override
+    public Vector2 getScale() {
+        return new Vector2(64, 64);
+    }
+
     protected abstract Vector2 getCombatPosition();
 }

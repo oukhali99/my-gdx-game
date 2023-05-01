@@ -2,8 +2,8 @@ package com.mygdx.game.utils.mytiledmap;
 
 import com.badlogic.gdx.maps.MapObject;
 
-public class WarpExitTile extends Tile {
-    public WarpExitTile(MapObject mapObject) {
+public class WarpExitObject extends BaseMapObject {
+    public WarpExitObject(MapObject mapObject) {
         super(mapObject);
     }
 }
