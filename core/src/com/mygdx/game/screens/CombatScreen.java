@@ -19,7 +19,7 @@ import com.mygdx.game.gameobjects.attacks.Attack;
 import com.mygdx.game.gameobjects.attacks.AttackFactory;
 import com.mygdx.game.gameobjects.characters.Character;
 import com.mygdx.game.ui.AbilityTable;
-import com.mygdx.game.utils.mytiledmap.MapCell;
+import com.mygdx.game.utils.mytiledmap.mapcell.MapCell;
 import com.mygdx.game.utils.mytiledmap.MyTiledMap;
 
 import java.util.LinkedList;

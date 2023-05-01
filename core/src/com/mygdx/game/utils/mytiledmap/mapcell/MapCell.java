@@ -1,11 +1,12 @@
-package com.mygdx.game.utils.mytiledmap;
+package com.mygdx.game.utils.mytiledmap.mapcell;
 
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.utils.mytiledmap.BaseMapEntity;
 
-public class MapCell extends BaseMapEntity {
+public abstract class MapCell extends BaseMapEntity {
     private final TiledMapTileLayer.Cell cell;
     private final Vector2 gridPosition;
     private final TiledMapTileLayer layer;
@@ -34,4 +35,6 @@ public class MapCell extends BaseMapEntity {
     protected MapProperties getProperties() {
         return cell.getTile().getProperties();
     }
+
+    public abstract String getCombatTexturePath();
 }

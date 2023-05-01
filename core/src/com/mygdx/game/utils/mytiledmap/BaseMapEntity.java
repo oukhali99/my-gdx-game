@@ -30,11 +30,12 @@ public abstract class BaseMapEntity {
     }
 
     public String getName() {
-        return getProperty("Name", String.class);
-    }
+        String name = getProperty("Name", String.class);
 
-    public String getCombatTexturePath() {
-        return "academybasement.gif";
+        if (name != null) {
+            return name;
+        }
+        return "";
     }
 
     protected abstract MapProperties getProperties();

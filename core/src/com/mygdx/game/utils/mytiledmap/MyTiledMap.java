@@ -7,6 +7,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.utils.mytiledmap.mapcell.MapCell;
+import com.mygdx.game.utils.mytiledmap.mapcell.MapCellFactory;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -106,7 +108,7 @@ public class MyTiledMap {
         for (int i = 0; i < tileLayer.getWidth(); i++) {
             for (int j = 0; j < tileLayer.getHeight(); j++) {
                 TiledMapTileLayer.Cell cell = tileLayer.getCell(i, j);
-                MapCell mapEntity = new MapCell(cell, new Vector2(i, j), tileLayer);
+                MapCell mapEntity = MapCellFactory.createMapCell(cell, new Vector2(i, j), tileLayer);
 
                 if (mapEntity.getPosition().epsilonEquals(position, 4)) {
                     return mapEntity;
