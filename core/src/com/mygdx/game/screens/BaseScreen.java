@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Drop;
 import com.mygdx.game.gameobjects.GameObject;
@@ -16,6 +17,7 @@ public abstract class BaseScreen implements Screen {
     protected final Drop game;
     protected List<GameObject> gameObjects;
     protected OrthographicCamera camera;
+    protected final Stage stage;
 
     public BaseScreen(Drop game) {
         this.game = game;
@@ -24,6 +26,8 @@ public abstract class BaseScreen implements Screen {
         // create the camera and the SpriteBatch
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
+
+        stage = new Stage();
     }
 
     protected BitmapFont getFont() {
@@ -62,6 +66,8 @@ public abstract class BaseScreen implements Screen {
 
         postRender(delta);
 
+        renderUi(delta);
+
         preenDestroyedGameObjects();
         update(delta);
         preenDestroyedGameObjects();
@@ -75,6 +81,12 @@ public abstract class BaseScreen implements Screen {
         game.batch.begin();
         //getFont().draw(game.batch, "GameObject count " + getGameObjectCountIncludingChildren(), 1000, 700);
         game.batch.end();
+    }
+
+    private void renderUi(float delta) {
+        for (GameObject gameObject : gameObjects) {
+            gameObject.renderUi(delta);
+        }
     }
 
     protected void realRender(float delta) {

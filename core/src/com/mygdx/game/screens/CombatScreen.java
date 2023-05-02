@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.Drop;
@@ -18,9 +16,9 @@ import com.mygdx.game.gameobjects.GameObject;
 import com.mygdx.game.gameobjects.attacks.Attack;
 import com.mygdx.game.gameobjects.attacks.AttackFactory;
 import com.mygdx.game.gameobjects.characters.Character;
-import com.mygdx.game.ui.AbilityTable;
-import com.mygdx.game.utils.mytiledmap.mapcell.MapCell;
+import com.mygdx.game.gameobjects.ui.AbilityTable;
 import com.mygdx.game.utils.mytiledmap.MyTiledMap;
+import com.mygdx.game.utils.mytiledmap.mapcell.MapCell;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -28,8 +26,6 @@ import java.util.List;
 public class CombatScreen extends BaseScreen {
     private final Screen previousScreen;
     private final Fight fight;
-    private final Stage stage;
-    private final Table table;
     private final MyTiledMap myTiledMap;
 
     public CombatScreen(
@@ -67,9 +63,6 @@ public class CombatScreen extends BaseScreen {
         addGameObject(fight.player);
         addGameObject(fight.enemy);
 
-        // Initialize the stage
-        stage = new Stage();
-
         // Initialize the style
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
@@ -87,15 +80,7 @@ public class CombatScreen extends BaseScreen {
         stage.addActor(exitButton);
 
         // Add ability table
-        table = new AbilityTable(fight.player.getAbilities()) {
-            @Override
-            protected void onClickedAbility(Ability ability) {
-                Attack attack = AttackFactory.getInstance().createAttack(game, ability, fight.player, fight.enemy, fight);
-                fight.player.addChild(attack);
-                fight.player.getAbilities().performAttack(attack);
-            }
-        };
-        stage.addActor(table);
+        addGameObject(new AbilityTable(game, stage, fight));
     }
 
     @Override
@@ -108,8 +93,6 @@ public class CombatScreen extends BaseScreen {
         Gdx.input.setInputProcessor(stage);
         stage.act(delta);
         stage.draw();
-
-        table.setVisible(fight.isPlayersTurn(fight.player));
 
         // Enemy's turn
         if (fight.isPlayersTurn(fight.enemy)) {
@@ -168,6 +151,14 @@ public class CombatScreen extends BaseScreen {
 
         public boolean isPlayersTurn(Character player) {
             return whoseTurnItIs == player;
+        }
+
+        public Character getPlayer() {
+            return player;
+        }
+
+        public Character getEnemy() {
+            return enemy;
         }
     }
 }

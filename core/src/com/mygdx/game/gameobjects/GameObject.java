@@ -224,4 +224,7 @@ public abstract class GameObject {
 
         return new Vector2(gamePosition.x, gamePosition.y);
     }
+
+    public void renderUi(float delta) {
+    }
 }
