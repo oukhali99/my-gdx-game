@@ -44,7 +44,12 @@ public abstract class BaseMovement extends BaseComponent implements Movement {
 
     @Override
     public void applySpeedBoost(float multiplier, float duration) {
-        SpeedBoost speedBoost = new SpeedBoost(speed, multiplier, duration);
+        float initialSpeed = speed;
+        if (!speedBoosts.isEmpty()) {
+            initialSpeed = speedBoosts.get(0).initialSpeed;
+        }
+
+        SpeedBoost speedBoost = new SpeedBoost(initialSpeed, multiplier, duration);
         speedBoosts.add(0, speedBoost);
     }
 
