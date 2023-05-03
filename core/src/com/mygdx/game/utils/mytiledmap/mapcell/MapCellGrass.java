@@ -15,6 +15,6 @@ public class MapCellGrass extends MapCell {
 
     @Override
     public Vector2 getCombatBasePosition() {
-        return new Vector2(0, 200);
+        return new Vector2(0, 400);
     }
 }

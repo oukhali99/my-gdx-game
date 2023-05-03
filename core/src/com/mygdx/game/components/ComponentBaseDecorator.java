@@ -29,4 +29,9 @@ public class ComponentBaseDecorator implements Component {
     public void destroy() {
         baseComponent.destroy();
     }
+
+    @Override
+    public void resize(int width, int height) {
+        baseComponent.resize(width, height);
+    }
 }

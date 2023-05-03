@@ -31,4 +31,7 @@ public abstract class BaseComponent implements Component {
 
     public void destroy() {
     }
+
+    public void resize(int width, int height) {
+    }
 }

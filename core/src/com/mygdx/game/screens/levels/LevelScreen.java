@@ -23,7 +23,7 @@ public abstract class LevelScreen extends BaseScreen {
 
     public LevelScreen(Drop game, String warpExitName) {
         super(game);
-        camera.setToOrtho(false, 640, 360);
+        camera.zoom = 0.4f;
         initialize(warpExitName);
     }
 
@@ -82,11 +82,6 @@ public abstract class LevelScreen extends BaseScreen {
         }
         music.dispose();
         myTiledMap.dispose();
-    }
-
-    public void resize(int width, int height) {
-        super.resize(width, height);
-        //camera.setToOrtho(false, width, height);
     }
 
     public abstract LevelScreen getLevelScreenDestinationForWarp(String destination, String warpEntryPoint);

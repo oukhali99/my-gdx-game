@@ -11,6 +11,6 @@ public class CombatModeTransformLeft extends CombatModeTransform {
 
     @Override
     protected Vector2 getCombatPosition() {
-        return new Vector2(140, 0);
+        return new Vector2(220, 0);
     }
 }

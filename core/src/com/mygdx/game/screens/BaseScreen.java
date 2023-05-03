@@ -158,7 +158,11 @@ public abstract class BaseScreen implements Screen {
     }
 
     public void resize(int width, int height) {
-        //camera.setToOrtho(false, width, height);
+        camera.setToOrtho(false, width, height);
+
+        for (GameObject gameObject : gameObjects) {
+            gameObject.resize(width, height);
+        }
     }
 
     protected void addGameObject(GameObject gameObject) {

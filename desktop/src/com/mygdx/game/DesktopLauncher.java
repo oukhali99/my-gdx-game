@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
@@ -11,6 +12,12 @@ public class DesktopLauncher {
 		config.setTitle("my-gdx-game");
 		config.setWindowedMode(1920, 1080);
 		config.useVsync(true);
+		config.setResizable(false);
+
+		// Set fullscreen mode
+		Graphics.DisplayMode displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
+		config.setFullscreenMode(displayMode);
+
 		new Lwjgl3Application(new Drop(), config);
 	}
 }

@@ -11,4 +11,6 @@ public interface Component {
     void setGameObject(GameObject gameObject);
 
     void destroy();
+
+    void resize(int width, int height);
 }

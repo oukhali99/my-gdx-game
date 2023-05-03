@@ -2,9 +2,7 @@ package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Drop;
-import com.mygdx.game.gameobjects.characters.Player;
-import com.mygdx.game.gameobjects.characters.enemy.AlienEnemy;
-import com.mygdx.game.utils.mytiledmap.MyTiledMap;
+import com.mygdx.game.screens.levels.LevelScreen1;
 
 public class MainMenuScreen extends BaseScreen {
 
@@ -22,7 +20,8 @@ public class MainMenuScreen extends BaseScreen {
         game.batch.end();
 
         if (Gdx.input.isTouched()) {
-            //game.setScreen(new LevelScreen1(game, "PlayerSpawn"));
+            game.setScreen(new LevelScreen1(game, "PlayerSpawn"));
+            /*
             game.setScreen(new CombatScreen(
                     game,
                     this,
@@ -32,6 +31,7 @@ public class MainMenuScreen extends BaseScreen {
                     ),
                     new MyTiledMap("map/map2.tmx")
             ));
+             */
             dispose();
         }
     }

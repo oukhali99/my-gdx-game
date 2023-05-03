@@ -40,7 +40,6 @@ public class CombatScreen extends BaseScreen {
         this.myTiledMap = myTiledMap;
 
         fight.addObserver(this);
-        camera.setToOrtho(false, 640, 360);
 
         // Get the tile the enemy is standing on for the background
         MapCell enemyTile = myTiledMap.getTileAt(fight.enemy.getPosition());

@@ -15,6 +15,6 @@ public class MapCellBrick extends MapCell {
 
     @Override
     public Vector2 getCombatBasePosition() {
-        return new Vector2(0, 50);
+        return new Vector2(0, 100);
     }
 }

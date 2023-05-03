@@ -22,7 +22,7 @@ public abstract class CombatModeTransform extends TransformBaseDecorator {
 
     @Override
     public Vector2 getScale() {
-        return new Vector2(64, 64);
+        return new Vector2(128, 128);
     }
 
     protected abstract Vector2 getCombatPosition();

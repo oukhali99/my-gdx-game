@@ -15,6 +15,6 @@ public class MapCellUnknown extends MapCell {
 
     @Override
     public Vector2 getCombatBasePosition() {
-        return new Vector2();
+        return new Vector2(0, 400);
     }
 }

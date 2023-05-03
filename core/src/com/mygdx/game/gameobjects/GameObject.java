@@ -1,5 +1,6 @@
 package com.mygdx.game.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -214,17 +215,38 @@ public abstract class GameObject {
         }
     }
 
-    public Vector2 getScreenSpacePosition(Vector2 offset) {
+    public Vector2 getScreenSpacePosition() {
         Vector3 gamePosition = new Vector3(getPosition().cpy(), 0);
         Camera camera = game.getScreen().getCamera();
-
-        gamePosition.add(new Vector3(offset, 0));
 
         camera.project(gamePosition);
 
         return new Vector2(gamePosition.x, gamePosition.y);
     }
 
+    public Vector2 getScreenSpaceScale() {
+        Vector2 screenSpaceScale = getScale().cpy();
+        Camera camera = game.getScreen().getCamera();
+
+        // Calculate the ratio between the game world size and the screen size
+        float worldUnitsPerScreenPixel = camera.viewportWidth / camera.viewportHeight;
+        float screenPixelsPerWorldUnit = camera.viewportHeight / Gdx.graphics.getHeight();
+
+        // Apply the ratio to the scale
+        screenSpaceScale.x *= screenPixelsPerWorldUnit * worldUnitsPerScreenPixel;
+        screenSpaceScale.y *= screenPixelsPerWorldUnit;
+
+        return screenSpaceScale;
+    }
+
     public void renderUi(float delta) {
+    }
+
+    public void resize(int width, int height) {
+        getRenderer().resize(width, height);
+
+        for (GameObject child : children) {
+            child.resize(width, height);
+        }
     }
 }
